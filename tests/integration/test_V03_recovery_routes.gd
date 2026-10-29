@@ -91,6 +91,19 @@ func test_V03_drop_payload_cannot_choose_the_position() -> void:
 	assert_eq(_send("P2", "place_item", GEN, {"action": "drop"})["code"], "NOT_CARRIER")
 
 
+func test_V03_out_of_range_carrier_can_still_drop() -> void:
+	_gen("P1", "pickup")
+	_positions["P1"] = Vector3i(-90000, -5000, 70000)  # stranded far from every interaction target
+	_ctx["host"]._range_check = func(_p: String, _e: String) -> bool: return false
+	var r: Dictionary = _send("P1", "place_item", GEN, {"action": "drop"})
+	assert_true(r["ok"], "a carrier never needs reach to let go: %s" % str(r))
+	assert_eq(r["anchor"], "VAN_BAY", "the drop still snaps to a valid anchor")
+	assert_eq(_send("P2", "place_item", GEN, {"action": "drop"})["code"], "NOT_CARRIER", "a non-carrier still cannot drop")
+	assert_eq(_send("P1", "place_item", GEN, {"action": "pickup"})["code"], "NOT_IN_RANGE", "other actions still need reach")
+	_ctx["host"]._range_check = func(_p: String, _e: String) -> bool: return true
+	_finish("P1")
+
+
 func test_V03_van_recovery_of_the_generator_mid_drain_stays_solvable() -> void:
 	_deploy_pump()
 	Runner.ticks(_ctx, 60)

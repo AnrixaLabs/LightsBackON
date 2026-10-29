@@ -94,12 +94,11 @@ func handle(sender: String, intent: Dictionary) -> Dictionary:
 	var kind: Variant = intent.get("type")
 	if kind == "recover":
 		return _recover(it)  # the van-menu recovery action works from anywhere
-	if kind == "drop" and it["carrier"] != sender:
-		return _refuse("NOT_CARRIER", "you are not carrying %s" % iid, [iid])
+	if kind == "drop":
+		# drop needs no reach: the item is in hand, and a carrier who is out of range is exactly who must be able to let go
+		return drop(sender, iid, intent.get("position_cm", Vector3i.ZERO))
 	if intent.get("in_range") != true:
 		return _refuse("NOT_IN_RANGE", "move closer to %s" % iid, [iid])
-	if kind == "drop":
-		return drop(sender, iid, intent.get("position_cm", Vector3i.ZERO))  # drop needs no reach: the item is in hand
 	match kind:
 		"pickup":
 			return _pickup(sender, it)
