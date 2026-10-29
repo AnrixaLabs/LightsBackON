@@ -44,7 +44,7 @@ func test_F05_every_real_state_has_one_icon_and_text_and_nothing_invented() -> v
 		comms_types.append(t["id"])
 	comms_types.sort()
 	assert_eq(pings, comms_types, "ping icons = comms ping types")
-	for group: String in ["repair_states", "findings", "supply", "other", "pings"]:
+	for group: String in ["repair_states", "findings", "supply", "other", "pings", "tools", "equipment"]:
 		for state: String in _states[group]:
 			var e: Dictionary = _states[group][state]
 			assert_true(_tokens["colors"].has(e["color"]), "%s.%s color is a token" % [group, state])

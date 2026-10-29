@@ -1,5 +1,5 @@
 {
-  "_note": "One icon per real game state (ADR-004 point 2), generated from the state lists in code: interaction_service.gd STATES, meter_model.gd FINDING_CODES, building supply states and unknown. Every status shows icon + text (text_key) in its token color. Icons themselves are art work (not drawn yet); icon ids name them. pings come from content/comms.json ping_types.",
+  "_note": "One icon per real game state (ADR-004 point 2), generated from the state lists in code: interaction_service.gd STATES, meter_model.gd FINDING_CODES, building supply states and unknown. Every status shows icon + text (text_key) in its token color. pings come from content/comms.json ping_types; tools from the tools that contract repairs.json files name, equipment from equipment.json kinds. Each icon is an original SVG in art_source/ui_icons/<icon>.svg (white, tinted with the token color at runtime) exported to assets/ui/icons/<24|32|48>/<icon>.png by tools/godot/export_icons.gd.",
   "repair_states": {
     "undiagnosed": {
       "icon": "icon_repair_undiagnosed",
@@ -158,6 +158,40 @@
       "icon": "icon_ping_equipment",
       "text_key": "ping.equipment",
       "color": "restored"
+    }
+  },
+  "tools": {
+    "crimper": {
+      "icon": "icon_tool_crimper",
+      "text_key": "tool.crimper",
+      "color": "text"
+    },
+    "cutter": {
+      "icon": "icon_tool_cutter",
+      "text_key": "tool.cutter",
+      "color": "text"
+    },
+    "meter": {
+      "icon": "icon_tool_meter",
+      "text_key": "tool.meter",
+      "color": "text"
+    },
+    "puller": {
+      "icon": "icon_tool_puller",
+      "text_key": "tool.puller",
+      "color": "text"
+    },
+    "screwdriver": {
+      "icon": "icon_tool_screwdriver",
+      "text_key": "tool.screwdriver",
+      "color": "text"
+    }
+  },
+  "equipment": {
+    "generator": {
+      "icon": "icon_equipment_generator",
+      "text_key": "equipment.generator",
+      "color": "text"
     }
   }
 }
