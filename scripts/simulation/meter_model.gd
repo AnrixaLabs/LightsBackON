@@ -69,6 +69,10 @@ func load_definition(definition: Dictionary, grid: PowerGrid) -> Array[Dictionar
 	return errs
 
 
+func has_panel(panel_id: String) -> bool:
+	return _panels.has(panel_id)
+
+
 ## Feed the grid's step() events here every tick so trip reasons are known (blueprint step 8 events).
 func record_events(events: Array[Dictionary], grid: PowerGrid) -> void:
 	observe(grid)

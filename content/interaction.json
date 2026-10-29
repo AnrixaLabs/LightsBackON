@@ -1,0 +1,7 @@
+{
+  "_note": "Interaction tuning (blueprint p.8). Values are design choices/targets, not measurements. Ticks are 10 Hz grid ticks (ADR-003).",
+  "ray_length_cm": 230,
+  "aim_assist_cone_deg": 6,
+  "max_hold_ticks": 12,
+  "lock_heartbeat_timeout_ticks": 20
+}

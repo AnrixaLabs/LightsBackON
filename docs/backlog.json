@@ -267,8 +267,12 @@
       "milestone_name": "Grid toy",
       "env": "cloud",
       "env_note": "",
-      "status": "NOT_STARTED",
-      "evidence_file": "docs/evidence/G04.md"
+      "status": "CLOUD_VERIFIED",
+      "evidence_file": "docs/evidence/G04.md",
+      "pending_local": [
+        "NET01 with two real clients and range from real movement (G07)",
+        "prompt/selection against real scene geometry (V01/V07)"
+      ]
     },
     {
       "id": "G05",
