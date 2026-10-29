@@ -23,6 +23,8 @@ var floor_angle_deg: float
 var nx: int
 var nz: int
 var floor_h: PackedFloat32Array  # NAN where the cell has no floor or the capsule does not fit
+var last_blocker: String = ""  # what the walker last slid against when it got stuck, for failure messages
+var last_steps: int = 0  # physics ticks the last walk took
 
 
 func _init(scene_path: String, dims: Dictionary, envelope_cm: Array) -> void:
@@ -182,15 +184,25 @@ func walk(path: Array[Vector3], speed_m_s: float) -> Vector3:
 	root.add_child(body)
 	body.global_position = path[0] + Vector3(0.0, 0.05, 0.0)
 	var dt: float = 1.0 / float(Engine.physics_ticks_per_second)
+	# Outside a physics frame move_and_slide integrates over the *process* frame delta, which here is however long the
+	# runner's first frame took (100+ ms on a cold start). Scale the velocity so every call moves exactly one physics tick.
+	var frame_dt: float = root.get_process_delta_time()
+	assert(frame_dt > 0.0, "walk() needs the runner to have finished one frame")
+	var to_tick: float = dt / frame_dt
+	var vy: float = 0.0
+	last_steps = 0
 	for wp: Vector3 in path:
 		var steps: int = 0
 		while _flat(wp - body.global_position).length() > WAYPOINT_REACHED_M and steps < MAX_STEPS_PER_WAYPOINT:
 			var dir: Vector3 = _flat(wp - body.global_position).normalized()
-			var vy: float = 0.0 if body.is_on_floor() else body.velocity.y - GRAVITY_M_S2 * dt
-			body.velocity = Vector3(dir.x * speed_m_s, vy, dir.z * speed_m_s)
+			vy = 0.0 if body.is_on_floor() else vy - GRAVITY_M_S2 * dt
+			body.velocity = Vector3(dir.x * speed_m_s, vy, dir.z * speed_m_s) * to_tick
 			body.move_and_slide()
 			steps += 1
+			last_steps += 1
 		if steps >= MAX_STEPS_PER_WAYPOINT:
+			var hit: KinematicCollision3D = body.get_last_slide_collision()
+			last_blocker = "%s at %s" % [hit.get_collider(), hit.get_position()] if hit else "nothing"
 			break  # stuck: the caller compares the end point with the goal
 	var end: Vector3 = body.global_position
 	root.remove_child(body)

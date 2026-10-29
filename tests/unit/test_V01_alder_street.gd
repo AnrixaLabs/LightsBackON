@@ -165,7 +165,18 @@ func test_V01_every_c01_target_is_reached_on_foot_from_the_van() -> void:
 		var path: Array[Vector3] = _probe.path_to(parent, goal)
 		var end: Vector3 = _probe.walk(path, speed)
 		var miss: float = end.distance_to(_probe.feet(goal))
-		assert_true(miss <= ARRIVE_M, "walked to %s: ended %.2f m from the goal at %s" % [t["id"], miss, str(end)])
+		assert_true(miss <= ARRIVE_M, "walked to %s: ended %.2f m from the goal at %s, against %s" % [t["id"], miss, str(end), _probe.last_blocker])
+
+
+func test_V01_walker_moves_at_the_content_walk_speed() -> void:
+	_mount()
+	var speed: float = _walk_speed()
+	var a: Vector3 = _route_center(_by_id(_d["routes"])["MAIN_STREET"])
+	var b: Vector3 = a + Vector3(speed, 0.0, 0.0)  # one second of walking
+	var end: Vector3 = _probe.walk([a, b] as Array[Vector3], speed)
+	assert_true(end.distance_to(b) <= ARRIVE_M, "straight walk arrives: %s" % str(end))
+	var ticks: int = Engine.physics_ticks_per_second
+	assert_true(absi(_probe.last_steps - ticks) <= 3, "1 s of walking took %d physics ticks (want about %d)" % [_probe.last_steps, ticks])
 
 
 func test_V01_rear_loop_walks_all_the_way_round() -> void:
