@@ -39,3 +39,37 @@ surfaces and on HUD panels composited over a white (bright restored window) and 
    decorative frames only. Alternative for the owner: keep translucency and draw `?` values in `text_muted` with only the icon in `unknown`.
 3. Status icon list (`content/ui/status_states.json`) is generated from the code state lists (repair STATES, meter FINDING_CODES) and a test fails if
    a state is added in code without an icon entry or an icon exists for a state the code does not have.
+
+## Addendum F05 (30 Oct 2026): UI02 icon family and asset record
+1. **Family rules (checked by `tests/unit/test_F05_icons.gd`):** one SVG per entry in `content/ui/status_states.json`, 24 px canvas, white ink
+   only, 2 px stroke, rounded caps and joins, a 1 px clear margin, and 6-50 % ink coverage at 24 px. No text, scripts or external references.
+   Color comes only from the token, applied at runtime (`self_modulate`). Any two icons must differ in at least 16 strongly inked pixels at 24 px,
+   so no state relies on color. Exports are 24/32/48 px PNGs; `scripts/ui/icon_raster.gd` picks the smallest export at least as large as
+   24 px x UI scale.
+2. **Count:** blueprint UI02 says 24 families. The real state lists need 36 icons: 9 repair, 11 findings, 3 supply, 3 other, 4 pings, and the
+   5 tools and 1 equipment kind that C01 content uses. Point 2 above (one icon per real state, nothing invented) takes precedence over the estimate.
+3. **Sources:** the icons live in `art_source/ui_icons/` as small text SVG, exempt from the art_source LFS rule in `.gitattributes`.
+4. **Asset record (blueprint p.40-41 pipeline step 1):** UI02 icons, 36 SVG.
+   - Creator: original work drawn for this project in a Claude Code desktop session, 30 Oct 2026, for Anrixa Labs.
+   - Source: `art_source/ui_icons/*.svg` at the commit that adds them.
+   - License: project-owned. No third-party icon pack, font or image was used or traced.
+   - Approval: approved by the owner (Levon), 30 Oct 2026, from the review sheet `docs/evidence/img/F05_icon_sheet.png`.
+
+## Addendum F05 (30 Oct 2026): UI font
+The owner chose **Noto Sans** (30 Oct 2026, desktop session), as the blueprint suggests on p.11.
+1. **Asset record (blueprint p.40-41 step 1):**
+   - File: `assets/fonts/noto_sans/NotoSans-Variable.ttf`, the upright variable font with `wdth` and `wght` axes, Noto Sans v2.015.
+     Its original name is `NotoSans[wdth,wght].ttf`.
+   - Source: google/fonts at commit 8b0a1d0f5983c89bc2b93f1b5fb55f9e252744b5 (`ofl/notosans/`). Upstream is notofonts/latin-greek-cyrillic
+     at c4a321e.
+   - Integrity: SHA-256 bfb7bb69...6b3d. The git blob hashes of the font and `OFL.txt` match the hashes GitHub's API reports for that commit.
+   - Creator: "Copyright 2022 The Noto Project Authors".
+   - License: **SIL Open Font License 1.1**. `OFL.txt` sits next to the font.
+   - The record is in `content/ui/tokens.json` `font`. A test checks that the committed file still hashes to it.
+2. **Use:** body text uses the default weight (400); buttons and headings use the same file at 600 through `FontVariation`. No italic file
+   was added, because the UI has no italic style.
+3. **OFL obligations for release:** ship `OFL.txt` with the font, so the export filter must include it (or put the license text in the credits).
+   The font must not be sold on its own, and the reserved names do not apply because the font is not modified.
+   The release checklist (R milestone) must check this.
+4. **Not yet covered:** Simplified Chinese (blueprint p.11 release language) needs Noto Sans SC as a fallback font. That file is about 10x larger,
+   so it waits for the localization task and the owner's go-ahead.

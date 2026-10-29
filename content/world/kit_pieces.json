@@ -142,6 +142,26 @@
       ]
     },
     {
+      "id": "stair_landing",
+      "_note": "11th ENV01 piece (blueprint p.40 counts 11, p.11 names 10; owner chose a stair landing, 30 Oct 2026). Walking surface at one flight's rise, as wide as a flight and as deep, so two flights make one 4 m storey straight on, as an L turn, or as a U turn with two landings side by side. Solid below: the 175 cm underside is no headroom.",
+      "scene": "res://scenes/kit/stair_landing.tscn",
+      "root": "static_body",
+      "envelope_cm": [250, 200, 250],
+      "parts": [
+        {"name": "Support", "shape": "box", "min": [0, 0, 0], "size": [250, 175, 250], "material": "wall"},
+        {"name": "Slab", "shape": "box", "min": [0, 175, 0], "size": [250, 25, 250], "material": "floor"}
+      ],
+      "collision": [
+        {"shape": "box", "min": [0, 0, 0], "size": [250, 200, 250]}
+      ],
+      "anchors": [
+        {"name": "EdgeNear", "pos": [125, 200, 0]},
+        {"name": "EdgeFar", "pos": [125, 200, 250]},
+        {"name": "EdgeLeft", "pos": [0, 200, 125]},
+        {"name": "EdgeRight", "pos": [250, 200, 125]}
+      ]
+    },
+    {
       "id": "railing",
       "scene": "res://scenes/kit/railing.tscn",
       "root": "static_body",

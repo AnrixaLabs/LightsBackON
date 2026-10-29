@@ -44,7 +44,7 @@ func test_F05_every_real_state_has_one_icon_and_text_and_nothing_invented() -> v
 		comms_types.append(t["id"])
 	comms_types.sort()
 	assert_eq(pings, comms_types, "ping icons = comms ping types")
-	for group: String in ["repair_states", "findings", "supply", "other", "pings"]:
+	for group: String in ["repair_states", "findings", "supply", "other", "pings", "tools", "equipment"]:
 		for state: String in _states[group]:
 			var e: Dictionary = _states[group][state]
 			assert_true(_tokens["colors"].has(e["color"]), "%s.%s color is a token" % [group, state])
@@ -75,6 +75,28 @@ func test_F05_theme_builds_from_tokens() -> void:
 	assert_eq(panel.bg_color.a, 1.0, "text panels are opaque (contrast addendum, ADR-004)")
 	var focus: StyleBoxFlat = theme.get_stylebox("focus", "Button")
 	assert_eq(focus.border_color, Color.html("#FFC86B"))
+
+
+func test_F05_font_is_the_recorded_licensed_noto_sans() -> void:
+	var font: Dictionary = _tokens["font"]
+	assert_eq(FileAccess.get_sha256(str(font["path"])), str(font["sha256"]), "committed font = the recorded download")
+	assert_eq(str(font["license"]), "OFL-1.1")
+	assert_true(FileAccess.get_file_as_string(str(font["license_file"])).contains("SIL Open Font License, Version 1.1"),
+		"OFL text ships next to the font")
+	var theme: Theme = ThemeTokens.build(_tokens)
+	var body: FontVariation = theme.default_font as FontVariation
+	assert_true(body != null and body.base_font != null, "theme font is the variable font at a set weight")
+	if body == null or body.base_font == null:
+		return
+	assert_eq(body.base_font.get_font_name(), "Noto Sans")
+	var wght: int = TextServerManager.get_primary_interface().name_to_tag("wght")
+	assert_eq(int(body.variation_opentype[wght]), 400, "body weight")
+	for t: String in ["Button", "HeaderLarge", "HeaderMedium"]:
+		var strong: FontVariation = theme.get_font("font", t) as FontVariation
+		assert_eq(int(strong.variation_opentype[wght]) if strong else -1, 600, "%s weight" % t)
+	# Latin UI text, the unknown reading, pseudo-locale accents (blueprint p.11 35 % expansion test), the PU unit
+	for ch: String in "AZaz09?!%/:-+ÀÉÎÕÜçñßØå".split(""):
+		assert_true(body.base_font.has_char(ch.unicode_at(0)), "glyph %s" % ch)
 
 
 func test_F05_kit_and_interaction_dimensions_agree() -> void:
