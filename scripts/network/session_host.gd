@@ -125,6 +125,7 @@ func tick(now: int) -> Array[Dictionary]:
 	_meter.record_events(events, _grid)
 	events.append_array(_interaction.tick(now))
 	if _mission != null:
+		_mission.note_events(events)
 		events.append_array(_mission.tick(now))  # after the grid step, so latches and verification see this tick's supply
 	if _comms != null:
 		events.append_array(_comms.tick(now))
@@ -360,6 +361,8 @@ func _recover_player(player: String) -> Dictionary:
 	events.append_array(_equipment.disconnect_player(player))  # same return path as a carrier who dropped out
 	# zone presence is not touched here: the player lands at the van and host movement reports where they stand
 	events.append({"type": "player_recovered", "player": player})
+	if _mission != null:
+		_mission.note_events(events)
 	return {"ok": true, "events": events}
 
 

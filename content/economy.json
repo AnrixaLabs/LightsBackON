@@ -1,0 +1,8 @@
+{
+  "_note": "Starting economy from blueprint section 11 (p.12). Balance inputs, not financial values; no negative balance, no repair bill, restarts cost nothing.",
+  "contract_base": 500,
+  "completion_bonus": 100,
+  "optional_service_bonus_each": 50,
+  "optional_service_bonus_cap": 100,
+  "equipment_restowed_bonus": 50
+}
