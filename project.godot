@@ -13,6 +13,7 @@ config_version=5
 config/name="Lights Back On (working title)"
 run/main_scene="res://scenes/boot/boot.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
+run/flush_stdout_on_print.internal=true
 
 [input]
 
