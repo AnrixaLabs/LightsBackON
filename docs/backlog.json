@@ -94,7 +94,8 @@
       "pending_local": [
         "rerun the F03 tests on the qualified Steam peer (F02 tuple) between two PCs on separate networks",
         "NET01/NET02 with two real clients"
-      ]
+      ],
+      "prep_adr": "blueprint s12: draft host authority before the Steam tuple"
     },
     {
       "id": "F04",
@@ -273,6 +274,10 @@
       "pending_local": [
         "NET01 with two real clients and range from real movement (G07)",
         "prompt/selection against real scene geometry (V01/V07)"
+      ],
+      "verify_after": [
+        "G07",
+        "V01"
       ]
     },
     {
@@ -301,6 +306,10 @@
       "pending_local": [
         "cable visuals and placement against real anchors in the graybox (V01)",
         "carrier disconnect with real clients (G07)"
+      ],
+      "verify_after": [
+        "G07",
+        "V01"
       ]
     },
     {
@@ -362,7 +371,8 @@
       "pending_local": [
         "two real peers (F06 tuple) agree by state hash after repair, trip, reset and reconnect",
         "G08 gate"
-      ]
+      ],
+      "prep_adr": "blueprint s12: grid toy prep before the F gate"
     },
     {
       "id": "G08",
@@ -409,6 +419,10 @@
       "milestone_name": "Playable slice",
       "env": "local",
       "env_note": "Graybox is authored and walked in the editor; controller traversal.",
+      "prep_ok_without": [
+        "G08"
+      ],
+      "prep_adr": "ADR-015",
       "status": "NOT_STARTED",
       "evidence_file": "docs/evidence/V01.md"
     },
@@ -441,7 +455,8 @@
         "known-solution playthrough in the V01 graybox with real positions and reach",
         "C01 pacing targets with people",
         "objective HUD rendering (V07)"
-      ]
+      ],
+      "prep_adr": "ADR-011"
     },
     {
       "id": "V03",
