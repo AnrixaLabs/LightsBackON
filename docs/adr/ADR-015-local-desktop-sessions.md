@@ -20,7 +20,7 @@ Work now happens in Claude Code desktop sessions on the owner's Windows PC (GTX 
    G06 real-process kill test on the exported build, then V01 graybox, then V07 UI. F05's font stays an owner decision (stop-and-ask).
 4. **Branches:** each desktop session works in a worktree on `claude/<slug>`; one backlog task per branch, cut from `origin/main`, one PR.
    No stacked task branches (V04 -> V05 -> V08 needed five cross-merges); if a task needs unmerged work, wait for that PR to merge.
-   The owner merges PRs.
+   The owner merges PRs. (Superseded 30 Oct 2026: Claude merges; see the amendment below.)
 5. **Tooling finds the local toolchain itself:** `tools/run_tests.sh` skips the Windows Store `python3` stub and finds Godot at
    `C:\Tools\Godot` (PC-RUNBOOK A.3); the SessionStart hook exports `GODOT_BIN`/`PYTHON` for desktop sessions as it already did in the cloud.
 
@@ -28,3 +28,14 @@ Work now happens in Claude Code desktop sessions on the owner's Windows PC (GTX 
 - The status name CLOUD_VERIFIED now also covers local work whose acceptance waits on a dependency; the evidence file says where it ran.
 - V01 geometry may need changes after the G08 two-player toy (reach, sync, collision); accepted, as in ADR-011.
 - Nothing here counts as network qualification. CLAUDE.md sections 4 and 8 apply unchanged.
+
+## Amendment (30 Oct 2026): Claude runs the git/GitHub process
+The owner said: "Merge pull push commit tag CI all should be handled by you. I approve all the meaningful processes." Waiting on the owner
+to merge had stalled V07 behind PR #29.
+- Claude commits, pushes, opens PRs and **merges them into `main` with a merge commit once the `linux` and `windows` CI jobs pass**. Claude also fixes CI,
+  creates tags and manages issues.
+- Still binding: no direct pushes to `main`, no force-push, one task per branch (decision 4), and the CLAUDE.md section 6 stop-and-ask list
+  (Steam/publishing, locked decisions, third-party assets, secrets, money, save deletion, the game name).
+- A branch that is behind `main` and overlaps it gets `main` merged in and the full suite rerun before it merges. CI on `main` is the backstop.
+- Branch protection with required checks on `main` was not applied: changing repository protection needs the owner's explicit action. The owner can
+  enable it in the repository settings (require `linux` and `windows`) if wanted.
