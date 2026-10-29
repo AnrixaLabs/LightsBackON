@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Run every automated check that exists. Works on Linux (cloud) and Git Bash on Windows.
+#   tools/run_tests.sh                 # all
+#   tools/run_tests.sh --filter=grid   # only Godot test files/methods containing "grid"
+# On Windows set GODOT_BIN to the Godot 4.7.2 console exe, e.g.
+#   export GODOT_BIN="/c/Tools/Godot_v4.7.2-stable_win64_console.exe"
+set -uo pipefail
+cd "$(dirname "$0")/.."
+
+GODOT_BIN="${GODOT_BIN:-godot}"
+PY="$(command -v python3 || command -v python || true)"
+FAIL=0
+
+echo "== backlog =="
+if [ -n "$PY" ]; then "$PY" tools/backlog.py validate || FAIL=1; else echo "no python found"; FAIL=1; fi
+
+echo "== python reference model (only if the blueprint package was added under reference/) =="
+if [ -d reference/tests ] && [ -n "$PY" ]; then
+  ( cd reference && "$PY" -m unittest discover -s tests -v ) || FAIL=1
+else
+  echo "skipped: reference/tests not present"
+fi
+
+echo "== godot =="
+if [ -f project.godot ]; then
+  "$GODOT_BIN" --headless --path . --import >/dev/null 2>&1 || true   # builds the class cache on a fresh clone
+  "$GODOT_BIN" --headless --path . -s res://tests/run_tests.gd -- "$@" || FAIL=1
+else
+  echo "skipped: no project.godot yet (task F01)"
+fi
+
+[ "$FAIL" -eq 0 ] && echo "ALL CHECKS PASSED" || echo "CHECKS FAILED"
+exit "$FAIL"

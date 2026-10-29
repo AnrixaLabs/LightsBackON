@@ -1,0 +1,32 @@
+# Godot
+.godot/
+.import/
+*.translation
+export_credentials.cfg
+# builds and local output
+build/
+exports/
+*.exe
+*.pck
+*.log
+# Steam (app IDs and SDK files must not be committed; the repo may be public)
+steam_appid.txt
+steam_api64.dll
+steamworks_sdk*/
+# private notes, tokens, local config
+private/
+.env
+.env.*
+*.key
+*.pem
+# python
+__pycache__/
+*.pyc
+.venv/
+# OS / editor
+.DS_Store
+Thumbs.db
+.vs/
+.idea/
+# Claude Code local-only files
+.claude/settings.local.json

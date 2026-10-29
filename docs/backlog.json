@@ -1,0 +1,1553 @@
+{
+  "_comment": "Parsed from Lights Back On Development Blueprint v1.0 (27 Oct 2026), section 4. title/role/hours/planned_weeks/depends_on/steps/acceptance are transcribed from the PDF. env/env_note/status/evidence_file were added when preparing the handoff (env is a judgement call). Hours are initial focused-effort estimates, not measured velocity.",
+  "status_values": {
+    "NOT_STARTED": "no work yet",
+    "IN_PROGRESS": "work on a branch, not merged",
+    "CLOUD_VERIFIED": "code and automated checks pass in a cloud/headless session; acceptance still needs the pending_local items",
+    "BLOCKED": "cannot proceed; reason in blocked_reason",
+    "DONE": "acceptance met AND docs/evidence/<ID>.md exists; only then"
+  },
+  "milestone_order": [
+    "F",
+    "G",
+    "V",
+    "A",
+    "D",
+    "CT",
+    "H",
+    "B",
+    "R"
+  ],
+  "tasks": [
+    {
+      "id": "F01",
+      "title": "Create reproducible project",
+      "steps": [
+        "Create repository and folders.",
+        "install Godot/export templates.",
+        "add input actions.",
+        "export blank Windows build."
+      ],
+      "acceptance": "A clean checkout imports and exports; manifest records engine and template hashes.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 6,
+      "planned_weeks": "1-2",
+      "depends_on": [],
+      "milestone": "F",
+      "milestone_name": "Foundation",
+      "env": "split",
+      "env_note": "Scaffold + headless import in cloud; Windows export and launch check local.",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/F01.md"
+    },
+    {
+      "id": "F02",
+      "title": "Qualify Steam transport tuple",
+      "steps": [
+        "Install candidate GodotSteam and peer.",
+        "implement private lobby create/join.",
+        "record extension source revisions and binary hashes."
+      ],
+      "acceptance": "Two licensed accounts on separate real networks join; tuple locked; compatibility is measured.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 18,
+      "planned_weeks": "1-2",
+      "depends_on": [
+        "F01"
+      ],
+      "milestone": "F",
+      "milestone_name": "Foundation",
+      "env": "local",
+      "env_note": "Needs Steam client, two licensed accounts, two PCs on separate networks.",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/F02.md"
+    },
+    {
+      "id": "F03",
+      "title": "Prove host command authority",
+      "steps": [
+        "Spawn two players.",
+        "add one shared switch.",
+        "validate sender and sequence.",
+        "acknowledge durable revision."
+      ],
+      "acceptance": "Duplicate command changes switch once; invalid peer and entity IDs are rejected.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 12,
+      "planned_weeks": "1-2",
+      "depends_on": [
+        "F02"
+      ],
+      "milestone": "F",
+      "milestone_name": "Foundation",
+      "env": "split",
+      "env_note": "Protocol and tests can run on the ENet/offline dev transport; DONE needs the F02 tuple.",
+      "prep_ok_without": [
+        "F02"
+      ],
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/F03.md"
+    },
+    {
+      "id": "F04",
+      "title": "Handle connection failures",
+      "steps": [
+        "Add Steam-offline solo mode.",
+        "version handshake.",
+        "disconnect return.",
+        "bounded reconnect."
+      ],
+      "acceptance": "Wrong version fails with a reason; reconnect and host-leave paths never hang.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 8,
+      "planned_weeks": "1-2",
+      "depends_on": [
+        "F03"
+      ],
+      "milestone": "F",
+      "milestone_name": "Foundation",
+      "env": "split",
+      "env_note": "Handshake/reconnect logic in cloud; Steam-offline and real reconnect checks local.",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/F04.md"
+    },
+    {
+      "id": "F05",
+      "title": "Establish visual tokens and block kit",
+      "steps": [
+        "Create palette/font styles.",
+        "4 m architectural modules.",
+        "interaction dimensions.",
+        "simple worker silhouette."
+      ],
+      "acceptance": "Kit imports at 1 unit per meter; HUD tokens match screen specification.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "art_ui",
+      "hours": 8,
+      "planned_weeks": "1-2",
+      "depends_on": [
+        "F01"
+      ],
+      "milestone": "F",
+      "milestone_name": "Foundation",
+      "env": "split",
+      "env_note": "Theme/tokens in cloud; 4 m kit import at 1 unit per meter checked in the editor.",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/F05.md"
+    },
+    {
+      "id": "F06",
+      "title": "Foundation gate and export evidence",
+      "steps": [
+        "Export internal build.",
+        "run real-network switch test.",
+        "log machine/network setup and exact hashes."
+      ],
+      "acceptance": "Real two-PC test passes; all unresolved failures recorded before grid integration.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 6,
+      "planned_weeks": "1-2",
+      "depends_on": [
+        "F04"
+      ],
+      "milestone": "F",
+      "milestone_name": "Foundation",
+      "env": "local",
+      "env_note": "Real two-PC test on separate networks.",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/F06.md"
+    },
+    {
+      "id": "G01",
+      "title": "Implement pure grid evaluation",
+      "steps": [
+        "Port reference graph rules to typed GDScript.",
+        "separate active topology from presentation.",
+        "stable ID order."
+      ],
+      "acceptance": "Reference scenarios produce equivalent canonical state; cycles and dual supplies rejected.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 14,
+      "planned_weeks": "3-5",
+      "depends_on": [
+        "F01"
+      ],
+      "milestone": "G",
+      "milestone_name": "Grid toy",
+      "env": "cloud",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/G01.md"
+    },
+    {
+      "id": "G02",
+      "title": "Add overload and reset rules",
+      "steps": [
+        "Evaluate at 10 Hz.",
+        "accumulate 1.5 s overload.",
+        "trip protected branch.",
+        "validate reset before change."
+      ],
+      "acceptance": "Equality at capacity works; short transient does not trip; sustained overload trips once.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 10,
+      "planned_weeks": "3-5",
+      "depends_on": [
+        "G01"
+      ],
+      "milestone": "G",
+      "milestone_name": "Grid toy",
+      "env": "cloud",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/G02.md"
+    },
+    {
+      "id": "G03",
+      "title": "Create meter and evidence model",
+      "steps": [
+        "Track unknown versus measured readings.",
+        "add supply/continuity/load readouts and inspection command."
+      ],
+      "acceptance": "Uninspected panel never displays false zero; selected branch evidence explains a fault.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 12,
+      "planned_weeks": "3-5",
+      "depends_on": [
+        "G01"
+      ],
+      "milestone": "G",
+      "milestone_name": "Grid toy",
+      "env": "cloud",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/G03.md"
+    },
+    {
+      "id": "G04",
+      "title": "Implement interaction and repair states",
+      "steps": [
+        "Add ray selection.",
+        "locks.",
+        "isolation preconditions.",
+        "discrete repair transitions.",
+        "durable cancellation."
+      ],
+      "acceptance": "Live repair refused; disconnect releases lock; one replacement consumed exactly once.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 14,
+      "planned_weeks": "3-5",
+      "depends_on": [
+        "G03"
+      ],
+      "milestone": "G",
+      "milestone_name": "Grid toy",
+      "env": "cloud",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/G04.md"
+    },
+    {
+      "id": "G05",
+      "title": "Build generator and socket routing",
+      "steps": [
+        "Create anchored generator placement.",
+        "route toggles.",
+        "6 PU source.",
+        "curved cosmetic cables."
+      ],
+      "acceptance": "Pump or pub works; both overload; unsafe source tie refused before mutation.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 10,
+      "planned_weeks": "3-5",
+      "depends_on": [
+        "G02"
+      ],
+      "milestone": "G",
+      "milestone_name": "Grid toy",
+      "env": "cloud",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/G05.md"
+    },
+    {
+      "id": "G06",
+      "title": "Implement versioned save skeleton",
+      "steps": [
+        "Save causes and IDs.",
+        "temporary write and backup.",
+        "schema checks.",
+        "recompute derived state."
+      ],
+      "acceptance": "Kill during write retains valid current or backup save; unknown schema is not erased.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 10,
+      "planned_weeks": "3-5",
+      "depends_on": [
+        "G04"
+      ],
+      "milestone": "G",
+      "milestone_name": "Grid toy",
+      "env": "cloud",
+      "env_note": "Fault injection (kill during write) can run headless.",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/G06.md"
+    },
+    {
+      "id": "G07",
+      "title": "Integrate commands and grid",
+      "steps": [
+        "Route all local/remote actions through host.",
+        "emit revisioned state.",
+        "create canonical hash."
+      ],
+      "acceptance": "Two peers agree after repair, trip, reset, and reconnect.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 8,
+      "planned_weeks": "3-5",
+      "depends_on": [
+        "G02",
+        "G04",
+        "G05",
+        "F06"
+      ],
+      "milestone": "G",
+      "milestone_name": "Grid toy",
+      "env": "split",
+      "env_note": "Needs the F03 command path (at least CLOUD_VERIFIED) first. DONE is blocked on F06: two-peer agreement must be shown on real peers.",
+      "prep_ok_without": [
+        "F06"
+      ],
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/G07.md"
+    },
+    {
+      "id": "G08",
+      "title": "Grid toy gate",
+      "steps": [
+        "Run reference cases, interruption cases, and remote two-player toy.",
+        "archive logs and build."
+      ],
+      "acceptance": "No blocker; timing and topology assertions pass; five-minute raw capture retained.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 6,
+      "planned_weeks": "3-5",
+      "depends_on": [
+        "G06",
+        "G07"
+      ],
+      "milestone": "G",
+      "milestone_name": "Grid toy",
+      "env": "local",
+      "env_note": "Remote two-player toy plus five-minute raw capture.",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/G08.md"
+    },
+    {
+      "id": "V01",
+      "title": "Graybox Alder Street",
+      "steps": [
+        "Block six services and rear loop.",
+        "label JW/JE.",
+        "place van and generator pads.",
+        "simplify collision."
+      ],
+      "acceptance": "All routes traversable solo/controller; first restoration visible from the van.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "art_ui",
+      "hours": 24,
+      "planned_weeks": "6-9",
+      "depends_on": [
+        "F05",
+        "G08"
+      ],
+      "milestone": "V",
+      "milestone_name": "Playable slice",
+      "env": "local",
+      "env_note": "Graybox is authored and walked in the editor; controller traversal.",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/V01.md"
+    },
+    {
+      "id": "V02",
+      "title": "Author C01 objectives",
+      "steps": [
+        "Implement pump latch and repair access.",
+        "final 10 s verification.",
+        "extraction readiness and cancel."
+      ],
+      "acceptance": "Known solution completes; optional pub sign never blocks campaign progress.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 16,
+      "planned_weeks": "6-9",
+      "depends_on": [
+        "V01"
+      ],
+      "milestone": "V",
+      "milestone_name": "Playable slice",
+      "env": "split",
+      "env_note": "Mission logic in cloud; known-solution playthrough local.",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/V02.md"
+    },
+    {
+      "id": "V03",
+      "title": "Implement recovery routes",
+      "steps": [
+        "Return stranded player/item to van pads.",
+        "preserve repairs.",
+        "return disconnected carried equipment."
+      ],
+      "acceptance": "Out-of-bounds, lost item, and guest disconnect cannot make C01 unsolvable.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 12,
+      "planned_weeks": "6-9",
+      "depends_on": [
+        "V02"
+      ],
+      "milestone": "V",
+      "milestone_name": "Playable slice",
+      "env": "split",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/V03.md"
+    },
+    {
+      "id": "V04",
+      "title": "Implement four-player snapshot flow",
+      "steps": [
+        "Add content handshake, chunked snapshot, revision barrier, queued deltas, reconnect admission."
+      ],
+      "acceptance": "Join during pump/repair converges to canonical grid state; no duplicate object spawns.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 20,
+      "planned_weeks": "6-9",
+      "depends_on": [
+        "G07",
+        "V02"
+      ],
+      "milestone": "V",
+      "milestone_name": "Playable slice",
+      "env": "split",
+      "env_note": "Real remote join check local.",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/V04.md"
+    },
+    {
+      "id": "V05",
+      "title": "Implement movement sync",
+      "steps": [
+        "Add host validation, prediction/reconciliation, remote interpolation, anchored equipment smoothing."
+      ],
+      "acceptance": "Movement remains usable at 150 ms RTT; no client-authoritative placement or repair.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 18,
+      "planned_weeks": "6-9",
+      "depends_on": [
+        "V04"
+      ],
+      "milestone": "V",
+      "milestone_name": "Playable slice",
+      "env": "split",
+      "env_note": "150 ms RTT check needs controlled impairment.",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/V05.md"
+    },
+    {
+      "id": "V06",
+      "title": "Implement pings and text communication",
+      "steps": [
+        "Add four context pings, radial phrases, short escaped chat, mute and rate limits."
+      ],
+      "acceptance": "Two testers complete C01 with voice disabled using pings alone.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 12,
+      "planned_weeks": "6-9",
+      "depends_on": [
+        "V02"
+      ],
+      "milestone": "V",
+      "milestone_name": "Playable slice",
+      "env": "split",
+      "env_note": "Two-tester pings-only run is human.",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/V06.md"
+    },
+    {
+      "id": "V07",
+      "title": "Produce field and tablet UI",
+      "steps": [
+        "Build containers, context prompt, tool bar, crew list, graph navigation, icons and focus."
+      ],
+      "acceptance": "Map inspects and pings only; controller focus complete; 150% scale usable.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "art_ui",
+      "hours": 18,
+      "planned_weeks": "6-9",
+      "depends_on": [
+        "V01"
+      ],
+      "milestone": "V",
+      "milestone_name": "Playable slice",
+      "env": "local",
+      "env_note": "Visual and controller focus work.",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/V07.md"
+    },
+    {
+      "id": "V08",
+      "title": "Implement personal reward receipts",
+      "steps": [
+        "Assign contract instance IDs.",
+        "persist deduplication.",
+        "host receipts queue.",
+        "guest completion unlocks."
+      ],
+      "acceptance": "Replay/reconnect results do not duplicate credits; separate campaigns remain separate.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 10,
+      "planned_weeks": "6-9",
+      "depends_on": [
+        "V02",
+        "G06"
+      ],
+      "milestone": "V",
+      "milestone_name": "Playable slice",
+      "env": "cloud",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/V08.md"
+    },
+    {
+      "id": "V09",
+      "title": "Playable slice gate",
+      "steps": [
+        "Complete ten solo/group C01 runs including four players.",
+        "inspect logs and final state."
+      ],
+      "acceptance": "No mission blocker; all recoveries work; exact exported build retained.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 8,
+      "planned_weeks": "6-9",
+      "depends_on": [
+        "V03",
+        "V05",
+        "V06",
+        "V07",
+        "V08"
+      ],
+      "milestone": "V",
+      "milestone_name": "Playable slice",
+      "env": "local",
+      "env_note": "Ten runs including four players.",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/V09.md"
+    },
+    {
+      "id": "A01",
+      "title": "Create art benchmark street",
+      "steps": [
+        "Replace one building cluster with final kit.",
+        "author dark/temp/restored states.",
+        "tune navigation fill."
+      ],
+      "acceptance": "Three states readable; visual target runs on benchmark hardware before kit expansion.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "art_ui",
+      "hours": 28,
+      "planned_weeks": "10-12",
+      "depends_on": [
+        "V09"
+      ],
+      "milestone": "A",
+      "milestone_name": "Validation",
+      "env": "local",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/A01.md"
+    },
+    {
+      "id": "A02",
+      "title": "Implement restoration audio and effects",
+      "steps": [
+        "Add generator/pump/tool sounds.",
+        "bus volumes.",
+        "window recovery sequence.",
+        "reduced-flash variant."
+      ],
+      "acceptance": "Restoration readable without audio; volume balanced; flashes reducible.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "art_ui",
+      "hours": 16,
+      "planned_weeks": "10-12",
+      "depends_on": [
+        "A01"
+      ],
+      "milestone": "A",
+      "milestone_name": "Validation",
+      "env": "local",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/A02.md"
+    },
+    {
+      "id": "A03",
+      "title": "Add local measurement events",
+      "steps": [
+        "Log objective timestamps, idle intervals, first repair, trips, hint use, disconnect, completion."
+      ],
+      "acceptance": "No raw account IDs in analytics export; event schema version recorded.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 10,
+      "planned_weeks": "10-12",
+      "depends_on": [
+        "V09"
+      ],
+      "milestone": "A",
+      "milestone_name": "Validation",
+      "env": "cloud",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/A03.md"
+    },
+    {
+      "id": "A04",
+      "title": "Create onboarding and core accessibility",
+      "steps": [
+        "Introduce controls incrementally.",
+        "add UI scale, camera motion and flash controls.",
+        "hint ladder."
+      ],
+      "acceptance": "First repair discoverable; all essential status includes text/icon.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "art_ui",
+      "hours": 16,
+      "planned_weeks": "10-12",
+      "depends_on": [
+        "V07"
+      ],
+      "milestone": "A",
+      "milestone_name": "Validation",
+      "env": "split",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/A04.md"
+    },
+    {
+      "id": "A05",
+      "title": "Run external slice study",
+      "steps": [
+        "Recruit six outside pairs and three solo sessions.",
+        "observe without coaching.",
+        "capture consented evidence."
+      ],
+      "acceptance": "Report shows denominators, recruitment bias, timings, replay choices, and specific failure causes.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "qa_product",
+      "hours": 18,
+      "planned_weeks": "10-12",
+      "depends_on": [
+        "A02",
+        "A03",
+        "A04"
+      ],
+      "milestone": "A",
+      "milestone_name": "Validation",
+      "env": "human",
+      "env_note": "Recruit outside testers; consented evidence.",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/A05.md"
+    },
+    {
+      "id": "A06",
+      "title": "Revise failed mechanics and throughput",
+      "steps": [
+        "Change meter/routes/tradeoffs based on observations.",
+        "rerun affected scenario and record engineering/art hours."
+      ],
+      "acceptance": "Comprehension and replay gate passed or expansion explicitly blocked.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 14,
+      "planned_weeks": "10-12",
+      "depends_on": [
+        "A05"
+      ],
+      "milestone": "A",
+      "milestone_name": "Validation",
+      "env": "split",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/A06.md"
+    },
+    {
+      "id": "A07",
+      "title": "Product continuation gate",
+      "steps": [
+        "Review evidence.",
+        "revise capacity forecast.",
+        "choose expand, revise, or stop.",
+        "freeze demo feature list."
+      ],
+      "acceptance": "Decision includes observed evidence, open risks, and revised estimate; no sales claim.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "qa_product",
+      "hours": 6,
+      "planned_weeks": "10-12",
+      "depends_on": [
+        "A06"
+      ],
+      "milestone": "A",
+      "milestone_name": "Validation",
+      "env": "human",
+      "env_note": "Owner decision: expand, revise or stop.",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/A07.md"
+    },
+    {
+      "id": "D01",
+      "title": "Finish demo art and tool readability",
+      "steps": [
+        "Complete Alder facades/task interiors.",
+        "tool hands.",
+        "panel labels.",
+        "restoration lighting.",
+        "remove placeholders."
+      ],
+      "acceptance": "C01 screenshots representative; task objects recognizable at normal play distance.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "art_ui",
+      "hours": 24,
+      "planned_weeks": "13-16",
+      "depends_on": [
+        "A07"
+      ],
+      "milestone": "D",
+      "milestone_name": "Public demo",
+      "env": "local",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/D01.md"
+    },
+    {
+      "id": "D02",
+      "title": "Implement complete menu/depot/lobby loop",
+      "steps": [
+        "Build boot, campaign slots, lobby ready checks, loadout, pause, errors, results and diagnostics."
+      ],
+      "acceptance": "All twelve screen groups have usable normal/empty/error states and Back paths.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 18,
+      "planned_weeks": "13-16",
+      "depends_on": [
+        "A07"
+      ],
+      "milestone": "D",
+      "milestone_name": "Public demo",
+      "env": "split",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/D02.md"
+    },
+    {
+      "id": "D03",
+      "title": "Apply localization pipeline",
+      "steps": [
+        "Move strings into keyed resources.",
+        "add pseudo-locale.",
+        "commission/review Simplified Chinese UI terms."
+      ],
+      "acceptance": "No essential text baked into textures; long strings and Chinese glyphs fit.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "art_ui",
+      "hours": 18,
+      "planned_weeks": "13-16",
+      "depends_on": [
+        "D02"
+      ],
+      "milestone": "D",
+      "milestone_name": "Public demo",
+      "env": "split",
+      "env_note": "Chinese terminology review is human.",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/D03.md"
+    },
+    {
+      "id": "D04",
+      "title": "Complete controller path",
+      "steps": [
+        "Bind actions and remap.",
+        "implement radial selection, graph focus, glyph switching, binding conflicts."
+      ],
+      "acceptance": "Demo completes from launch to results with no mouse or keyboard.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 12,
+      "planned_weeks": "13-16",
+      "depends_on": [
+        "D02"
+      ],
+      "milestone": "D",
+      "milestone_name": "Public demo",
+      "env": "local",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/D04.md"
+    },
+    {
+      "id": "D05",
+      "title": "Export and profile demo",
+      "steps": [
+        "Run benchmark route.",
+        "measure frame time, RAM/VRAM, repeated reloads.",
+        "tune rain/shadows/emission."
+      ],
+      "acceptance": "Measured device report attached; presets produce a readable stable scene.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 10,
+      "planned_weeks": "13-16",
+      "depends_on": [
+        "D01",
+        "D02"
+      ],
+      "milestone": "D",
+      "milestone_name": "Public demo",
+      "env": "local",
+      "env_note": "Measured on the GTX 1650 class machine.",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/D05.md"
+    },
+    {
+      "id": "D06",
+      "title": "Create Steam store creative",
+      "steps": [
+        "Name screening.",
+        "capsule/library art to current templates.",
+        "six screenshots.",
+        "45-60 s gameplay trailer."
+      ],
+      "acceptance": "Art matches game; no advertised unimplemented features; template dimensions verified.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "art_ui",
+      "hours": 22,
+      "planned_weeks": "13-16",
+      "depends_on": [
+        "D01"
+      ],
+      "milestone": "D",
+      "milestone_name": "Public demo",
+      "env": "local",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/D06.md"
+    },
+    {
+      "id": "D07",
+      "title": "Demo acceptance study",
+      "steps": [
+        "Run 20 fresh sessions, clean-machine installs, real invites, reconnect, controller and accessibility checks."
+      ],
+      "acceptance": "No P0/P1; all demo acceptance cases recorded; player feedback summarized.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "qa_product",
+      "hours": 12,
+      "planned_weeks": "13-16",
+      "depends_on": [
+        "D04",
+        "D05"
+      ],
+      "milestone": "D",
+      "milestone_name": "Public demo",
+      "env": "human",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/D07.md"
+    },
+    {
+      "id": "D08",
+      "title": "Stage demo and store readiness",
+      "steps": [
+        "Configure actual app/demo branches.",
+        "review page and demo checklists.",
+        "select event only after stable demo."
+      ],
+      "acceptance": "Publishable package prepared; external publication separately recorded; no invented event deadline.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "qa_product",
+      "hours": 8,
+      "planned_weeks": "13-16",
+      "depends_on": [
+        "D03",
+        "D06",
+        "D07"
+      ],
+      "milestone": "D",
+      "milestone_name": "Public demo",
+      "env": "human",
+      "env_note": "Steamworks configuration; publication is an owner action.",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/D08.md"
+    },
+    {
+      "id": "CT01",
+      "title": "Build Canal Yard kit variant",
+      "steps": [
+        "Reuse six archetypes.",
+        "add canal silhouettes, pump access rooms and cold store.",
+        "graybox before polish."
+      ],
+      "acceptance": "Routes and services distinguishable; collisions and task positions validated.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "art_ui",
+      "hours": 24,
+      "planned_weeks": "17-24",
+      "depends_on": [
+        "D08"
+      ],
+      "milestone": "CT",
+      "milestone_name": "Content",
+      "env": "local",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/CT01.md"
+    },
+    {
+      "id": "CT02",
+      "title": "Build Hill Road kit variant",
+      "steps": [
+        "Create hill loop, community venue, roof landings, wind gates.",
+        "reuse approved modules."
+      ],
+      "acceptance": "Controller navigation and alternate routes complete before detail pass.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "art_ui",
+      "hours": 24,
+      "planned_weeks": "17-24",
+      "depends_on": [
+        "D08"
+      ],
+      "milestone": "CT",
+      "milestone_name": "Content",
+      "env": "local",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/CT02.md"
+    },
+    {
+      "id": "CT03",
+      "title": "Implement service priority contracts",
+      "steps": [
+        "Author Alder C02-C04.",
+        "add optional venue load, fixed ladder access and two-fault layout."
+      ],
+      "acceptance": "Each contract has known solution; no mandatory extra grind or two-person task.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 22,
+      "planned_weeks": "17-24",
+      "depends_on": [
+        "D08"
+      ],
+      "milestone": "CT",
+      "milestone_name": "Content",
+      "env": "split",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/CT03.md"
+    },
+    {
+      "id": "CT04",
+      "title": "Implement pump and cold-store contracts",
+      "steps": [
+        "Author C05-C06.",
+        "add independent access latches and optional cold-chain grace timer."
+      ],
+      "acceptance": "No pump deadlock; lost optional bonus never blocks completion.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 24,
+      "planned_weeks": "17-24",
+      "depends_on": [
+        "CT01",
+        "CT03"
+      ],
+      "milestone": "CT",
+      "milestone_name": "Content",
+      "env": "split",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/CT04.md"
+    },
+    {
+      "id": "CT05",
+      "title": "Implement evidence and supply contracts",
+      "steps": [
+        "Author C07-C08.",
+        "misleading label and exclusive supply tie.",
+        "require meter evidence."
+      ],
+      "acceptance": "Safe topology rules hold; solutions depend on measured state rather than memorized label.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 22,
+      "planned_weeks": "17-24",
+      "depends_on": [
+        "CT04"
+      ],
+      "milestone": "CT",
+      "milestone_name": "Content",
+      "env": "split",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/CT05.md"
+    },
+    {
+      "id": "CT06",
+      "title": "Implement final district contracts",
+      "steps": [
+        "Author C09-C12.",
+        "telegraphed wind event, event loads, generator relocation and finale."
+      ],
+      "acceptance": "All four complete solo/online; no invisible random fault changes.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 24,
+      "planned_weeks": "17-24",
+      "depends_on": [
+        "CT02",
+        "CT05"
+      ],
+      "milestone": "CT",
+      "milestone_name": "Content",
+      "env": "split",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/CT06.md"
+    },
+    {
+      "id": "CT07",
+      "title": "Implement bounded progression",
+      "steps": [
+        "Add unlock board, personal credit purchases, five starter upgrades, completion star rules."
+      ],
+      "acceptance": "Essential tools always supplied; simultaneous purchase retries cannot charge twice.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 16,
+      "planned_weeks": "17-24",
+      "depends_on": [
+        "CT03"
+      ],
+      "milestone": "CT",
+      "milestone_name": "Content",
+      "env": "cloud",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/CT07.md"
+    },
+    {
+      "id": "CT08",
+      "title": "Finish campaign assets and animations",
+      "steps": [
+        "Complete shared worker rig/hands.",
+        "required animations.",
+        "signs, tools, venue sound variants."
+      ],
+      "acceptance": "Every interactive asset has readable state and matching sound/accessibility fallback.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "art_ui",
+      "hours": 28,
+      "planned_weeks": "17-24",
+      "depends_on": [
+        "CT01",
+        "CT02"
+      ],
+      "milestone": "CT",
+      "milestone_name": "Content",
+      "env": "local",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/CT08.md"
+    },
+    {
+      "id": "CT09",
+      "title": "Implement curated replay templates",
+      "steps": [
+        "Choose bounded seeded fault templates.",
+        "validate supply/access/tool availability.",
+        "retain solution traces."
+      ],
+      "acceptance": "Every shipped seed template solvable; a seed reproduces the same definition.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 16,
+      "planned_weeks": "17-24",
+      "depends_on": [
+        "CT06"
+      ],
+      "milestone": "CT",
+      "milestone_name": "Content",
+      "env": "cloud",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/CT09.md"
+    },
+    {
+      "id": "CT10",
+      "title": "Content completion gate",
+      "steps": [
+        "Complete all twelve contracts and inspect asset licenses.",
+        "compare measured content throughput with forecast."
+      ],
+      "acceptance": "Twelve solution traces and defect records exist; no missing required tool or final overload.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "qa_product",
+      "hours": 14,
+      "planned_weeks": "17-24",
+      "depends_on": [
+        "CT06",
+        "CT07",
+        "CT08",
+        "CT09"
+      ],
+      "milestone": "CT",
+      "milestone_name": "Content",
+      "env": "human",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/CT10.md"
+    },
+    {
+      "id": "H01",
+      "title": "Harden saves and campaign migration",
+      "steps": [
+        "Finish backup recovery, previous-version migration, interrupted checkpoint and account separation."
+      ],
+      "acceptance": "Corrupt/newer saves never silently overwritten; old supported saves preserve progress.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 16,
+      "planned_weeks": "25-28",
+      "depends_on": [
+        "CT10"
+      ],
+      "milestone": "H",
+      "milestone_name": "Alpha",
+      "env": "cloud",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/H01.md"
+    },
+    {
+      "id": "H02",
+      "title": "Harden rewards and disconnect recovery",
+      "steps": [
+        "Test results redelivery, undelivered receipts, guest leave, host quit and duplicate commands."
+      ],
+      "acceptance": "Exactly-once local receipt application; checkpoints and participant state stay coherent.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 18,
+      "planned_weeks": "25-28",
+      "depends_on": [
+        "CT10"
+      ],
+      "milestone": "H",
+      "milestone_name": "Alpha",
+      "env": "split",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/H02.md"
+    },
+    {
+      "id": "H03",
+      "title": "Complete accessibility and language layouts",
+      "steps": [
+        "Run each screen at scale/aspect variants.",
+        "add subtitles, speaker labels, hold/toggle and focus fixes."
+      ],
+      "acceptance": "No critical clipping; all tasks usable without color/audio/voice dependence.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "art_ui",
+      "hours": 20,
+      "planned_weeks": "25-28",
+      "depends_on": [
+        "CT10"
+      ],
+      "milestone": "H",
+      "milestone_name": "Alpha",
+      "env": "local",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/H03.md"
+    },
+    {
+      "id": "H04",
+      "title": "Optimize exported stress route",
+      "steps": [
+        "Profile four-player host.",
+        "enforce bounded lights/particles/audio.",
+        "reduce allocations.",
+        "verify reload cleanup."
+      ],
+      "acceptance": "Measured P95 and memory report meets target or explicit revised hardware target proposed.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 20,
+      "planned_weeks": "25-28",
+      "depends_on": [
+        "CT10"
+      ],
+      "milestone": "H",
+      "milestone_name": "Alpha",
+      "env": "local",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/H04.md"
+    },
+    {
+      "id": "H05",
+      "title": "Integrate Steam Cloud and achievements",
+      "steps": [
+        "Sync profile/campaign/receipts only.",
+        "exclude local settings.",
+        "implement a small verified achievement set."
+      ],
+      "acceptance": "Two actual PCs sync progress; machine graphics settings stay independent.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 14,
+      "planned_weeks": "25-28",
+      "depends_on": [
+        "H01"
+      ],
+      "milestone": "H",
+      "milestone_name": "Alpha",
+      "env": "local",
+      "env_note": "Two actual PCs.",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/H05.md"
+    },
+    {
+      "id": "H06",
+      "title": "Feature-complete alpha gate",
+      "steps": [
+        "Play full campaign solo and four-player.",
+        "freeze features.",
+        "triage all known defects."
+      ],
+      "acceptance": "No known save-loss issue; every release feature complete; all P0/P1 blockers assigned.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "qa_product",
+      "hours": 14,
+      "planned_weeks": "25-28",
+      "depends_on": [
+        "H01",
+        "H02",
+        "H03",
+        "H04",
+        "H05"
+      ],
+      "milestone": "H",
+      "milestone_name": "Alpha",
+      "env": "human",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/H06.md"
+    },
+    {
+      "id": "B01",
+      "title": "Run network/device beta matrix",
+      "steps": [
+        "Test 80/150 ms RTT, loss/jitter, four-player soak, 20 lobby transitions and separate networks."
+      ],
+      "acceptance": "Actual impairment configuration, account setup, build and state hashes recorded.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "qa_product",
+      "hours": 18,
+      "planned_weeks": "29-32",
+      "depends_on": [
+        "H06"
+      ],
+      "milestone": "B",
+      "milestone_name": "Beta",
+      "env": "human",
+      "env_note": "Controlled network impairment and real accounts.",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/B01.md"
+    },
+    {
+      "id": "B02",
+      "title": "Run input/localization beta matrix",
+      "steps": [
+        "Test resolution/aspect/UI scale/languages/controller and remaps.",
+        "commission final terminology review."
+      ],
+      "acceptance": "No missing glyph or inaccessible essential action; full focus paths verified.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "qa_product",
+      "hours": 14,
+      "planned_weeks": "29-32",
+      "depends_on": [
+        "H06"
+      ],
+      "milestone": "B",
+      "milestone_name": "Beta",
+      "env": "human",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/B02.md"
+    },
+    {
+      "id": "B03",
+      "title": "Fix authoritative state and protocol defects",
+      "steps": [
+        "Close network race, lock, replay, snapshot and rate-limit defects.",
+        "add targeted regression cases."
+      ],
+      "acceptance": "All reproduced P0/P1 defects fixed and retested under the same conditions.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 20,
+      "planned_weeks": "29-32",
+      "depends_on": [
+        "B01"
+      ],
+      "milestone": "B",
+      "milestone_name": "Beta",
+      "env": "split",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/B03.md"
+    },
+    {
+      "id": "B04",
+      "title": "Fix persistence and UI defects",
+      "steps": [
+        "Close save, reward, Cloud and navigation failures.",
+        "verify clean install and update path."
+      ],
+      "acceptance": "No P0/P1; selected P2 exceptions have recorded impact and owner.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 16,
+      "planned_weeks": "29-32",
+      "depends_on": [
+        "B02"
+      ],
+      "milestone": "B",
+      "milestone_name": "Beta",
+      "env": "split",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/B04.md"
+    },
+    {
+      "id": "B05",
+      "title": "Polish feedback and launch art",
+      "steps": [
+        "Balance audio, final signposting and UI hierarchy.",
+        "refresh representative store captures."
+      ],
+      "acceptance": "Only shipped gameplay appears; reduced-motion and flash variants remain readable.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "art_ui",
+      "hours": 18,
+      "planned_weeks": "29-32",
+      "depends_on": [
+        "B02"
+      ],
+      "milestone": "B",
+      "milestone_name": "Beta",
+      "env": "local",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/B05.md"
+    },
+    {
+      "id": "B06",
+      "title": "Release-candidate beta gate",
+      "steps": [
+        "Run complete acceptance matrix on exact candidate.",
+        "measure hardware target and revise store requirements."
+      ],
+      "acceptance": "Zero known P0/P1; performance and feature claims supported by candidate evidence.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "qa_product",
+      "hours": 12,
+      "planned_weeks": "29-32",
+      "depends_on": [
+        "B03",
+        "B04",
+        "B05"
+      ],
+      "milestone": "B",
+      "milestone_name": "Beta",
+      "env": "human",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/B06.md"
+    },
+    {
+      "id": "R01",
+      "title": "Audit Steam configuration and claims",
+      "steps": [
+        "Check depots, executable, ownership/demo packages, languages, tags, support and content survey."
+      ],
+      "acceptance": "Advertised features exist; actual release candidate downloads and launches.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "qa_product",
+      "hours": 8,
+      "planned_weeks": "33-36",
+      "depends_on": [
+        "B06"
+      ],
+      "milestone": "R",
+      "milestone_name": "Release",
+      "env": "human",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/R01.md"
+    },
+    {
+      "id": "R02",
+      "title": "Finalize launch creative and support folder",
+      "steps": [
+        "Finalize trailer/screens/capsules.",
+        "credits/license notices.",
+        "known-issues and player help text."
+      ],
+      "acceptance": "No placeholder art or missing notice; all asset sizes match current Steam templates.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "art_ui",
+      "hours": 14,
+      "planned_weeks": "33-36",
+      "depends_on": [
+        "B06"
+      ],
+      "milestone": "R",
+      "milestone_name": "Release",
+      "env": "local",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/R02.md"
+    },
+    {
+      "id": "R03",
+      "title": "Submit store and build reviews",
+      "steps": [
+        "Complete checklists.",
+        "submit with at least seven business days buffer.",
+        "track Valve feedback."
+      ],
+      "acceptance": "Approvals documented; requested corrections verified; no assumed automatic approval.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "qa_product",
+      "hours": 8,
+      "planned_weeks": "33-36",
+      "depends_on": [
+        "R01",
+        "R02"
+      ],
+      "milestone": "R",
+      "milestone_name": "Release",
+      "env": "human",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/R03.md"
+    },
+    {
+      "id": "R04",
+      "title": "Prepare reproducible release build",
+      "steps": [
+        "Export from tagged revision.",
+        "generate hashes/manifest.",
+        "remove debug tools.",
+        "retain rollback candidate."
+      ],
+      "acceptance": "Clean export matches intended content; no private logs/secrets or debug bypasses.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "engineering",
+      "hours": 10,
+      "planned_weeks": "33-36",
+      "depends_on": [
+        "R03"
+      ],
+      "milestone": "R",
+      "milestone_name": "Release",
+      "env": "local",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/R04.md"
+    },
+    {
+      "id": "R05",
+      "title": "Perform final release smoke",
+      "steps": [
+        "Install from Steam on clean PCs.",
+        "invite, complete, save, Cloud sync, offline solo, controller path."
+      ],
+      "acceptance": "Exact candidate passes critical matrix; final signoff names build hash and remaining P2 issues.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "qa_product",
+      "hours": 10,
+      "planned_weeks": "33-36",
+      "depends_on": [
+        "R04"
+      ],
+      "milestone": "R",
+      "milestone_name": "Release",
+      "env": "human",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/R05.md"
+    },
+    {
+      "id": "R06",
+      "title": "Stage launch and support rotation",
+      "steps": [
+        "Confirm waiting periods and approved page.",
+        "stage chosen date.",
+        "assign crash/save/network triage.",
+        "retain prior build."
+      ],
+      "acceptance": "Concrete release checklist complete; publication is a recorded operator action.",
+      "evidence_required": "revision/build identifier, acceptance result, and relevant logs/screenshots.",
+      "role": "qa_product",
+      "hours": 6,
+      "planned_weeks": "33-36",
+      "depends_on": [
+        "R05"
+      ],
+      "milestone": "R",
+      "milestone_name": "Release",
+      "env": "human",
+      "env_note": "",
+      "status": "NOT_STARTED",
+      "evidence_file": "docs/evidence/R06.md"
+    }
+  ]
+}
