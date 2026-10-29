@@ -11,7 +11,7 @@ artifact. That is a Windows rerun on a VM with no GPU, so it does **not** replac
 
 ## 1. Promotion pass (about 30 min, prompt P4 in docs/HANDOFF.md)
 
-- [ ] **F01** launch exported Windows build; record hash
+- [x] **F01** launch exported Windows build; record hash (done 29 Oct 2026, GTX 1650; see docs/evidence/F01.md)
   1. `git switch main && git pull`, then `py -3 tools/build_manifest.py --godot "C:\path\Godot_v4.7.2-stable_win64_console.exe"`
   2. Open the project in the 4.7.2 editor once (imports), Project > Export > Windows Desktop > Export Project (release) to `build\windows\LightsBackOn.exe`.
      If templates are missing: Editor > Manage Export Templates > Download (record their version).
