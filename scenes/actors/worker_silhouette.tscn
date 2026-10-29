@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://coypsdcdv1xiy"]
+
+[sub_resource type="StandardMaterial3D" id="mat_worker_body"]
+albedo_color = Color(0.24313726, 0.2901961, 0.33333334, 1)
+
+[sub_resource type="CapsuleMesh" id="mesh_LegLeft"]
+radius = 0.09
+height = 0.9
+
+[sub_resource type="CapsuleMesh" id="mesh_LegRight"]
+radius = 0.09
+height = 0.9
+
+[sub_resource type="CapsuleMesh" id="mesh_Torso"]
+radius = 0.18
+height = 0.7
+
+[sub_resource type="StandardMaterial3D" id="mat_worker_vest"]
+albedo_color = Color(0.8509804, 0.9098039, 0.3529412, 1)
+
+[sub_resource type="CylinderMesh" id="mesh_Vest"]
+top_radius = 0.21
+bottom_radius = 0.21
+height = 0.42
+
+[sub_resource type="CapsuleMesh" id="mesh_ArmLeft"]
+radius = 0.06
+height = 0.66
+
+[sub_resource type="CapsuleMesh" id="mesh_ArmRight"]
+radius = 0.06
+height = 0.66
+
+[sub_resource type="SphereMesh" id="mesh_Head"]
+radius = 0.12
+height = 0.24
+
+[sub_resource type="StandardMaterial3D" id="mat_worker_helmet"]
+albedo_color = Color(0.9529412, 0.9607843, 0.9372549, 1)
+
+[sub_resource type="CylinderMesh" id="mesh_Helmet"]
+top_radius = 0.14
+bottom_radius = 0.14
+height = 0.12
+
+[sub_resource type="StandardMaterial3D" id="mat_worker_tool"]
+albedo_color = Color(0.16470589, 0.18431373, 0.20784314, 1)
+
+[sub_resource type="BoxMesh" id="mesh_Meter"]
+size = Vector3(0.1, 0.16, 0.06)
+
+[node name="WorkerSilhouette" type="Node3D" unique_id=1521980275]
+
+[node name="LegLeft" type="MeshInstance3D" parent="." unique_id=1824935830]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.099999994, 0.45, 0)
+material_override = SubResource("mat_worker_body")
+mesh = SubResource("mesh_LegLeft")
+
+[node name="LegRight" type="MeshInstance3D" parent="." unique_id=100600329]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.45, 0)
+material_override = SubResource("mat_worker_body")
+mesh = SubResource("mesh_LegRight")
+
+[node name="Torso" type="MeshInstance3D" parent="." unique_id=1370228394]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.17, 0)
+material_override = SubResource("mat_worker_body")
+mesh = SubResource("mesh_Torso")
+
+[node name="Vest" type="MeshInstance3D" parent="." unique_id=1993840949]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21, 0)
+material_override = SubResource("mat_worker_vest")
+mesh = SubResource("mesh_Vest")
+
+[node name="ArmLeft" type="MeshInstance3D" parent="." unique_id=1019565694]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.27, 1.17, 0)
+material_override = SubResource("mat_worker_body")
+mesh = SubResource("mesh_ArmLeft")
+
+[node name="ArmRight" type="MeshInstance3D" parent="." unique_id=1440673265]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26999998, 1.17, 0)
+material_override = SubResource("mat_worker_body")
+mesh = SubResource("mesh_ArmRight")
+
+[node name="Head" type="MeshInstance3D" parent="." unique_id=1993337221]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+material_override = SubResource("mat_worker_body")
+mesh = SubResource("mesh_Head")
+
+[node name="Helmet" type="MeshInstance3D" parent="." unique_id=1786157746]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8199999, 0)
+material_override = SubResource("mat_worker_helmet")
+mesh = SubResource("mesh_Helmet")
+
+[node name="Meter" type="MeshInstance3D" parent="." unique_id=1361569296]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27, 0.78, -0.11)
+material_override = SubResource("mat_worker_tool")
+mesh = SubResource("mesh_Meter")
+
+[node name="Eye" type="Marker3D" parent="." unique_id=2012659414]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)

@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://dknidn57m2du5"]
+
+[sub_resource type="StandardMaterial3D" id="mat_wall"]
+albedo_color = Color(0.54901963, 0.5803922, 0.60784316, 1)
+
+[sub_resource type="BoxMesh" id="mesh_Sill"]
+size = Vector3(4, 1, 0.25)
+
+[sub_resource type="BoxMesh" id="mesh_Header"]
+size = Vector3(4, 1.5, 0.25)
+
+[sub_resource type="BoxMesh" id="mesh_JambLeft"]
+size = Vector3(1.25, 1.5, 0.25)
+
+[sub_resource type="BoxMesh" id="mesh_JambRight"]
+size = Vector3(1.25, 1.5, 0.25)
+
+[sub_resource type="BoxShape3D" id="shape_01"]
+size = Vector3(4, 1, 0.25)
+
+[sub_resource type="BoxShape3D" id="shape_02"]
+size = Vector3(4, 1.5, 0.25)
+
+[sub_resource type="BoxShape3D" id="shape_03"]
+size = Vector3(1.25, 1.5, 0.25)
+
+[sub_resource type="BoxShape3D" id="shape_04"]
+size = Vector3(1.25, 1.5, 0.25)
+
+[node name="WindowWall" type="StaticBody3D" unique_id=1891627331]
+
+[node name="Sill" type="MeshInstance3D" parent="." unique_id=886634511]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, 0.125)
+material_override = SubResource("mat_wall")
+mesh = SubResource("mesh_Sill")
+
+[node name="Header" type="MeshInstance3D" parent="." unique_id=889190948]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3.25, 0.125)
+material_override = SubResource("mat_wall")
+mesh = SubResource("mesh_Header")
+
+[node name="JambLeft" type="MeshInstance3D" parent="." unique_id=894280000]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.625, 1.75, 0.125)
+material_override = SubResource("mat_wall")
+mesh = SubResource("mesh_JambLeft")
+
+[node name="JambRight" type="MeshInstance3D" parent="." unique_id=1601212659]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.375, 1.75, 0.125)
+material_override = SubResource("mat_wall")
+mesh = SubResource("mesh_JambRight")
+
+[node name="Collision01" type="CollisionShape3D" parent="." unique_id=1492153512]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, 0.125)
+shape = SubResource("shape_01")
+
+[node name="Collision02" type="CollisionShape3D" parent="." unique_id=1492153513]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3.25, 0.125)
+shape = SubResource("shape_02")
+
+[node name="Collision03" type="CollisionShape3D" parent="." unique_id=1492153514]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.625, 1.75, 0.125)
+shape = SubResource("shape_03")
+
+[node name="Collision04" type="CollisionShape3D" parent="." unique_id=1492153515]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.375, 1.75, 0.125)
+shape = SubResource("shape_04")
+
+[node name="WindowLight" type="Marker3D" parent="." unique_id=133913035]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.75, 0.25)

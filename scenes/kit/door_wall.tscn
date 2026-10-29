@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://cueom52rxo34x"]
+
+[sub_resource type="StandardMaterial3D" id="mat_wall"]
+albedo_color = Color(0.54901963, 0.5803922, 0.60784316, 1)
+
+[sub_resource type="BoxMesh" id="mesh_JambLeft"]
+size = Vector3(1.25, 2.5, 0.25)
+
+[sub_resource type="BoxMesh" id="mesh_JambRight"]
+size = Vector3(1.25, 2.5, 0.25)
+
+[sub_resource type="BoxMesh" id="mesh_Header"]
+size = Vector3(4, 1.5, 0.25)
+
+[sub_resource type="BoxShape3D" id="shape_01"]
+size = Vector3(1.25, 2.5, 0.25)
+
+[sub_resource type="BoxShape3D" id="shape_02"]
+size = Vector3(1.25, 2.5, 0.25)
+
+[sub_resource type="BoxShape3D" id="shape_03"]
+size = Vector3(4, 1.5, 0.25)
+
+[node name="DoorWall" type="StaticBody3D" unique_id=40722107]
+
+[node name="JambLeft" type="MeshInstance3D" parent="." unique_id=1349990460]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.625, 1.25, 0.125)
+material_override = SubResource("mat_wall")
+mesh = SubResource("mesh_JambLeft")
+
+[node name="JambRight" type="MeshInstance3D" parent="." unique_id=1607272303]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.375, 1.25, 0.125)
+material_override = SubResource("mat_wall")
+mesh = SubResource("mesh_JambRight")
+
+[node name="Header" type="MeshInstance3D" parent="." unique_id=698327584]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3.25, 0.125)
+material_override = SubResource("mat_wall")
+mesh = SubResource("mesh_Header")
+
+[node name="Collision01" type="CollisionShape3D" parent="." unique_id=1648654884]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.625, 1.25, 0.125)
+shape = SubResource("shape_01")
+
+[node name="Collision02" type="CollisionShape3D" parent="." unique_id=1648654885]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.375, 1.25, 0.125)
+shape = SubResource("shape_02")
+
+[node name="Collision03" type="CollisionShape3D" parent="." unique_id=1648654886]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3.25, 0.125)
+shape = SubResource("shape_03")
+
+[node name="Doorway" type="Marker3D" parent="." unique_id=1107548316]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0.12)

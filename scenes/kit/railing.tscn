@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://be082bcrbaast"]
+
+[sub_resource type="StandardMaterial3D" id="mat_trim"]
+albedo_color = Color(0.37254903, 0.4117647, 0.44313726, 1)
+
+[sub_resource type="BoxMesh" id="mesh_PostLeft"]
+size = Vector3(0.1, 1.1, 0.1)
+
+[sub_resource type="BoxMesh" id="mesh_PostRight"]
+size = Vector3(0.1, 1.1, 0.1)
+
+[sub_resource type="BoxMesh" id="mesh_MidRail"]
+size = Vector3(4, 0.1, 0.1)
+
+[sub_resource type="BoxMesh" id="mesh_TopRail"]
+size = Vector3(4, 0.1, 0.1)
+
+[sub_resource type="BoxShape3D" id="shape_01"]
+size = Vector3(4, 1.1, 0.1)
+
+[node name="Railing" type="StaticBody3D" unique_id=918380960]
+
+[node name="PostLeft" type="MeshInstance3D" parent="." unique_id=57248715]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0.55, 0.05)
+material_override = SubResource("mat_trim")
+mesh = SubResource("mesh_PostLeft")
+
+[node name="PostRight" type="MeshInstance3D" parent="." unique_id=1896467678]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.95, 0.55, 0.05)
+material_override = SubResource("mat_trim")
+mesh = SubResource("mesh_PostRight")
+
+[node name="MidRail" type="MeshInstance3D" parent="." unique_id=1209702364]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.55, 0.05)
+material_override = SubResource("mat_trim")
+mesh = SubResource("mesh_MidRail")
+
+[node name="TopRail" type="MeshInstance3D" parent="." unique_id=1909086965]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.05, 0.05)
+material_override = SubResource("mat_trim")
+mesh = SubResource("mesh_TopRail")
+
+[node name="Collision01" type="CollisionShape3D" parent="." unique_id=92047911]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.55, 0.05)
+shape = SubResource("shape_01")

@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://0ugxpnjglwe1"]
+
+[sub_resource type="StandardMaterial3D" id="mat_trim"]
+albedo_color = Color(0.37254903, 0.4117647, 0.44313726, 1)
+
+[sub_resource type="BoxMesh" id="mesh_Slab"]
+size = Vector3(4, 0.25, 4)
+
+[sub_resource type="BoxShape3D" id="shape_01"]
+size = Vector3(4, 0.25, 4)
+
+[node name="RoofPlane" type="StaticBody3D" unique_id=2118133727]
+
+[node name="Slab" type="MeshInstance3D" parent="." unique_id=1494382555]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.125, 2)
+material_override = SubResource("mat_trim")
+mesh = SubResource("mesh_Slab")
+
+[node name="Collision01" type="CollisionShape3D" parent="." unique_id=2145791846]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.125, 2)
+shape = SubResource("shape_01")
