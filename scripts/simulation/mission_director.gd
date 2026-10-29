@@ -43,6 +43,7 @@ var _optional: Array[String] = []
 var _trip_allowance: int = 0
 var _trips: int = 0
 var _recoveries: int = 0
+var _results: Dictionary = {}  # frozen at completion: later commands cannot change a finished run's report or reward
 var _players: Dictionary = {}  # connected player id -> true
 var _in_zone: Dictionary = {}  # player id -> true
 var _now: int = 0
@@ -167,6 +168,7 @@ func tick(now: int) -> Array[Dictionary]:
 			if _countdown_left <= 0:
 				_countdown_left = -1
 				_completed_tick = now
+				_results = _build_results()
 				events.append({"type": "mission_complete", "tick": now})
 	return events
 
@@ -182,20 +184,27 @@ func note_events(events: Array[Dictionary]) -> void:
 			_recoveries += 1
 
 
-## Results report (blueprint p.12 scoring): required restored, optional services, trips, crew recoveries, time and
-## equipment collected; stars: 1 completion, 2 all optional services (granted when the contract has none), 3 no
-## preventable branch trips after the tutorial allowance. No speed star. Empty until the mission is complete.
+## Results report (blueprint p.12 scoring): required restored, optional services restored, trips, crew recoveries,
+## time and equipment collected; stars: 1 completion, 2 every optional service restored (granted when the contract has
+## none), 3 no preventable branch trips after the tutorial allowance. No speed star. Empty until the mission is
+## complete, then frozen: it is captured on the completion tick, so commands after completion cannot change it.
 func results() -> Dictionary:
-	if _completed_tick < 0:
-		return {}
+	return _results.duplicate(true)
+
+
+func _build_results() -> Dictionary:
 	var st: Dictionary = _grid.canonical_state()
 	var restored: int = 0
 	for c: String in _required:
 		if _on_grid(c, st):
 			restored += 1
+	var optional_restored: Array[String] = []
+	for c: String in _optional:  # already sorted by _consumer_list
+		if _on_grid(c, st):
+			optional_restored.append(c)
 	var preventable: int = maxi(0, _trips - _trip_allowance)
-	var stars: int = 1 + (1 if _optional.is_empty() else 0) + (1 if preventable == 0 else 0)
-	return {"required_restored": restored, "required_total": _required.size(), "optional_services": [] as Array[String],
+	var stars: int = 1 + (1 if optional_restored.size() == _optional.size() else 0) + (1 if preventable == 0 else 0)
+	return {"required_restored": restored, "required_total": _required.size(), "optional_services": optional_restored,
 		"optional_total": _optional.size(), "trips": _trips, "preventable_trips": preventable, "crew_recoveries": _recoveries,
 		"ticks": _completed_tick, "equipment_collected": _equipment.all_stowed(), "stars": stars}
 
@@ -310,6 +319,56 @@ func canonical_state() -> Dictionary:
 	return {"schema": SCHEMA, "latch_ticks": latch_ticks, "latched": _latched.duplicate(), "verify_ticks": _verify_ticks,
 		"trips": _trips, "recoveries": _recoveries,
 		"countdown_left": _countdown_left, "completed_tick": _completed_tick, "in_zone": _sorted(_in_zone.keys())}
+
+
+## Durable mission progress for host checkpoints: latches, continuous-supply counters, scoring counters and the frozen
+## results. Not stored: the extraction countdown and zone presence (players re-enter the zone after a load and restart
+## the countdown), and anything derived from the grid (recomputed from its saved causes).
+func durable_state() -> Dictionary:
+	var latch_ticks: Dictionary = {}
+	for lid: String in _latch_ticks:
+		latch_ticks[lid] = _latch_ticks[lid]
+	return {"schema": SCHEMA, "latch_ticks": latch_ticks, "latched": _latched.duplicate(), "verify_ticks": _verify_ticks,
+		"trips": _trips, "recoveries": _recoveries, "completed_tick": _completed_tick, "results": _results.duplicate(true)}
+
+
+## Restores durable_state() onto a freshly loaded director. Refuses (without change) anything that does not match this
+## contract's latches or is not a non-negative int. Granted access flags are restored by the interaction service.
+func restore_state(d: Dictionary) -> Array[Dictionary]:
+	var bad: Array[Dictionary] = [PowerGrid.diag("BAD_SAVE", "mission state does not match this contract", [])]
+	if d.get("schema") != SCHEMA or not (d.get("latch_ticks") is Dictionary and d.get("latched") is Dictionary and d.get("results") is Dictionary):
+		return bad
+	var counters: Dictionary = {}
+	for key: String in ["verify_ticks", "trips", "recoveries", "completed_tick"]:
+		var v: Variant = PowerGrid.to_int(d.get(key))
+		if v == null or int(v) < (-1 if key == "completed_tick" else 0):
+			return bad
+		counters[key] = int(v)
+	var latch_ticks: Dictionary = {}
+	for lid: Variant in d["latch_ticks"]:
+		var v: Variant = PowerGrid.to_int(d["latch_ticks"][lid])
+		if not _latches.has(lid) or v == null or int(v) < 0:
+			return bad
+		latch_ticks[lid] = int(v)
+	var latched: Dictionary = {}
+	for lid: Variant in d["latched"]:
+		var v: Variant = PowerGrid.to_int(d["latched"][lid])
+		if not _latches.has(lid) or v == null:
+			return bad
+		latched[lid] = int(v)
+	if (counters["completed_tick"] >= 0) == (d["results"] as Dictionary).is_empty():
+		return bad  # a finished run must carry its frozen results, an unfinished one none
+	for lid: String in latch_ticks:
+		_latch_ticks[lid] = latch_ticks[lid]
+	_latched = latched
+	_verify_ticks = mini(counters["verify_ticks"], _verify_needed)
+	_trips = counters["trips"]
+	_recoveries = counters["recoveries"]
+	_completed_tick = counters["completed_tick"]
+	_results = (d["results"] as Dictionary).duplicate(true)
+	_countdown_left = -1
+	_in_zone = {}
+	return []
 
 
 # ---------- supply attribution ----------
