@@ -147,8 +147,14 @@
       "milestone_name": "Foundation",
       "env": "split",
       "env_note": "Theme/tokens in cloud; 4 m kit import at 1 unit per meter checked in the editor.",
-      "status": "NOT_STARTED",
-      "evidence_file": "docs/evidence/F05.md"
+      "status": "CLOUD_VERIFIED",
+      "evidence_file": "docs/evidence/F05.md",
+      "pending_local": [
+        "4 m kit modules + worker silhouette imported in the editor at 1 unit = 1 m",
+        "owner-approved licensed font",
+        "icon art from status_states.json",
+        "contrast on rendered screenshots"
+      ]
     },
     {
       "id": "F06",

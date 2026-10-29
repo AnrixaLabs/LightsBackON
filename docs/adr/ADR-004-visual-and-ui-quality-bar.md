@@ -29,3 +29,13 @@ match the industry standard. Having a nice design is important."
 ## Consequences
 UI/art tasks include a visual check against the reference page and a contrast check in their evidence file. Cloud sessions do not do
 art/visual work (CLAUDE.md section 7); they may author token resources, theme data and the icon state list.
+
+## Addendum F05 (29 Oct 2026): measured token contrast
+`tools/check_contrast.py` (run by `tools/run_tests.sh`) checks every allowed foreground/background pair in `content/ui/tokens.json`, on opaque
+surfaces and on HUD panels composited over a white (bright restored window) and a black backdrop. Findings:
+1. The blueprint `unknown` gray-blue is **3.84:1 on the elevated panel**: allowed there only for icons and large text (>= 24 px), not body text.
+2. At 92 % panel opacity over a white backdrop, `fault` on elevated (4.01:1) and `unknown` on panel (3.60:1) fail AA; `unknown` body text on the panel
+   needs a fully opaque panel (99 % gives 4.46:1). Decision: **text-bearing HUD panels are opaque** (`panel_alpha_percent: 100`); translucency is for
+   decorative frames only. Alternative for the owner: keep translucency and draw `?` values in `text_muted` with only the icon in `unknown`.
+3. Status icon list (`content/ui/status_states.json`) is generated from the code state lists (repair STATES, meter FINDING_CODES) and a test fails if
+   a state is added in code without an icon entry or an icon exists for a state the code does not have.
