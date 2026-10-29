@@ -88,6 +88,29 @@ func test_SAVE03_newer_schema_refused_and_bytes_preserved() -> void:
 	assert_eq(FileAccess.get_file_as_bytes(_path), bytes, "newer save never overwritten")
 
 
+func test_SAVE01_second_crash_does_not_destroy_the_only_valid_temp() -> void:
+	# review finding: a write after an interrupted first save truncated the only valid copy
+	_svc.write_record(_path, "checkpoint", "CP", {"v": 1}, NOW, SaveService.FAULT_AFTER_TMP)
+	assert_eq(_svc.read_record(_path)["source"], "temp")
+	assert_eq(_svc.write_record(_path, "checkpoint", "CP", {"v": 2}, LATER, SaveService.FAULT_PARTIAL_TMP)["code"], "SIMULATED_CRASH")
+	var r: Dictionary = _svc.read_record(_path)
+	assert_eq(r["ok"], true)
+	assert_eq(r["payload"], {"v": 1}, "v1 was promoted before the temp file was reused")
+
+
+func test_SAVE03_newer_schema_in_temp_or_backup_is_never_overwritten() -> void:
+	# review finding: only the current file was checked for a newer schema before writing
+	var newer: SaveService = _service(2)
+	_ok(newer.write_record(_path, "checkpoint", "CP", {"v": 8}, NOW))
+	newer.write_record(_path, "checkpoint", "CP", {"v": 9}, LATER, SaveService.FAULT_AFTER_BACKUP)
+	var tmp_bytes: PackedByteArray = FileAccess.get_file_as_bytes(_path + SaveService.TMP_SUFFIX)
+	var bak_bytes: PackedByteArray = FileAccess.get_file_as_bytes(_path + SaveService.BAK_SUFFIX)
+	assert_eq(_svc.write_record(_path, "checkpoint", "CP", {"v": 1}, LATER).get("code", ""), "TARGET_NEWER_SCHEMA")
+	assert_eq(FileAccess.get_file_as_bytes(_path + SaveService.TMP_SUFFIX), tmp_bytes)
+	assert_eq(FileAccess.get_file_as_bytes(_path + SaveService.BAK_SUFFIX), bak_bytes)
+	assert_false(FileAccess.file_exists(_path))
+
+
 func test_G06_unreadable_current_is_moved_aside_not_erased() -> void:
 	DirAccess.make_dir_recursive_absolute(_path.get_base_dir())
 	_write_raw(_path, "{not json")

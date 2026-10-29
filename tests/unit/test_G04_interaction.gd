@@ -207,6 +207,31 @@ func test_G04_interaction_service_is_pure() -> void:
 	assert_ne(PowerGrid.serialize(_svc.canonical_state()), "")
 
 
+func test_G04_ray_hit_must_enter_the_sphere_within_reach() -> void:
+	# review finding: radial-distance-only test accepted a sphere whose first intersection is at ~2.39 m (> 2.3 m)
+	var tuning: Dictionary = _json("res://content/interaction.json")
+	var far_edge := {"id": "PANEL_X", "position": Vector3(0.28, 0, -2.5), "radius": 0.3}
+	assert_eq(TargetSelector.select(Vector3.ZERO, Vector3.FORWARD, [far_edge], float(tuning["ray_length_cm"]) / 100.0,
+		float(tuning["aim_assist_cone_deg"])), "", "neither a finite-ray hit nor inside the 6 degree cone")
+
+
+func test_G04_refused_restore_keeps_original_isolation() -> void:
+	# review finding: a refused reset re-isolated a junction that was not isolated before restore
+	_svc.set_access("PUMP_HOUSE_DRAINED", true)
+	_lock("P1", "R_JE_TRUNK")
+	_walk("P1", "R_JE_TRUNK", EAST_TOOLS, "test")
+	assert_true(_grid.apply({"op": "set", "id": "JE", "field": "isolated", "value": false})["ok"])
+	assert_true(_grid.apply({"op": "set", "id": "SIGN", "field": "enabled", "value": true})["ok"])
+	for _i: int in 15:
+		_grid.step()
+	assert_eq(_grid.canonical_state()["nodes"]["JE"]["tripped"], true)
+	var before: String = _grid.canonical_string()
+	var res: Dictionary = _step("P1", "R_JE_TRUNK", "restore")
+	assert_eq(res["grid_code"], "RESET_OVERLOADED")
+	assert_eq(_grid.canonical_string(), before, "refusal leaves the grid exactly as it was")
+	assert_eq(_svc.repair_state("R_JE_TRUNK"), "tested")
+
+
 # ---------- helpers ----------
 
 func _json(path: String) -> Dictionary:
