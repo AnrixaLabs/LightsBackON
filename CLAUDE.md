@@ -151,6 +151,9 @@ Code style: static types on every variable, parameter and return; `class_name` o
 
 ## 6. Working protocol (every session)
 
+0. **One task (or one phase) per session.** Start each new backlog task, milestone phase or unrelated piece of work in a fresh
+   session; do not continue it in a long conversation. Finish the current task (PR, evidence, Resume notes), then hand the next one off with
+   a self-contained brief. The repo (backlog, evidence, ADRs) carries the context, not the chat.
 1. `python3 tools/backlog.py next --env cloud` (cloud session) or `python tools/backlog.py next --env local` (desktop session on the PC;
    on Windows `python3` is the Microsoft Store stub, use `python` or `py -3`). Tasks printed under "parked" are not actionable; do not start them.
 2. Read only that task (`backlog.py show ID`) and the blueprint pages it needs. Do the **first unblocked task**; do not skip ahead
