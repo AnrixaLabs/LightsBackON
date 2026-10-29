@@ -107,7 +107,7 @@ func load_definition(definition: Dictionary) -> Array[Dictionary]:
 		_protections[pid] = pr
 		_overload_ticks[pid] = 0
 	if not _protections.is_empty():
-		var trip: Variant = _to_int(definition.get("trip_ticks"))
+		var trip: Variant = to_int(definition.get("trip_ticks"))
 		if trip == null or int(trip) < 1:
 			errs.append(diag("BAD_VALUE", "trip_ticks must be an int >= 1 when protections exist", []))
 		else:
@@ -540,7 +540,7 @@ static func _check_record(rec: Variant, fields: Dictionary, defaults: Dictionary
 		if v == null:
 			errs.append(diag("MISSING_FIELD", "%s: missing %s" % [rid, k], [rid]))
 		elif want == TYPE_INT:
-			var as_int: Variant = _to_int(v)
+			var as_int: Variant = to_int(v)
 			if as_int == null:
 				errs.append(diag("BAD_VALUE", "%s: %s must be int" % [rid, k], [rid]))
 			elif int(as_int) < 0:
@@ -554,7 +554,7 @@ static func _check_record(rec: Variant, fields: Dictionary, defaults: Dictionary
 	return [null if not errs.is_empty() else out, errs]
 
 
-static func _to_int(v: Variant) -> Variant:
+static func to_int(v: Variant) -> Variant:
 	if v is int:
 		return v
 	if v is float:
