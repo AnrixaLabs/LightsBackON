@@ -36,6 +36,9 @@ var _replies: Dictionary = {}  # peer id -> {seq: reply} (bounded by dedupe_wind
 var _recent: Dictionary = {}  # peer id -> Array[int] ticks of accepted commands (rate window)
 var _range_check: Callable  # (player_id: String, entity_id: String) -> bool, from host movement
 var _now: int = 0
+var _last_checkpoint_tick: int = 0
+var _published_state: Dictionary = {}  # authoritative state as of _published_revision (what clients have been sent)
+var _published_revision: int = 0
 
 
 func configure(limits: Dictionary, protocol_version: int, content_revision: String, new_session_id: String,
@@ -43,7 +46,8 @@ func configure(limits: Dictionary, protocol_version: int, content_revision: Stri
 		switches_def: Dictionary, range_check: Callable) -> Array[Dictionary]:
 	_limits = {}
 	var errs: Array[Dictionary] = []
-	for key: String in ["max_message_bytes", "max_payload_keys", "max_string_length", "dedupe_window", "rate_limit_commands", "rate_limit_window_ticks"]:
+	for key: String in ["max_message_bytes", "max_payload_keys", "max_string_length", "dedupe_window", "rate_limit_commands",
+			"rate_limit_window_ticks", "checkpoint_interval_ticks", "snapshot_chunk_bytes"]:
 		var v: Variant = PowerGrid.to_int(limits.get(key))
 		if v == null or int(v) < 1:
 			errs.append(PowerGrid.diag("BAD_VALUE", "network limit %s must be an int >= 1" % key, []))
@@ -100,12 +104,66 @@ func remove(peer_id: int) -> Array[Dictionary]:
 	return events
 
 
+## One host grid tick (call at 10 Hz): grid step (trips), meter trip reasons, lock timeouts, checkpoint timer.
+## Returns this tick's events; trips and lock releases are durable and advance the revision with the tick itself.
 func tick(now: int) -> Array[Dictionary]:
 	_now = now
-	var events: Array[Dictionary] = _interaction.tick(now)
-	if not events.is_empty():
+	var before: String = state_hash()
+	var events: Array[Dictionary] = _grid.step()
+	_meter.record_events(events, _grid)
+	events.append_array(_interaction.tick(now))
+	if now - _last_checkpoint_tick >= int(_limits["checkpoint_interval_ticks"]):
+		_last_checkpoint_tick = now
+		events.append({"type": "checkpoint_due", "reason": "interval", "tick": now})
+	if state_hash() != before:
 		revision += 1
 	return events
+
+
+## Delta for clients since the last publish: {"type": "delta", "from", "to", "ops", "hash"}; {} when nothing changed.
+## ops are set/del on key paths of the canonical authoritative state; "hash" is the state hash after applying them.
+func publish() -> Dictionary:
+	if revision == _published_revision and not _published_state.is_empty():
+		return {}
+	var now_state: Dictionary = authoritative_state()
+	var ops: Array[Dictionary] = []
+	_diff(_published_state, now_state, [], ops)
+	var msg: Dictionary = {"type": "delta", "from": _published_revision, "to": revision, "ops": ops, "hash": state_hash()}
+	_published_state = now_state.duplicate(true)
+	_published_revision = revision
+	return msg
+
+
+## Join/reconnect snapshot (blueprint p.10): a manifest plus bounded chunks of the canonical state at the published
+## revision. Any delta published afterwards starts from that revision, so a joining client queues them and applies
+## the ones newer than the snapshot. Returns {"deltas": [flushed delta or empty], "manifest", "chunks"}.
+func snapshot() -> Dictionary:
+	var flushed: Dictionary = publish()
+	var text: String = PowerGrid.serialize(_published_state)
+	var size: int = int(_limits["snapshot_chunk_bytes"])
+	var chunks: Array[Dictionary] = []
+	for i: int in range(0, text.length(), size):
+		chunks.append({"type": "snapshot_chunk", "index": chunks.size(), "data": text.substr(i, size)})
+	var manifest: Dictionary = {"type": "snapshot_manifest", "revision": _published_revision, "hash": text.sha256_text(),
+		"bytes": text.length(), "chunks": chunks.size(), "protocol_version": _protocol_version, "content_revision": _content_revision}
+	return {"deltas": [] if flushed.is_empty() else [flushed], "manifest": manifest, "chunks": chunks}
+
+
+static func _diff(old: Dictionary, new: Dictionary, path: Array, ops: Array[Dictionary]) -> void:
+	var keys: Array = old.keys()
+	for k: Variant in new:
+		if not old.has(k):
+			keys.append(k)
+	keys.sort()
+	for k: Variant in keys:
+		var p: Array = path.duplicate()
+		p.append(k)
+		if not new.has(k):
+			ops.append({"op": "del", "path": p})
+		elif old.has(k) and old[k] is Dictionary and new[k] is Dictionary:
+			_diff(old[k], new[k], p, ops)
+		elif not old.has(k) or PowerGrid.serialize(old[k]) != PowerGrid.serialize(new[k]):
+			ops.append({"op": "set", "path": p, "value": new[k]})
 
 
 ## The single entry point for commands. peer_id comes from the transport, never from the bytes.
@@ -223,6 +281,8 @@ func _dispatch(player: String, msg: Dictionary) -> Dictionary:
 	var res: Dictionary = _interaction.handle(player, intent)
 	if res.get("code") == "UNKNOWN_REPAIR":
 		return _refuse("UNKNOWN_ENTITY", "no repair %s" % entity, [])
+	if res.get("state") == "restored":
+		res["checkpoint_due"] = true  # host checkpoints after durable repair completion (blueprint p.10)
 	return _strip(res)
 
 

@@ -1,10 +1,13 @@
 {
-  "_note": "Host command protocol limits (blueprint p.9-10). Design choices, not measurements. Ticks are 10 Hz grid ticks.",
+  "_note": "Host command protocol limits (blueprint p.9-10). Design choices, not measurements. Ticks are 10 Hz grid ticks. checkpoint_interval_ticks 600 = 60 s; snapshot chunks bound join messages.",
   "max_message_bytes": 2048,
   "max_payload_keys": 8,
   "max_string_length": 64,
   "dedupe_window": 64,
   "rate_limit_commands": 20,
   "rate_limit_window_ticks": 10,
-  "enet_dev_port": 47821
+  "enet_dev_port": 47821,
+  "checkpoint_interval_ticks": 600,
+  "snapshot_chunk_bytes": 1024,
+  "max_queued_deltas": 256
 }

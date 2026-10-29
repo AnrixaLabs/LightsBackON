@@ -642,6 +642,25 @@ static func _check_record(rec: Variant, fields: Dictionary, defaults: Dictionary
 	return [null if not errs.is_empty() else out, errs]
 
 
+## JSON numbers arrive as float in Godot; canonical data only holds ints, so integral floats become ints again
+## (recursively). Used for anything canonical that crossed a JSON boundary: saves, network state.
+static func json_ints(v: Variant) -> Variant:
+	if v is float:
+		var as_int: Variant = to_int(v)
+		return as_int if as_int != null else v
+	if v is Array:
+		var out: Array = []
+		for x: Variant in v:
+			out.append(json_ints(x))
+		return out
+	if v is Dictionary:
+		var d: Dictionary = {}
+		for k: Variant in v:
+			d[k] = json_ints(v[k])
+		return d
+	return v
+
+
 static func to_int(v: Variant) -> Variant:
 	if v is int:
 		return v

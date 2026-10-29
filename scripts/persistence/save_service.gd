@@ -144,7 +144,7 @@ func _inspect(path: String) -> Dictionary:
 	var parsed: Variant = json.data
 	if not parsed is Dictionary:
 		return {"status": "corrupt"}
-	var env: Dictionary = _ints(parsed)
+	var env: Dictionary = PowerGrid.json_ints(parsed)
 	for field: String in ENVELOPE_FIELDS:
 		if not env.has(field):
 			return {"status": "corrupt"}
@@ -158,24 +158,6 @@ func _inspect(path: String) -> Dictionary:
 	if body == "" or body.sha256_text() != env["checksum"]:
 		return {"status": "corrupt"}
 	return {"status": "ok", "envelope": env}
-
-
-## JSON numbers arrive as float; canonical saves only contain ints, so integral floats become ints again.
-static func _ints(v: Variant) -> Variant:
-	if v is float:
-		var as_int: Variant = PowerGrid.to_int(v)
-		return as_int if as_int != null else v
-	if v is Array:
-		var out: Array = []
-		for x: Variant in v:
-			out.append(_ints(x))
-		return out
-	if v is Dictionary:
-		var d: Dictionary = {}
-		for k: Variant in v:
-			d[k] = _ints(v[k])
-		return d
-	return v
 
 
 static func _fail(code: String, message: String) -> Dictionary:
