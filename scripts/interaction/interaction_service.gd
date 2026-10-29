@@ -259,14 +259,17 @@ func _perform(rid: String, step: String) -> Dictionary:
 				return err
 			_supplies[item] = int(_supplies[item]) - 1
 		"restore":
+			var was_isolated: bool = _grid.canonical_state()["nodes"][junction]["isolated"]
 			var err: Dictionary = _grid_apply({"op": "set", "id": junction, "field": "isolated", "value": false}, rid)
 			if not err.is_empty():
 				return err
 			if _grid.canonical_state()["nodes"][junction]["tripped"]:
 				err = _grid_apply({"op": "set", "id": junction, "field": "tripped", "value": false}, rid)
 				if not err.is_empty():
-					# re-isolating an energized junction is always valid; keeps restore atomic
-					_grid.apply({"op": "set", "id": junction, "field": "isolated", "value": true})
+					if was_isolated:
+						# re-isolating is always valid (it only removes supply); keeps restore atomic
+						_grid.apply({"op": "set", "id": junction, "field": "isolated", "value": true})
+						_meter.observe(_grid)
 					return err
 	return {}
 

@@ -130,6 +130,24 @@ func test_F03_stale_sequence_outside_dedupe_window_refused() -> void:
 	assert_eq(_host.receive(PEER_A, _bytes(70, "toggle_switch", "SW_SIGN", {"value": true}))["duplicate"], true)
 
 
+func test_F03_skipped_sequences_still_expire_from_the_dedupe_cache() -> void:
+	# review finding: only seq - window was evicted, so sparse sequence numbers grew the cache forever
+	assert_true(_host.receive(PEER_A, _bytes(1, "toggle_switch", "SW_SIGN", {"value": true}))["ok"])
+	assert_true(_host.receive(PEER_A, _bytes(66, "toggle_switch", "SW_SIGN", {"value": false}))["ok"])
+	assert_eq(_host.receive(PEER_A, _bytes(1, "toggle_switch", "SW_SIGN", {"value": true})).get("code", ""), "STALE_SEQUENCE")
+
+
+func test_F03_place_needs_range_to_the_destination_anchor() -> void:
+	# review finding: only the item was range-checked, so a carrier could place it at any far anchor
+	assert_true(_send(PEER_A, "place_item", "GEN_PORTABLE", {"action": "pickup"})["ok"])
+	_out_of_range["P1|PAD_PUMP"] = true
+	var res: Dictionary = _send(PEER_A, "place_item", "GEN_PORTABLE", {"action": "place", "anchor": "PAD_PUMP"})
+	assert_eq(res.get("code", ""), "NOT_IN_RANGE")
+	assert_eq(res.get("ids", []), ["GEN_PORTABLE", "PAD_PUMP"])
+	_out_of_range.erase("P1|PAD_PUMP")
+	assert_true(_send(PEER_A, "place_item", "GEN_PORTABLE", {"action": "place", "anchor": "PAD_PUMP"})["ok"])
+
+
 func test_F03_rate_limit_per_sender() -> void:
 	var limits: Dictionary = _json("res://content/network.json")
 	var n: int = int(limits["rate_limit_commands"])

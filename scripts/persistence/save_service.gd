@@ -69,15 +69,24 @@ func write_record(path: String, kind: String, record_id: String, payload: Dictio
 	var dir: String = path.get_base_dir()
 	if DirAccess.make_dir_recursive_absolute(dir) != OK:
 		return _fail("WRITE_FAILED", "cannot create the save folder")
+	var tmp: String = path + TMP_SUFFIX
+	var bak: String = path + BAK_SUFFIX
 	var current: Dictionary = _inspect(path)
-	if current["status"] == "newer_schema":
-		return _fail("TARGET_NEWER_SCHEMA", "the existing save was written by a newer version; it was left untouched")
+	var pending: Dictionary = _inspect(tmp)
+	for st: Dictionary in [current, pending, _inspect(bak)]:
+		if st["status"] == "newer_schema":
+			# any recoverable copy from a newer build is the player's real progress; touch nothing
+			return _fail("TARGET_NEWER_SCHEMA", "a save written by a newer version exists; it was left untouched")
 	if current["status"] == "corrupt":
 		var aside: String = path + UNREADABLE_SUFFIX + saved_at_utc.replace(":", "")
 		if DirAccess.rename_absolute(path, aside) != OK:
 			return _fail("WRITE_FAILED", "cannot move the unreadable save aside")
 		issues.append("CURRENT_UNREADABLE_KEPT_AS:" + aside.get_file())
-	var tmp: String = path + TMP_SUFFIX
+	if current["status"] != "ok" and pending["status"] == "ok":
+		# a crash left the only valid copy in the temp file: promote it before the temp file is reused
+		if DirAccess.rename_absolute(tmp, path) != OK:
+			return _fail("WRITE_FAILED", "cannot recover the interrupted save")
+		issues.append("RECOVERED_TEMP_PROMOTED")
 	var f: FileAccess = FileAccess.open(tmp, FileAccess.WRITE)
 	if f == null:
 		return _fail("WRITE_FAILED", "cannot open the temp save file")
@@ -93,7 +102,6 @@ func write_record(path: String, kind: String, record_id: String, payload: Dictio
 		return _fail("WRITE_FAILED", "temp file did not verify after writing")
 	if fault == FAULT_AFTER_TMP:
 		return _fail("SIMULATED_CRASH", fault)
-	var bak: String = path + BAK_SUFFIX
 	if FileAccess.file_exists(path):
 		# only a valid current file reaches here; it becomes the one previous backup
 		if FileAccess.file_exists(bak) and DirAccess.remove_absolute(bak) != OK:
