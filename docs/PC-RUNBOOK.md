@@ -1,225 +1,410 @@
-# PC runbook: everything to do on your Windows PC, step by step
+# PC runbook: exact steps on your Windows PC
 
-Written 29 Oct 2026 at the end of cloud sprint B. State on `main`: F01, F03, F04, F05, G01-G07 are CLOUD_VERIFIED; nothing is DONE.
-Everything below needs real hardware, Steam, a second PC or you. Work top to bottom; each part says what to record and when to stop.
-`docs/PC-WORK.md` is the short checklist version; this file is the long one.
+Every step has three parts: **Do** (exactly what to click or type), **You should see** (how you know it worked),
+**If not** (what to do instead). Do the steps in order and do not skip any. If a step fails and the "If not" line does not help,
+stop, copy what is on the screen, and paste it into Claude (cloud or local). Nothing you do here can break the project:
+everything is in Git and can be undone.
 
-Conventions: commands in **Git Bash** unless marked *PowerShell*. Repo at `C:\LightsBackOn` (`/c/LightsBackOn` in Git Bash).
-Replace `<...>` with your values. Never commit `private/`, `steam_appid.txt`, Steamworks SDK files or tokens (they are gitignored).
+How to read the commands:
+- A grey box with commands = type it **exactly**, one line at a time, then press **Enter** after each line.
+- Text in `<angle brackets>` = replace it with your own value, without the brackets.
+- "Git Bash" = the black terminal window installed in step 1.1. "PowerShell" = the blue Windows terminal. They are different; each step says which.
+- To paste into Git Bash: right-click inside the window and choose **Paste** (Ctrl+V may not work there).
+
+| Session | What | Time | Needs |
+|---|---|---|---|
+| A | Install tools (once) | 45 min | this PC, internet |
+| B | Get the code and run the tests | 15 min | session A |
+| C | F01: export, launch, record, mark DONE | 30 min | session B |
+| D | F02: Steam test on two PCs | 3-6 h, can split | session C, second PC, two Steam accounts, phone hotspot |
+| E | Steam reruns of the network features | 2-3 h | session D passed |
+| F | Gates and art decisions | your time | sessions C-E |
+| G | Hand back to the cloud | 5 min | whatever you finished |
+
+You can stop after any session and continue another day. Sessions A-C need only this PC.
 
 ---
 
-## Part 0. What you need before starting
+## Session A: install the tools (once, about 45 minutes)
 
-| Item | Needed for | Notes |
-|---|---|---|
-| Windows 10/11 x64 PC, GPU driver up to date | Parts 1-4 | GTX 1650 class is the performance target; any GPU is fine for F01 |
-| A second Windows PC (laptop is fine) | Part 5-6 | Must be on a **different network** for the real test (phone hotspot works) |
-| Two Steam accounts, each logged in on one PC | Part 5-6 | Both must be able to run Spacewar (app 480), which every Steam account can |
-| A gamepad (Xbox-style) | Part 4 optional check | Not required for F01 DONE |
-| About 2 h for Parts 1-4, 4-6 h for Part 5 | | Part 5 can be split over days |
-
----
-
-## Part 1. One-time PC setup (about 30-45 min)
-
-1. **Git for Windows** (includes Git Bash): https://git-scm.com/download/win. Defaults are fine. Then in Git Bash:
+### A.1 Install Git for Windows (includes Git Bash)
+1. **Do:** open https://git-scm.com/download/win in your browser. Click **Click here to download** (64-bit Git for Windows Setup).
+   **You should see:** a file like `Git-2.xx.x-64-bit.exe` in your Downloads folder.
+2. **Do:** double-click that file. If Windows asks "Do you want to allow this app to make changes", click **Yes**.
+3. **Do:** click **Next** on every screen, **except** these three, where you pick the option named here:
+   - "Choosing the default editor used by Git": pick **Use Notepad as Git's default editor** (easier than Vim).
+   - "Adjusting the name of the initial branch": leave **Let Git decide**.
+   - "Configuring the line ending conversions": pick **Checkout as-is, commit as-is**.
+   Then click **Install**, wait, untick "View Release Notes", click **Finish**.
+4. **Do:** press the Windows key, type `Git Bash`, press Enter.
+   **You should see:** a black window with a line ending in `$`.
+5. **Do:** in Git Bash, type:
    ```
-   git config --global core.autocrlf false
+   git --version
    git lfs install
+   git config --global core.autocrlf false
    ```
-   (The repo forces LF line endings itself; `autocrlf false` stops Git from fighting it.)
-2. **Python 3.12 or newer**: https://www.python.org/downloads/windows/ - tick "Add python.exe to PATH". Check in Git Bash: `py -3 --version`.
-3. **Godot 4.7.2 standard (not .NET)**:
-   - Download `Godot_v4.7.2-stable_win64.exe.zip` from https://godotengine.org/download/archive/4.7.2-stable/ (or the GitHub release
-     `godotengine/godot-builds`, tag `4.7.2-stable`).
-   - Verify it (*PowerShell*): `certutil -hashfile Godot_v4.7.2-stable_win64.exe.zip SHA512` and compare with the line in that release's
-     `SHA512-SUMS.txt`. Expected: `83decd58fdf67b9d…2259993` (full value in SHA512-SUMS.txt).
-   - Unzip to `C:\Tools\Godot\`. You get `Godot_v4.7.2-stable_win64.exe` (editor) and `Godot_v4.7.2-stable_win64_console.exe` (same, with a console).
-   - Check (Git Bash): `"/c/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe" --headless --version` prints `4.7.2.stable.official.ed1daf0bf`.
-4. **Export templates 4.7.2**: open the editor once (any project), Editor menu > *Manage Export Templates* > *Download and Install*.
-   They land in `%APPDATA%\Godot\export_templates\4.7.2.stable\`. Expected hash of `windows_release_x86_64.exe` (*PowerShell*):
-   `certutil -hashfile "$env:APPDATA\Godot\export_templates\4.7.2.stable\windows_release_x86_64.exe" SHA256` ->
-   `d34d36f3be1a6c49c56525ae86469b92e4f417ddf0b43cf00dd80c385c4b0562` (the same file CI used). If it differs, stop and tell Claude.
-5. **Steam client** on both PCs, each logged into its own account.
-6. **Claude Code CLI** (optional but recommended for Part 5): install per https://code.claude.com/docs, sign in with the **same claude.ai
-   account** as the cloud sessions.
-7. Make Godot easy to call. Add to `~/.bashrc` in Git Bash:
+   **You should see:** `git version 2.xx...`, then `Git LFS initialized.`, then nothing for the last line (nothing = success).
+   **If not:** if `git lfs` is unknown, reinstall Git and make sure "Git LFS" is ticked on the "Select Components" screen.
+6. **Do:** tell Git who you are (used in commit history; use the email of your GitHub account):
    ```
-   export GODOT_BIN="/c/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe"
-   export PYTHON=py
+   git config --global user.name "Levon"
+   git config --global user.email "<your GitHub email>"
    ```
-   then `source ~/.bashrc`.
+
+### A.2 Install Python
+1. **Do:** open https://www.python.org/downloads/windows/ and click the newest **Python 3.13.x** (or 3.12.x) "Windows installer (64-bit)".
+2. **Do:** run the installer. On the **first** screen tick **Add python.exe to PATH** (bottom of the window), then click **Install Now**.
+   Click **Close** at the end.
+3. **Do:** **close Git Bash and open it again** (so it sees Python), then type:
+   ```
+   py -3 --version
+   ```
+   **You should see:** `Python 3.13.x` (or 3.12.x).
+   **If not:** if it says "command not found", reboot the PC and try again; if it opens the Microsoft Store, run the installer again and tick "Add python.exe to PATH".
+
+### A.3 Install Godot 4.7.2 (the exact engine version the project uses)
+1. **Do:** open https://github.com/godotengine/godot-builds/releases/tag/4.7.2-stable. Scroll to **Assets** (click "Show all assets" if needed).
+   Download two files: `Godot_v4.7.2-stable_win64.exe.zip` and `SHA512-SUMS.txt`.
+2. **Do:** in File Explorer create the folder `C:\Tools\Godot`. Right-click the zip > **Extract All...** > type `C:\Tools\Godot` as the destination > **Extract**.
+   **You should see:** in `C:\Tools\Godot`: `Godot_v4.7.2-stable_win64.exe` and `Godot_v4.7.2-stable_win64_console.exe`.
+3. **Do (check the download is genuine):** press the Windows key, type `PowerShell`, press Enter. In the blue window type:
+   ```
+   certutil -hashfile "$env:USERPROFILE\Downloads\Godot_v4.7.2-stable_win64.exe.zip" SHA512
+   ```
+   **You should see:** a long hex value starting `83decd58fdf67b9d` and ending `2259993`. Open `SHA512-SUMS.txt` in Notepad, find the line that ends
+   with `Godot_v4.7.2-stable_win64.exe.zip`: its value must be the same (certutil may print it with spaces; ignore spaces).
+   **If not:** delete the zip and download it again. If it still differs, stop and tell Claude.
+4. **Do:** in Git Bash:
+   ```
+   "/c/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe" --headless --version
+   ```
+   **You should see:** `4.7.2.stable.official.ed1daf0bf`.
+
+### A.4 Install the Windows export templates
+1. **Do:** double-click `C:\Tools\Godot\Godot_v4.7.2-stable_win64.exe` (the one **without** `_console`).
+   **You should see:** the Godot Project Manager window.
+   **If not:** if Windows SmartScreen says "Windows protected your PC", click **More info** > **Run anyway**.
+2. **Do:** click **Create** (top left). Project Name: `scratch`. Project Path: click **Browse** and pick `C:\Tools\Godot\scratch`
+   (make the folder if needed). Leave the renderer as it is. Click **Create & Edit**. In the editor that opens, use the top menu
+   **Editor** > **Manage Export Templates...**. (The scratch project is only needed to reach this dialog; you can delete it afterwards.)
+3. **Do:** in the dialog, choose **Download and Install** (pick the official mirror if asked).
+   **You should see:** a progress bar (about 1.3 GB), then "Current Version: 4.7.2.stable" with **Installed**.
+4. **Do:** close Godot. In PowerShell:
+   ```
+   certutil -hashfile "$env:APPDATA\Godot\export_templates\4.7.2.stable\windows_release_x86_64.exe" SHA256
+   ```
+   **You should see:** `d34d36f3be1a6c49c56525ae86469b92e4f417ddf0b43cf00dd80c385c4b0562` (spaces don't matter).
+   **If not:** stop and tell Claude; the build would not match the one CI produced.
+
+### A.5 Make the commands short
+1. **Do:** in Git Bash type (two separate lines):
+   ```
+   echo 'export GODOT_BIN="/c/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe"' >> ~/.bashrc
+   echo 'export PYTHON=py' >> ~/.bashrc
+   ```
+2. **Do:** close Git Bash, open it again, type `echo $GODOT_BIN`.
+   **You should see:** `/c/Tools/Godot/Godot_v4.7.2-stable_win64_console.exe`.
+
+### A.6 Install Steam (needed from session D on; do it now on this PC)
+1. **Do:** install Steam from https://store.steampowered.com/about/ and sign in with your **first** Steam account. Leave it running.
+
+### A.7 Install Claude Code locally (needed from session D on)
+1. **Do:** follow the Windows install steps at https://code.claude.com/docs (Setup page). Sign in with the **same claude.ai account** you use here.
+2. **Do:** in Git Bash type `claude --version`.
+   **You should see:** a version number. **If not:** reopen Git Bash; if still missing, follow the docs' troubleshooting section.
+
+**End of session A.** Nothing to commit.
 
 ---
 
-## Part 2. Get the latest code (2 min)
+## Session B: get the code and run every test (about 15 minutes)
 
-If `C:\LightsBackOn` already exists:
-```
-cd /c/LightsBackOn
-git status                     # must say "nothing to commit"; if not, tell Claude before continuing
-git switch main
-git pull origin main
-git log --oneline -1           # should be at or after f1dc3f1 "Merge pull request #14"
-```
-If it does not exist: `git clone https://github.com/AnrixaLabs/LightsBackON.git /c/LightsBackOn && cd /c/LightsBackOn`.
+### B.1 Get the project
+1. **Do:** in Git Bash, check whether you already have the project:
+   ```
+   ls /c/LightsBackOn
+   ```
+   - If it lists files (`CLAUDE.md`, `docs`, ...), go to step 2.
+   - If it says "No such file or directory", type:
+     ```
+     git clone https://github.com/AnrixaLabs/LightsBackON.git /c/LightsBackOn
+     ```
+     (A browser window may ask you to sign in to GitHub: sign in and allow access.) Then skip to step 3.
+2. **Do:** update it:
+   ```
+   cd /c/LightsBackOn
+   git status
+   ```
+   **You should see:** `nothing to commit, working tree clean`.
+   **If not:** you have local changes. Type `git stash` to put them aside (they are kept, `git stash pop` brings them back), then continue.
+   ```
+   git switch main
+   git pull origin main
+   ```
+3. **Do:**
+   ```
+   cd /c/LightsBackOn
+   git log --oneline -1
+   ```
+   **You should see:** a line containing `Merge pull request #16` or later (the PR that added this file), or a newer one.
+
+### B.2 Run all checks
+1. **Do:**
+   ```
+   cd /c/LightsBackOn
+   mkdir -p build
+   bash tools/run_tests.sh 2>&1 | tee build/pc_tests.log
+   ```
+   This takes 1-2 minutes. A Windows Firewall popup may appear for Godot: tick **Private networks** only and click **Allow**
+   (the test only talks to this PC itself, 127.0.0.1).
+2. **You should see**, near the end:
+   ```
+   contrast: 44 checks, 0 failures
+   Ran 19 tests in ...  OK
+   tests: 114 passed, 0 failed, ...
+   MATCH: 32 case runs (fwd+rev), 246 command hashes, 10 definition rejections identical ...
+   ALL CHECKS PASSED
+   ```
+   (The number of tests can be higher if more were added; "0 failed" and "ALL CHECKS PASSED" are what matter.)
+3. **If not:** the file `C:\LightsBackOn\build\pc_tests.log` has the full output. Stop here and send its last 50 lines to Claude
+   (`tail -50 build/pc_tests.log` shows them).
+
+**End of session B.** Nothing to commit.
 
 ---
 
-## Part 3. Run every automated check on your PC (5 min)
+## Session C: F01, export and launch the game on this PC (about 30 minutes)
 
-```
-cd /c/LightsBackOn
-bash tools/run_tests.sh 2>&1 | tee build/pc_tests.log
-```
-(`mkdir -p build` first if it says the folder is missing.)
+### C.1 Write the build manifest
+1. **Do:**
+   ```
+   cd /c/LightsBackOn
+   py -3 tools/build_manifest.py --godot "$GODOT_BIN"
+   ```
+   **You should see:** a block of text in `{ ... }` with `"engine_version": "4.7.2.stable.official.ed1daf0bf"` and an
+   `"export_templates_hash"` that is **not** `"none"`.
+   **If not:** if `export_templates_hash` is `"none"`, the templates from A.4 are missing; redo A.4.
 
-Expected last lines:
-```
-contrast: 44 checks, 0 failures
-Ran 19 tests ... OK
-tests: 114 passed, 0 failed, ...
-MATCH: 32 case runs (fwd+rev), 246 command hashes, 10 definition rejections identical ...
-ALL CHECKS PASSED
-```
-Windows Firewall may ask about Godot during the ENet test: choose **Private networks** and Allow (it only uses 127.0.0.1).
-If anything fails: stop, keep `build/pc_tests.log`, and paste its end into Claude (cloud or local).
+### C.2 Export the Windows build
+1. **Do:**
+   ```
+   "$GODOT_BIN" --headless --path . --import
+   mkdir -p build/windows
+   "$GODOT_BIN" --headless --path . --export-release "Windows Desktop" build/windows/LightsBackOn.exe
+   ls -l build/windows
+   ```
+   **You should see:** `LightsBackOn.exe` (about 109 MB) and `LightsBackOn.pck` (small).
+   **If not:** copy the output and send it to Claude.
 
----
-
-## Part 4. F01: export and launch on real hardware, then promote F01 and G01-G03 to DONE (20-30 min)
-
-### 4.1 Build the manifest and export
-```
-cd /c/LightsBackOn
-py -3 tools/build_manifest.py --godot "$GODOT_BIN"
-"$GODOT_BIN" --headless --path . --import
-mkdir -p build/windows
-"$GODOT_BIN" --headless --path . --export-release "Windows Desktop" build/windows/LightsBackOn.exe
-```
-(Same result through the editor: Project > Export > Windows Desktop > Export Project, untick "Export With Debug".)
-
-### 4.2 Launch it
-1. Double-click `C:\LightsBackOn\build\windows\LightsBackOn.exe`. Expected: a window opens (it is a blank boot scene; black or grey is
-   correct), no error dialog. Close it with Alt+F4.
-2. Launch again with a log (*Git Bash*):
+### C.3 Launch it (real window, real GPU)
+1. **Do:** in File Explorer open `C:\LightsBackOn\build\windows` and double-click `LightsBackOn.exe`.
+   If SmartScreen appears: **More info** > **Run anyway** (the exe is not signed yet; that is expected).
+   **You should see:** a window opens and stays open with a plain black or grey screen. **That is correct**: the boot scene is empty on purpose.
+   No error popup.
+   **If not:** if an error popup appears, take a screenshot (Win+Shift+S) and send it to Claude. Note the message exactly.
+2. **Do:** close the window (click X, or Alt+F4).
+3. **Do:** launch it again with a log file, from Git Bash:
    ```
    ./build/windows/LightsBackOn.exe --log-file "$PWD/build/smoke.log" --quit-after 300
+   ```
+   The window opens and closes by itself after a few seconds.
+4. **Do:**
+   ```
    grep "Lights Back On boot" build/smoke.log
    grep build_id build_manifest.json
    ```
-   The boot line must end with the same `build_id` as the manifest.
-3. Optional: plug in the gamepad; nothing to test yet beyond "no crash".
+   **You should see:** the first line ends with `build <something>`; the second shows `"build_id": "<the same something>"`. They must match.
+   **If not:** if the first grep prints nothing, run `cat build/smoke.log` and send it to Claude.
 
-### 4.3 Record
-```
-sha256sum build/windows/LightsBackOn.exe build/windows/LightsBackOn.pck
-```
-Find your GPU and driver: *PowerShell* `Get-CimInstance Win32_VideoController | Select Name, DriverVersion`.
-
-Open `docs/evidence/F01.md` and add a section (copy the format):
-```
-## Local Windows launch (<date>)
-- PC: <CPU>, <GPU> driver <version>, Windows <version>
-- Commit: <git rev-parse --short HEAD>; build_id: <from manifest>
-- Window opened with the Compatibility renderer: yes/no; errors: none/<text>
-- exe sha256 <...>, pck sha256 <...>; boot line: <paste>
-```
-
-### 4.4 Promote and push
-```
-py -3 tools/backlog.py set F01 DONE
-py -3 tools/backlog.py set G01 DONE
-py -3 tools/backlog.py set G02 DONE
-py -3 tools/backlog.py set G03 DONE
-py -3 tools/backlog.py validate
-git switch -c task/F01-local-launch
-git add docs/evidence/F01.md docs/backlog.json
-git commit -m "F01: local Windows launch evidence; F01, G01-G03 DONE"
-git push -u origin task/F01-local-launch
-```
-Then open a PR on GitHub (or tell Claude to). G02 and G03 keep their notes about the host loop (G07) and on-screen meter (V07) as follow-ups.
-**Do not** set G04-G07 or F03-F05 DONE: they depend on F02/F06 or on editor work.
-
----
-
-## Part 5. F02: Steam transport spike on two real PCs (the biggest open risk; 4-6 h)
-
-### 5.1 Decisions only you can make (stop-and-ask items)
-1. **Which extension to try first.** Recommended order (HANDOFF issue 4): **A** = current GodotSteam GDExtension with its built-in
-   multiplayer peer; **B** = ExpressoBits SteamMultiplayerPeer + GodotSteam 4.16.2 or earlier; **C** = the peer named in the blueprint.
-   Approve A (or another) and say so to Claude. Claude must record source URL, version, commit and license (GodotSteam is MIT) before adding it.
-2. **App ID.** For the spike use Valve's public test app **480 (Spacewar)** in a gitignored `steam_appid.txt`; no Steamworks account action
-   is needed. Creating your own app ID/depots is a separate stop-and-ask decision for later (D08).
-
-### 5.2 Let local Claude build the spike
-```
-cd /c/LightsBackOn && git switch main && git pull
-claude
-```
-Paste the HANDOFF prompt **P3** (docs/HANDOFF.md section 4) and add: "I approve candidate A. Use app 480 in steam_appid.txt (gitignored)."
-Claude prepares a minimal private-lobby create/join spike, an export, and a checklist for PC #2. It records extension hashes.
-
-### 5.3 Run the two-network test
-1. Copy the exported spike folder (exe, pck, extension DLLs, `steam_api64.dll`, `steam_appid.txt`) to PC #2 via USB or a private share.
-   Do not upload it anywhere public.
-2. Put PC #2 on a **different network** (phone hotspot). Confirm: on each PC open https://ifconfig.me (or similar) and note the two public IPs
-   are different. Write only "different: yes" in evidence, never the IPs.
-3. Both PCs: Steam running and logged in; the two accounts are Steam friends.
-4. PC #1: start the spike, create a friends-only lobby. PC #2: join via the friend invite or lobby list.
-5. Follow Claude's checklist: messages both ways, leave and rejoin, close the host (guest sees a clear end), pull PC #2's network for ~5 s.
-6. Record for each step: pass/fail, time, any error text. Screenshots go to `docs/evidence/F02/` (crop out names/IDs).
-7. A same-network or localhost run is only a smoke test; label it that way. If A fails on the real test, tell Claude to try B, then C.
-
-### 5.4 Record and pin
-Claude writes `docs/evidence/F02.md`, pins the tuple (engine, templates, extension revision + binary hashes, peer, Steamworks runtime) in
-`build_manifest.json` fields, and sets F02 DONE only after the two-network pass. Commit on a `task/F02-...` branch and PR.
-
----
-
-## Part 6. After F02: rerun the drafted network logic on the Steam peer
-
-Ask local Claude: "Run docs/PC-WORK.md section 2b on the Steam peer." What you will do by hand, with Claude preparing the builds:
-1. **NET01**: both players press Interact on the same repair panel at the same moment. Exactly one gets the lock; the other sees who is working.
-2. **NET02**: Claude adds a debug "resend last command" key; press it during a repair. The part is used once.
-3. **NET05**: guest carries the generator, then you pull the guest's network. The generator appears back on its pad; the lock clears.
-4. **NET06**: guest drops for ~5 s and comes back. One actor, correct state, no duplicate reward eligibility.
-5. **NET07**: host quits while the guest is connected. The guest sees "host left" with a Back option, no hang.
-6. **G07 agreement**: after a repair, a trip (sign on), a reset and a reconnect, both PCs log their state hash; they must match.
-7. **REL02**: quit Steam completely, start the exported build. It must offer offline solo and not corrupt the profile.
-8. **G06 / SAVE01 real kill**: start a checkpoint write and kill the process (*PowerShell* `taskkill /F /IM LightsBackOn.exe`), relaunch. The
-   current or backup save loads and the recovery is shown.
-Claude updates the evidence files and promotes F03, F04, G04-G07 when their dependencies are DONE.
-
----
-
-## Part 7. Gates (you decide)
-
-1. **F06 Foundation gate**: Claude writes the gate report (HANDOFF prompt P5). You read it and accept or reject. Accepted -> tag `gate-F`.
-2. **G08 Grid toy gate**: same, after G07 runs on real peers. Accepted -> tag `gate-G`. This unblocks V01 (graybox) and the V phase.
-A failed gate moves the schedule; it is not rounded up.
-
----
-
-## Part 8. Editor and art work (F05 local part; can run in parallel with Part 5)
-
-1. Decide the font (Noto Sans recommended, SIL Open Font License). Tell Claude to record source/version/license and add it.
-2. In the editor, block out the 4 m kit (walls, floor, door 1.1 m clear, panels at 1.2-1.6 m) at 1 unit = 1 m, using
-   `content/world/kit_dimensions.json`. Keep source files in `art_source/` (Git LFS).
-3. Draw the icon set from `content/ui/status_states.json` (one icon per listed state, 24 px grid, icon + text always).
-4. Decide the HUD panel question in the ADR-004 addendum: opaque text panels (current) or translucent panels with muted `?` text.
-
----
-
-## Part 9. Coming back to the cloud
-
-1. Make sure everything you did is pushed and merged into `main` (the cloud only sees GitHub).
-2. Start a cloud session and paste:
+### C.4 Collect the values for the evidence file
+1. **Do:**
    ```
-   Continue Lights Back On after the PC pass. Read docs/PC-RUNBOOK.md, docs/PC-WORK.md and the evidence files changed since f1dc3f1.
-   Follow CLAUDE.md section 6: run `python3 tools/backlog.py next --env cloud`, finalize what the PC results unblock, and stop at the first
-   stop condition. Results from my PC: <one line per part: done / failed + where the evidence is>.
+   sha256sum build/windows/LightsBackOn.exe build/windows/LightsBackOn.pck
+   git rev-parse --short HEAD
    ```
-3. If something failed on the PC, paste the failing output instead; the cloud session fixes code, CI re-runs on Linux and Windows, and you
-   rerun only the failed step.
+   Copy the output into Notepad for the next step.
+2. **Do (GPU and driver):** in PowerShell:
+   ```
+   Get-CimInstance Win32_VideoController | Select-Object Name, DriverVersion
+   Get-CimInstance Win32_Processor | Select-Object Name
+   (Get-CimInstance Win32_OperatingSystem).Caption
+   ```
+   Copy these too.
+
+### C.5 Write the evidence
+1. **Do:** open `C:\LightsBackOn\docs\evidence\F01.md` in Notepad (right-click > Open with > Notepad).
+2. **Do:** find the line that starts with `## Not verified / pending_local`. **Above** it, paste this block and fill in the `<...>` from C.4:
+   ```
+   ## Local Windows launch (<today's date>)
+   - PC: <CPU name>, <GPU name> driver <DriverVersion>, <Windows caption>
+   - Commit: <short hash>; build_id: <build_id>
+   - Double-click launch: window opened, no error (Compatibility renderer on a real GPU): yes
+   - Log launch boot line: <paste the line from C.3 step 4>
+   - exe sha256 <hash>; pck sha256 <hash>
+   - Result: PASS
+   ```
+   Save (Ctrl+S) and close Notepad.
+
+### C.6 Mark the tasks DONE
+1. **Do:** in Git Bash, one line at a time:
+   ```
+   cd /c/LightsBackOn
+   py -3 tools/backlog.py set F01 DONE
+   py -3 tools/backlog.py set G01 DONE
+   py -3 tools/backlog.py set G02 DONE
+   py -3 tools/backlog.py set G03 DONE
+   py -3 tools/backlog.py validate
+   ```
+   **You should see:** `F01 -> DONE`, `G01 -> DONE`, `G02 -> DONE`, `G03 -> DONE`, then `OK: 66 tasks`.
+   **If not:** a "refused" message names the reason (for example a missing evidence file). Send it to Claude. Do not edit backlog.json by hand.
+   Do **not** set any other task DONE: G04-G07 and F03-F05 still need Steam or editor work.
+
+### C.7 Save it to GitHub
+1. **Do:**
+   ```
+   git switch -c task/F01-local-launch
+   git add docs/evidence/F01.md docs/backlog.json
+   git commit -m "F01: local Windows launch evidence; F01, G01-G03 DONE"
+   git push -u origin task/F01-local-launch
+   ```
+   **You should see:** the last command prints a link like `https://github.com/AnrixaLabs/LightsBackON/pull/new/task/F01-local-launch`.
+2. **Do:** open that link in your browser. Click **Create pull request**, then **Create pull request** again.
+3. **Do:** wait about 2 minutes. On the PR page, the checks **linux** and **windows** turn into green ticks.
+4. **Do:** click **Merge pull request** > **Confirm merge**.
+   **If a check is red:** don't merge; send the PR link to Claude.
+5. **Do:** back in Git Bash:
+   ```
+   git switch main
+   git pull origin main
+   ```
+
+**End of session C.** F01, G01, G02 and G03 are DONE.
+
+---
+
+## Session D: F02, prove Steam multiplayer works between two PCs on different networks (3-6 hours)
+
+This is the most important test in the whole plan. You need:
+- **PC 1** = this PC (it will host). **PC 2** = a second Windows PC or laptop (it will join).
+- Two **different** Steam accounts, one per PC, that are **Steam friends** with each other.
+- A **phone with a mobile hotspot**, so PC 2 is on a different network from PC 1.
+- A USB stick (or another private way to copy a folder to PC 2).
+
+### D.1 Prepare PC 2 (about 15 minutes)
+1. **Do (on PC 2):** install Steam and sign in with the **second** Steam account.
+2. **Do (on both PCs):** in Steam click **Friends** > **Add a Friend**, and add the other account. Accept the request on the other PC.
+   **You should see:** each account in the other's friends list, shown as Online.
+3. **Do (on PC 2):** nothing else; PC 2 does not need Git, Python or Godot.
+
+### D.2 Make the two decisions only you can make
+Write down your answers; you will paste them into Claude in D.3.
+1. **Which Steam add-on to use.** Recommended: **"Candidate A: GodotSteam (GDExtension for Godot 4.7) with its built-in multiplayer peer, MIT license."**
+   Alternatives B and C exist (docs/HANDOFF.md, section 2, issue 4); only pick them if Claude reports that A failed.
+2. **Steam App ID for testing.** Recommended: **"Use Valve's test app 480 (Spacewar) in steam_appid.txt; do not create anything in Steamworks."**
+
+### D.3 Let local Claude build the test program (PC 1)
+1. **Do:** in Git Bash:
+   ```
+   cd /c/LightsBackOn
+   git switch main
+   git pull origin main
+   claude
+   ```
+   **You should see:** the Claude Code prompt inside Git Bash.
+2. **Do:** open `C:\LightsBackOn\docs\HANDOFF.md` in Notepad, find **"P3: Local Steam spike"**, and copy the text inside its grey box.
+   Paste it into Claude, and add this sentence at the end, then press Enter:
+   ```
+   I approve candidate A (GodotSteam GDExtension, MIT) and Steam app 480 (Spacewar) in a gitignored steam_appid.txt.
+   Give me numbered steps for each PC, and tell me exactly which folder to copy to PC 2.
+   ```
+3. **Do:** when Claude asks for permission to run commands or download the add-on, read what it wants to do and click/answer **Yes**
+   if it matches the plan (downloading GodotSteam from its official GitHub release, building, exporting). Say **No** to anything about
+   creating Steamworks apps, depots or uploading builds.
+4. **You should see:** at the end, Claude says where the exported spike is (for example `C:\LightsBackOn\build\steam_spike\`) and gives you
+   a numbered checklist. Keep that checklist open.
+
+### D.4 First, a quick smoke test on one network (both PCs on the same Wi-Fi)
+This only checks that the program starts; it does **not** count as the real test.
+1. **Do:** copy the whole spike folder from PC 1 to the USB stick, then to PC 2 (for example to `C:\steam_spike\` on PC 2).
+2. **Do:** with both PCs on the same Wi-Fi: on PC 1 run the spike and choose **Host** (or what Claude's checklist says). On PC 2 run the
+   spike and join (via the friend invite in the Steam overlay, Shift+Tab, or the lobby list, per the checklist).
+3. **You should see:** PC 2 shows it joined; messages appear on both sides as the checklist describes.
+4. **If not:** write down the exact message on each screen and give it to Claude on PC 1. Do not move on until this works.
+
+### D.5 The real test: two different networks
+1. **Do (PC 2):** turn on your phone's hotspot. On PC 2 click the Wi-Fi icon and connect to the phone hotspot instead of your home Wi-Fi.
+   Leave PC 1 on your home network.
+2. **Do (check they are different):** on **each** PC open https://ifconfig.me in a browser. The two numbers shown must be **different**.
+   Don't write the numbers anywhere; just note "different: yes".
+3. **Do:** run through **every item** in Claude's checklist. It will include at least:
+   - PC 1 creates a friends-only lobby; PC 2 joins it.
+   - Messages go both ways (PC 1 to PC 2 and PC 2 to PC 1).
+   - PC 2 leaves and joins again.
+   - PC 2 loses network for about 5 seconds (turn off the hotspot, count to 5, turn it on) and comes back.
+   - PC 1 (the host) quits while PC 2 is connected: PC 2 must show a clear message, not freeze.
+4. **Do:** for each item write in Notepad: item, PASS or FAIL, the time, and any message shown. For screenshots use Win+Shift+S; save them,
+   but crop out Steam names and avatars.
+5. **If an item fails:** tell Claude on PC 1 exactly which item and what happened. Claude may fix it or switch to candidate B; then repeat D.4 and D.5.
+
+### D.6 Record and save (PC 1)
+1. **Do:** paste your Notepad results into the Claude session and say:
+   ```
+   Here are the two-network results. Write docs/evidence/F02.md, pin the tuple in the manifest, set F02 DONE only if every item passed,
+   and open a PR. Do not commit steam_appid.txt or Steamworks SDK files.
+   ```
+2. **Do:** open the PR link Claude gives you. Wait for the green **linux** and **windows** checks, then **Merge pull request** > **Confirm merge**.
+3. **Do:** in Git Bash: `git switch main && git pull origin main`.
+
+**End of session D.** F02 is DONE only if every two-network item passed.
+
+---
+
+## Session E: rerun the network features over Steam (2-3 hours, after D passed)
+
+1. **Do:** in the Claude session on PC 1 say:
+   ```
+   F02 passed. Now do docs/PC-WORK.md section 2b on the Steam peer. Build what is needed and give me a numbered two-PC checklist
+   for NET01, NET02, NET05, NET06, NET07, the G07 state-hash comparison, REL02 (Steam closed) and the SAVE01 real kill test.
+   ```
+2. **Do:** copy the new build to PC 2 as in D.4 step 1. Keep PC 2 on the phone hotspot.
+3. **Do:** run every checklist item and note PASS/FAIL like in D.5 step 4. These are what you will be checking (Claude's list has the exact keys):
+   - **NET01:** both players press Interact on the same repair panel at the same moment. **Expect:** only one gets it; the other sees who is working.
+   - **NET02:** press the debug "resend last command" key during a repair. **Expect:** the replacement part is used once.
+   - **NET05:** PC 2 picks up the generator, then turn off the hotspot. **Expect:** on PC 1 the generator goes back to its pad; the lock clears.
+   - **NET06:** turn the hotspot off for 5 s and on again. **Expect:** PC 2 rejoins as one player, with the right state.
+   - **NET07:** close the game on PC 1 while PC 2 is connected. **Expect:** PC 2 shows "host left" with a Back button, no freeze.
+   - **G07:** after a repair, a trip (sign on), a reset and a reconnect, both PCs show a state hash. **Expect:** identical on both.
+   - **REL02:** fully quit Steam (system tray > right-click Steam > Exit), then start the game. **Expect:** it offers offline solo and works.
+   - **SAVE01:** while a checkpoint is saving (Claude tells you when), in PowerShell type `taskkill /F /IM LightsBackOn.exe`, then start the
+     game again. **Expect:** the save loads, or it says it recovered the backup. Never an empty or reset game without a message.
+4. **Do:** paste the results into Claude: "Write the evidence, promote what is now allowed, open a PR." Merge it once the checks are green.
+
+---
+
+## Session F: gates and decisions (your time)
+
+1. **Do:** in Claude (local or cloud) say: `Write the F06 gate report (HANDOFF prompt P5) and stop for my decision.`
+   Read the report. Reply **"F gate accepted"** or **"F gate rejected because ..."**. Claude then tags `gate-F` (only if accepted).
+2. **Do:** the same for **G08**: `Write the G08 grid-toy gate report and stop for my decision.` Accepting it unblocks the graybox (V01).
+3. **Decisions to give Claude whenever you are ready** (one line each is enough):
+   - Font: "Use Noto Sans (SIL Open Font License)" or another font you own a license for.
+   - HUD panels: "Keep text panels opaque" (current) or "Translucent panels, draw `?` in the muted text color".
+   - Repo visibility: keep public or make private (docs/BOOTSTRAP-REPORT.md, owner action 2).
+4. **Art/editor work (F05 local part):** when you want to start it, open the project in the Godot editor
+   (`C:\Tools\Godot\Godot_v4.7.2-stable_win64.exe` > **Import** > select `C:\LightsBackOn\project.godot` > **Import & Edit**) and ask local Claude
+   to guide you through blocking out the 4 m kit with `content/world/kit_dimensions.json`.
+
+---
+
+## Session G: hand back to the cloud (5 minutes)
+
+1. **Do:** make sure every PR you opened is merged (on GitHub, **Pull requests** tab shows 0 open).
+2. **Do:** start a new cloud session at https://claude.ai/code on the LightsBackON repo and paste:
+   ```
+   Continue Lights Back On after the PC pass. Read docs/PC-RUNBOOK.md, docs/PC-WORK.md and every evidence file changed since 3af92a8.
+   Follow CLAUDE.md section 6: run `python3 tools/backlog.py next --env cloud`, finalize what the PC results unblock, and stop at the
+   first stop condition. My results: A done; B <pass/fail>; C <pass/fail>; D <pass/fail/not done>; E <pass/fail/not done>; F <decisions>.
+   ```
+3. **If something failed** in any session: paste the failing output instead of "fail". The cloud session fixes the code; GitHub re-runs the
+   Linux and Windows checks; you only repeat the step that failed.
