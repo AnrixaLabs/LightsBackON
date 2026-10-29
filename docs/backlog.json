@@ -338,6 +338,9 @@
       "pending_local": [
         "dependency G04 is CLOUD_VERIFIED (acceptance itself passed: 200/200 real-process kills of the exported Windows build, docs/evidence/G06.md)",
         "Steam Cloud sync moves to H05 (SAVE06)"
+      ],
+      "verify_after": [
+        "G04"
       ]
     },
     {
