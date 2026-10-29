@@ -435,8 +435,13 @@
       "prep_ok_without": [
         "V01"
       ],
-      "status": "NOT_STARTED",
-      "evidence_file": "docs/evidence/V02.md"
+      "status": "CLOUD_VERIFIED",
+      "evidence_file": "docs/evidence/V02.md",
+      "pending_local": [
+        "known-solution playthrough in the V01 graybox with real positions and reach",
+        "C01 pacing targets with people",
+        "objective HUD rendering (V07)"
+      ]
     },
     {
       "id": "V03",

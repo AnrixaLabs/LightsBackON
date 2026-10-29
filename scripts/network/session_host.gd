@@ -14,10 +14,12 @@ const PowerGrid := preload("res://scripts/simulation/power_grid.gd")
 const MeterModel := preload("res://scripts/simulation/meter_model.gd")
 const Interaction := preload("res://scripts/interaction/interaction_service.gd")
 const Equipment := preload("res://scripts/interaction/equipment_service.gd")
+const MissionDirector := preload("res://scripts/simulation/mission_director.gd")
 
 const ENVELOPE_KEYS: Array[String] = ["session", "seq", "type", "entity", "payload"]
-const INTENTS: Array[String] = ["inspect", "request_lock", "release", "heartbeat", "repair_step", "equip", "toggle_switch", "place_item"]
-const DEFERRED_INTENTS: Array[String] = ["ping", "ready", "request_extract"]  # V02/V06; refused until implemented
+const INTENTS: Array[String] = ["inspect", "request_lock", "release", "heartbeat", "repair_step", "equip", "toggle_switch", "place_item",
+	"request_extract"]
+const DEFERRED_INTENTS: Array[String] = ["ping", "ready"]  # V06 / lobby; refused until implemented
 const PLACE_ACTIONS: Array[String] = ["pickup", "place", "connect", "disconnect", "start", "stop", "reset_breaker", "recover"]
 
 var session_id: String = ""
@@ -29,6 +31,7 @@ var _grid: PowerGrid
 var _meter: MeterModel
 var _interaction: Interaction
 var _equipment: Equipment
+var _mission: MissionDirector = null  # optional: sessions without a contract (tests, lobby) run without one
 var _switches: Dictionary = {}  # switch id -> {"target", "field"}
 var _members: Dictionary = {}  # transport peer id (int) -> player id
 var _last_seq: Dictionary = {}  # peer id -> highest accepted seq
@@ -87,6 +90,8 @@ func admit(peer_id: int, player_id: String, protocol_version: int, content_revis
 	_replies[peer_id] = {}
 	_recent[peer_id] = [] as Array[int]
 	_interaction.join(player_id, tools)
+	if _mission != null:
+		_mission.player_joined(player_id)
 	revision += 1
 	return {"ok": true, "session": session_id, "player": player_id, "revision": revision}
 
@@ -98,6 +103,8 @@ func remove(peer_id: int) -> Array[Dictionary]:
 	var player: String = _members[peer_id]
 	var events: Array[Dictionary] = _interaction.disconnect_player(player)
 	events.append_array(_equipment.disconnect_player(player))
+	if _mission != null:
+		_mission.player_left(player)
 	for d: Dictionary in [_members, _last_seq, _replies, _recent]:
 		d.erase(peer_id)
 	revision += 1
@@ -112,6 +119,8 @@ func tick(now: int) -> Array[Dictionary]:
 	var events: Array[Dictionary] = _grid.step()
 	_meter.record_events(events, _grid)
 	events.append_array(_interaction.tick(now))
+	if _mission != null:
+		events.append_array(_mission.tick(now))  # after the grid step, so latches and verification see this tick's supply
 	if now - _last_checkpoint_tick >= int(_limits["checkpoint_interval_ticks"]):
 		_last_checkpoint_tick = now
 		events.append({"type": "checkpoint_due", "reason": "interval", "tick": now})
@@ -240,6 +249,11 @@ func _dispatch(player: String, msg: Dictionary) -> Dictionary:
 		return _refuse("UNSUPPORTED_INTENT", "%s is not available in this build" % kind, [])
 	if not INTENTS.has(kind):
 		return _refuse("UNKNOWN_INTENT", "unknown intent %s" % kind, [])
+	if kind == "request_extract":
+		if _mission == null:
+			return _refuse("NO_MISSION", "no contract is running", [])
+		var action: Variant = payload.get("action")
+		return _mission.request_extract(player, action if action is String else "")
 	var in_range: bool = _range_check.call(player, entity)
 	match kind:
 		"toggle_switch":
@@ -302,7 +316,28 @@ func authoritative_state() -> Dictionary:
 	repairs.erase("revision")
 	var items: Dictionary = _equipment.canonical_state()
 	items.erase("revision")
-	return {"grid": _grid.canonical_state(), "repairs": repairs, "equipment": items, "meter": _meter.canonical_state()}
+	var state: Dictionary = {"grid": _grid.canonical_state(), "repairs": repairs, "equipment": items, "meter": _meter.canonical_state()}
+	if _mission != null:
+		state["mission"] = _mission.canonical_state()
+	return state
+
+
+## Attach the contract's mission director (V02). Players already admitted are reported to it.
+func set_mission(mission: MissionDirector) -> void:
+	_mission = mission
+	for peer: int in _members:
+		_mission.player_joined(_members[peer])
+
+
+## Host movement reports zone presence; leaving the extraction zone cancels a running countdown (MIS04).
+func set_in_zone(player: String, zone: String, inside: bool) -> Array[Dictionary]:
+	if _mission == null:
+		return []
+	var before: String = state_hash()
+	var events: Array[Dictionary] = _mission.set_in_zone(player, zone, inside)
+	if state_hash() != before:
+		revision += 1
+	return events
 
 
 func member(peer_id: int) -> String:
