@@ -21,6 +21,8 @@
 *.wav binary
 *.glb binary
 *.exe binary
+*.ttf binary
+*.otf binary
 
 # Large originals live in art_source/ (outside the exported asset tree) and go through Git LFS.
 # Requires `git lfs install` once per machine. Cloud sessions do not need these files.

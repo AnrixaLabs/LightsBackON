@@ -54,3 +54,22 @@ surfaces and on HUD panels composited over a white (bright restored window) and 
    - Source: `art_source/ui_icons/*.svg` at the commit that adds them.
    - License: project-owned. No third-party icon pack, font or image was used or traced.
    - Approval: approved by the owner (Levon), 30 Oct 2026, from the review sheet `docs/evidence/img/F05_icon_sheet.png`.
+
+## Addendum F05 (30 Oct 2026): UI font
+The owner chose **Noto Sans** (30 Oct 2026, desktop session), as the blueprint suggests on p.11.
+1. **Asset record (blueprint p.40-41 step 1):**
+   - File: `assets/fonts/noto_sans/NotoSans-Variable.ttf`, the upright variable font with `wdth` and `wght` axes, Noto Sans v2.015.
+     Its original name is `NotoSans[wdth,wght].ttf`.
+   - Source: google/fonts at commit 8b0a1d0f5983c89bc2b93f1b5fb55f9e252744b5 (`ofl/notosans/`). Upstream is notofonts/latin-greek-cyrillic
+     at c4a321e.
+   - Integrity: SHA-256 bfb7bb69...6b3d. The git blob hashes of the font and `OFL.txt` match the hashes GitHub's API reports for that commit.
+   - Creator: "Copyright 2022 The Noto Project Authors".
+   - License: **SIL Open Font License 1.1**. `OFL.txt` sits next to the font.
+   - The record is in `content/ui/tokens.json` `font`. A test checks that the committed file still hashes to it.
+2. **Use:** body text uses the default weight (400); buttons and headings use the same file at 600 through `FontVariation`. No italic file
+   was added, because the UI has no italic style.
+3. **OFL obligations for release:** ship `OFL.txt` with the font, so the export filter must include it (or put the license text in the credits).
+   The font must not be sold on its own, and the reserved names do not apply because the font is not modified.
+   The release checklist (R milestone) must check this.
+4. **Not yet covered:** Simplified Chinese (blueprint p.11 release language) needs Noto Sans SC as a fallback font. That file is about 10x larger,
+   so it waits for the localization task and the owner's go-ahead.

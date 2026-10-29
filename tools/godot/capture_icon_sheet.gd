@@ -1,11 +1,12 @@
 extends SceneTree
 ## Renders every UI02 icon for the owner's review: a 72 px view of the source, then the committed 48/32/24 px exports, all tinted with the
 ## state's token color on the opaque HUD panel, plus the 24 px export in plain text color (reads without color). Labels show the
-## localization key and icon id (the engine's default font; no project font is chosen yet). Needs a real GPU window, not headless.
+## localization key and icon id in the token theme's font (Noto Sans). Needs a real GPU window, not headless.
 ##   godot --path . --import --headless; godot --path . --resolution 1920x1080 -s "$PWD/tools/godot/capture_icon_sheet.gd" -- --out=build/icon_sheet.png
 ## Exit 0 = PNG written.
 
 const IconRaster := preload("res://scripts/ui/icon_raster.gd")
+const ThemeTokens := preload("res://scripts/ui/theme_tokens.gd")
 const COLUMNS: int = 6
 const PREVIEW_PX: int = 72
 const LABEL_PX: int = 15
@@ -23,6 +24,7 @@ func _initialize() -> void:
 	var bg := ColorRect.new()
 	bg.color = Color(str(colors["background"]))
 	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+	bg.theme = ThemeTokens.build(tokens)
 	root.add_child(bg)
 	var margin := MarginContainer.new()
 	margin.set_anchors_preset(Control.PRESET_FULL_RECT)
