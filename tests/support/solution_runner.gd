@@ -51,6 +51,7 @@ static func build(contract_dir: String, players: Array, tools: Array, mission_ov
 	var peer: int = FIRST_PEER
 	for p: Variant in players:
 		host.admit(peer, str(p), 1, CONTENT_REVISION, typed_tools)
+		host.confirm_synced(peer, host.revision)  # solo/in-process: the "client" already sees the host state
 		peers[str(p)] = peer
 		peer += 1
 	ctx.merge({"host": host, "grid": grid, "meter": meter, "interaction": inter, "equipment": eq, "mission": mission, "comms": comms,

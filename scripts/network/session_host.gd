@@ -17,6 +17,8 @@ const Equipment := preload("res://scripts/interaction/equipment_service.gd")
 const MissionDirector := preload("res://scripts/simulation/mission_director.gd")
 const Comms := preload("res://scripts/network/comms_service.gd")
 
+const HOST_PEER: int = 1
+const CHUNK_ENVELOPE_BYTES: int = 96  # {"type":"snapshot_chunk","index":N,"data":"..."} around the escaped slice
 const ENVELOPE_KEYS: Array[String] = ["session", "seq", "type", "entity", "payload"]
 const INTENTS: Array[String] = ["inspect", "request_lock", "release", "heartbeat", "repair_step", "equip", "toggle_switch", "place_item",
 	"request_extract", "recover_self", "ping", "chat"]
@@ -39,6 +41,8 @@ var _members: Dictionary = {}  # transport peer id (int) -> player id
 var _last_seq: Dictionary = {}  # peer id -> highest accepted seq
 var _replies: Dictionary = {}  # peer id -> {seq: reply} (bounded by dedupe_window)
 var _recent: Dictionary = {}  # peer id -> Array[int] ticks of accepted commands (rate window)
+var _synced: Dictionary = {}  # peer id -> true once the peer confirmed it applied a snapshot (revision barrier)
+var _join_revision: Dictionary = {}  # peer id -> host revision at admission
 var _range_check: Callable  # (player_id: String, entity_id: String) -> bool, from host movement
 var _position_of: Callable = func(_p: String) -> Vector3i: return Vector3i.ZERO  # host movement: player position in cm
 var _now: int = 0
@@ -53,7 +57,7 @@ func configure(limits: Dictionary, protocol_version: int, content_revision: Stri
 	_limits = {}
 	var errs: Array[Dictionary] = []
 	for key: String in ["max_message_bytes", "max_payload_keys", "max_string_length", "dedupe_window", "rate_limit_commands",
-			"rate_limit_window_ticks", "checkpoint_interval_ticks", "snapshot_chunk_bytes"]:
+			"rate_limit_window_ticks", "checkpoint_interval_ticks", "snapshot_chunk_bytes", "max_players"]:
 		var v: Variant = PowerGrid.to_int(limits.get(key))
 		if v == null or int(v) < 1:
 			errs.append(PowerGrid.diag("BAD_VALUE", "network limit %s must be an int >= 1" % key, []))
@@ -86,8 +90,16 @@ func admit(peer_id: int, player_id: String, protocol_version: int, content_revis
 		return _refuse("PROTOCOL_MISMATCH", "this game version uses protocol %d, the host uses %d" % [protocol_version, _protocol_version], [])
 	if content_revision != _content_revision:
 		return _refuse("CONTENT_MISMATCH", "content differs from the host's; update the game", [])
-	if _members.has(peer_id) or _members.values().has(player_id) or not PowerGrid.is_valid_id(player_id):
-		return _refuse("ALREADY_JOINED", "peer or player is already in the session", [])
+	if _members.has(peer_id) or not PowerGrid.is_valid_id(player_id):
+		return _refuse("ALREADY_JOINED", "peer is already in the session", [])
+	var replaced: Array[Dictionary] = []
+	for old_peer: int in _members.keys():
+		if _members[old_peer] == player_id:
+			# same participant on a new connection (identity comes from the transport): the stale connection is dropped
+			# first, so the session never holds two actors for one player
+			replaced = remove(old_peer)
+	if _members.size() >= int(_limits["max_players"]):
+		return _refuse("SESSION_FULL", "this crew already has %d players" % _limits["max_players"], [])
 	_members[peer_id] = player_id
 	_last_seq[peer_id] = 0
 	_replies[peer_id] = {}
@@ -96,7 +108,22 @@ func admit(peer_id: int, player_id: String, protocol_version: int, content_revis
 	if _mission != null:
 		_mission.player_joined(player_id)
 	revision += 1
-	return {"ok": true, "session": session_id, "player": player_id, "revision": revision}
+	_join_revision[peer_id] = revision
+	if peer_id == HOST_PEER:
+		_synced[peer_id] = true  # the host player reads the authoritative state directly
+	return {"ok": true, "session": session_id, "player": player_id, "revision": revision, "needs_snapshot": peer_id != HOST_PEER,
+		"replaced": replaced}
+
+
+## Revision barrier: a joining peer may send commands only after confirming it applied a snapshot at or after its
+## admission revision (it sat in the joining screen until then).
+func confirm_synced(peer_id: int, applied_revision: int) -> Dictionary:
+	if not _members.has(peer_id):
+		return _refuse("UNKNOWN_PEER", "sender is not a member of this session", [])
+	if applied_revision < int(_join_revision[peer_id]) or applied_revision > revision:
+		return _refuse("STALE_SNAPSHOT", "the applied snapshot is older than this connection", [])
+	_synced[peer_id] = true
+	return {"ok": true, "revision": revision}
 
 
 ## Transport reports a disconnect: locks release and carried items return to a pad.
@@ -110,7 +137,7 @@ func remove(peer_id: int) -> Array[Dictionary]:
 		_mission.player_left(player)
 	if _comms != null:
 		events.append_array(_comms.player_left(player))
-	for d: Dictionary in [_members, _last_seq, _replies, _recent]:
+	for d: Dictionary in [_members, _last_seq, _replies, _recent, _synced, _join_revision]:
 		d.erase(peer_id)
 	revision += 1
 	return events
@@ -159,8 +186,19 @@ func snapshot() -> Dictionary:
 	var text: String = PowerGrid.serialize(_published_state)
 	var size: int = int(_limits["snapshot_chunk_bytes"])
 	var chunks: Array[Dictionary] = []
-	for i: int in range(0, text.length(), size):
-		chunks.append({"type": "snapshot_chunk", "index": chunks.size(), "data": text.substr(i, size)})
+	# bound the encoded message, not the raw slice: inside JSON every quote and backslash doubles (the text is ASCII)
+	var budget: int = size - CHUNK_ENVELOPE_BYTES
+	var start: int = 0
+	var used: int = 0
+	for i: int in text.length():
+		var c: int = text.unicode_at(i)
+		var cost: int = 2 if c == 0x22 or c == 0x5C else 1
+		if used + cost > budget:
+			chunks.append({"type": "snapshot_chunk", "index": chunks.size(), "data": text.substr(start, i - start)})
+			start = i
+			used = 0
+		used += cost
+	chunks.append({"type": "snapshot_chunk", "index": chunks.size(), "data": text.substr(start)})
 	var manifest: Dictionary = {"type": "snapshot_manifest", "revision": _published_revision, "hash": text.sha256_text(),
 		"bytes": text.length(), "chunks": chunks.size(), "protocol_version": _protocol_version, "content_revision": _content_revision}
 	return {"deltas": [] if flushed.is_empty() else [flushed], "manifest": manifest, "chunks": chunks}
@@ -196,6 +234,8 @@ func receive(peer_id: int, bytes: PackedByteArray) -> Dictionary:
 		return shape
 	if not _members.has(peer_id):
 		return _refuse("UNKNOWN_PEER", "sender is not a member of this session", [])
+	if not _synced.has(peer_id):
+		return _refuse("NOT_SYNCED", "still joining: apply the snapshot first", [])
 	if msg["session"] != session_id:
 		return _refuse("WRONG_SESSION", "command is for another session", [])
 	var seq: int = int(PowerGrid.to_int(msg["seq"]))
@@ -338,7 +378,12 @@ func authoritative_state() -> Dictionary:
 	repairs.erase("revision")
 	var items: Dictionary = _equipment.canonical_state()
 	items.erase("revision")
-	var state: Dictionary = {"grid": _grid.canonical_state(), "repairs": repairs, "equipment": items, "meter": _meter.canonical_state()}
+	var crew: Array[String] = []
+	crew.assign(_members.values())
+	crew.sort()
+	# the crew list is authoritative too, so a duplicate actor after a reconnect would show up as a hash mismatch
+	var state: Dictionary = {"grid": _grid.canonical_state(), "repairs": repairs, "equipment": items, "meter": _meter.canonical_state(),
+		"crew": crew}
 	if _mission != null:
 		state["mission"] = _mission.canonical_state()
 	return state

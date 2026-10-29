@@ -489,8 +489,12 @@
       "milestone_name": "Playable slice",
       "env": "split",
       "env_note": "Real remote join check local.",
-      "status": "NOT_STARTED",
-      "evidence_file": "docs/evidence/V04.md"
+      "status": "CLOUD_VERIFIED",
+      "evidence_file": "docs/evidence/V04.md",
+      "pending_local": [
+        "real remote join during pump/repair and reconnect on the F02 Steam tuple between two networks (NET04, NET06)",
+        "joining screen UI"
+      ]
     },
     {
       "id": "V05",
