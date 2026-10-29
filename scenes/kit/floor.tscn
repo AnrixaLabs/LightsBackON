@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://j5en1ygh3evn"]
+
+[sub_resource type="StandardMaterial3D" id="mat_floor"]
+albedo_color = Color(0.43137255, 0.4627451, 0.4862745, 1)
+
+[sub_resource type="BoxMesh" id="mesh_Slab"]
+size = Vector3(4, 0.25, 4)
+
+[sub_resource type="BoxShape3D" id="shape_01"]
+size = Vector3(4, 0.25, 4)
+
+[node name="Floor" type="StaticBody3D" unique_id=1871764824]
+
+[node name="Slab" type="MeshInstance3D" parent="." unique_id=1423767352]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.125, 2)
+material_override = SubResource("mat_floor")
+mesh = SubResource("mesh_Slab")
+
+[node name="Collision01" type="CollisionShape3D" parent="." unique_id=284566563]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.125, 2)
+shape = SubResource("shape_01")

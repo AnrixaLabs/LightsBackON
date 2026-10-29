@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dimv0p8syqb16"]
+
+[sub_resource type="StandardMaterial3D" id="mat_trim"]
+albedo_color = Color(0.37254903, 0.4117647, 0.44313726, 1)
+
+[sub_resource type="BoxMesh" id="mesh_Post"]
+size = Vector3(0.25, 4, 0.25)
+
+[sub_resource type="BoxShape3D" id="shape_01"]
+size = Vector3(0.25, 4, 0.25)
+
+[node name="Corner" type="StaticBody3D" unique_id=1758577126]
+
+[node name="Post" type="MeshInstance3D" parent="." unique_id=246607299]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 2, 0.125)
+material_override = SubResource("mat_trim")
+mesh = SubResource("mesh_Post")
+
+[node name="Collision01" type="CollisionShape3D" parent="." unique_id=168784586]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 2, 0.125)
+shape = SubResource("shape_01")

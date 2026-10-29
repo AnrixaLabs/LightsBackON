@@ -148,10 +148,11 @@
       "status": "CLOUD_VERIFIED",
       "evidence_file": "docs/evidence/F05.md",
       "pending_local": [
-        "4 m kit modules + worker silhouette imported in the editor at 1 unit = 1 m",
+        "owner approval of kit silhouette and scale (docs/evidence/img/F05_kit_lineup.png)",
+        "11th ENV01 kit piece: blueprint p.40 counts 11, p.11 names 10",
         "owner-approved licensed font",
-        "icon art from status_states.json",
-        "contrast on rendered screenshots"
+        "icon art from status_states.json (SVG 24/32/48 px)",
+        "contrast on a rendered HUD over the scene (V07)"
       ]
     },
     {

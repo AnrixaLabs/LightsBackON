@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://e88hbg4w8avb"]
+
+[sub_resource type="StandardMaterial3D" id="mat_wall"]
+albedo_color = Color(0.54901963, 0.5803922, 0.60784316, 1)
+
+[sub_resource type="BoxMesh" id="mesh_Below"]
+size = Vector3(4, 0.6, 0.25)
+
+[sub_resource type="BoxMesh" id="mesh_Above"]
+size = Vector3(4, 1.6, 0.25)
+
+[sub_resource type="BoxMesh" id="mesh_Left"]
+size = Vector3(1.25, 1.8, 0.25)
+
+[sub_resource type="BoxMesh" id="mesh_Right"]
+size = Vector3(1.25, 1.8, 0.25)
+
+[sub_resource type="StandardMaterial3D" id="mat_panel_recess"]
+albedo_color = Color(0.29411766, 0.33333334, 0.36862746, 1)
+
+[sub_resource type="BoxMesh" id="mesh_RecessBack"]
+size = Vector3(1.5, 1.8, 0.1)
+
+[sub_resource type="BoxShape3D" id="shape_01"]
+size = Vector3(4, 0.6, 0.25)
+
+[sub_resource type="BoxShape3D" id="shape_02"]
+size = Vector3(4, 1.6, 0.25)
+
+[sub_resource type="BoxShape3D" id="shape_03"]
+size = Vector3(1.25, 1.8, 0.25)
+
+[sub_resource type="BoxShape3D" id="shape_04"]
+size = Vector3(1.25, 1.8, 0.25)
+
+[sub_resource type="BoxShape3D" id="shape_05"]
+size = Vector3(1.5, 1.8, 0.1)
+
+[node name="ServicePanelRecess" type="StaticBody3D" unique_id=392980350]
+
+[node name="Below" type="MeshInstance3D" parent="." unique_id=1603702641]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.3, 0.125)
+material_override = SubResource("mat_wall")
+mesh = SubResource("mesh_Below")
+
+[node name="Above" type="MeshInstance3D" parent="." unique_id=1602412389]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3.2, 0.125)
+material_override = SubResource("mat_wall")
+mesh = SubResource("mesh_Above")
+
+[node name="Left" type="MeshInstance3D" parent="." unique_id=2066289347]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.625, 1.5, 0.125)
+material_override = SubResource("mat_wall")
+mesh = SubResource("mesh_Left")
+
+[node name="Right" type="MeshInstance3D" parent="." unique_id=1622815446]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.375, 1.5, 0.125)
+material_override = SubResource("mat_wall")
+mesh = SubResource("mesh_Right")
+
+[node name="RecessBack" type="MeshInstance3D" parent="." unique_id=371412718]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, 0.2)
+material_override = SubResource("mat_panel_recess")
+mesh = SubResource("mesh_RecessBack")
+
+[node name="Collision01" type="CollisionShape3D" parent="." unique_id=1102591269]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.3, 0.125)
+shape = SubResource("shape_01")
+
+[node name="Collision02" type="CollisionShape3D" parent="." unique_id=1102591270]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3.2, 0.125)
+shape = SubResource("shape_02")
+
+[node name="Collision03" type="CollisionShape3D" parent="." unique_id=1102591271]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.625, 1.5, 0.125)
+shape = SubResource("shape_03")
+
+[node name="Collision04" type="CollisionShape3D" parent="." unique_id=1102591272]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.375, 1.5, 0.125)
+shape = SubResource("shape_04")
+
+[node name="Collision05" type="CollisionShape3D" parent="." unique_id=1102591273]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, 0.2)
+shape = SubResource("shape_05")
+
+[node name="PanelAnchor" type="Marker3D" parent="." unique_id=883303715]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, 0.15)
