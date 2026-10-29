@@ -15,3 +15,10 @@
 4. **Recovery** (van menu) works from anywhere: stop, disconnect every route, return the item to `recovery_anchor`. It never touches repairs or supplies.
 5. **Carrier disconnect** returns the item to the last anchor it stood on (NET05 logic). Movement while carrying (2.8 m/s) is presentation/player-controller work.
 6. **Stowed** = every portable item at a storage anchor (C01 extraction precondition). No fuel model in C01.
+
+## Addendum V03 (29 Oct 2026): drops and player recovery
+7. **Drop** (`place_item` action `drop`): the carrier lets go; the item snaps to the nearest free anchor by integer-cm distance from the host's
+   own position for that player (ties by anchor ID; storage anchors are always free, work pads hold one item). Client payload positions are
+   ignored. Anchors carry `position_cm`; C01 values are placeholders until V01. Without positions the item returns to its last anchor.
+8. **Player recovery** (`recover_self` intent, van menu): the player returns to the van; their repair locks release (`player_recovered`), a carried
+   item returns to its last anchor; grid, repairs and supplies are untouched.

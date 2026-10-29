@@ -463,8 +463,12 @@
       "milestone_name": "Playable slice",
       "env": "split",
       "env_note": "",
-      "status": "NOT_STARTED",
-      "evidence_file": "docs/evidence/V03.md"
+      "status": "CLOUD_VERIFIED",
+      "evidence_file": "docs/evidence/V03.md",
+      "pending_local": [
+        "out-of-bounds detection and van-menu recovery in the V01 graybox",
+        "guest disconnect while carrying over real peers (NET05)"
+      ]
     },
     {
       "id": "V04",

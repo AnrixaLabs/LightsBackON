@@ -26,6 +26,7 @@ const RELEASE_OUT_OF_RANGE: String = "out_of_range"
 const RELEASE_DISCONNECT: String = "disconnect"
 const RELEASE_HEARTBEAT: String = "heartbeat_timeout"
 const RELEASE_COMPLETED: String = "completed"
+const RELEASE_RECOVERED: String = "player_recovered"
 
 var revision: int = 0
 var _grid: PowerGrid
@@ -124,6 +125,11 @@ func disconnect_player(player: String) -> Array[Dictionary]:
 	var events: Array[Dictionary] = _release_where(player, "", RELEASE_DISCONNECT)
 	_players.erase(player)
 	return events
+
+
+## Van-menu player recovery: every lock the player holds is released; repair progress stays.
+func recover_player(player: String) -> Array[Dictionary]:
+	return _release_where(player, "", RELEASE_RECOVERED)
 
 
 ## Host movement check says the player is no longer within interaction range of the repair.
