@@ -25,3 +25,6 @@
 # Large originals live in art_source/ (outside the exported asset tree) and go through Git LFS.
 # Requires `git lfs install` once per machine. Cloud sessions do not need these files.
 art_source/** filter=lfs diff=lfs merge=lfs -text
+# Godot-ignore marker and placeholder in art_source/ stay plain text so a clone without LFS still has them.
+art_source/.gdignore -filter -diff -merge text
+art_source/.gitkeep -filter -diff -merge text

@@ -1,0 +1,5 @@
+{
+  "_note": "Versions recorded in build_manifest.json. 0 = not defined yet; F03 sets protocol_version, G06 sets save_schema_version. Bump on any incompatible change.",
+  "protocol_version": 0,
+  "save_schema_version": 0
+}
