@@ -39,6 +39,10 @@ var _countdown_left: int = -1  # -1 = no countdown running
 var _completed_tick: int = -1
 var _objectives: Array[Dictionary] = []
 var _max_visible: int = 0
+var _optional: Array[String] = []
+var _trip_allowance: int = 0
+var _trips: int = 0
+var _recoveries: int = 0
 var _players: Dictionary = {}  # connected player id -> true
 var _in_zone: Dictionary = {}  # player id -> true
 var _now: int = 0
@@ -82,6 +86,12 @@ func load_definition(definition: Dictionary, grid: PowerGrid, interaction: Inter
 		_countdown_total = int(countdown)
 		_zone = ex["zone"]
 		_max_visible = int(visible)
+	_optional = _consumer_list(definition.get("optional_services", []), nodes, "optional_services", errs)
+	var allowance: Variant = PowerGrid.to_int(definition.get("tutorial_trip_allowance", 0))
+	if allowance == null or int(allowance) < 0:
+		errs.append(PowerGrid.diag("BAD_MISSION", "tutorial_trip_allowance must be an int >= 0", []))
+	else:
+		_trip_allowance = int(allowance)
 	for rec: Variant in definition.get("objectives", []):
 		if not (rec is Dictionary and PowerGrid.is_valid_id(rec.get("id")) and rec.get("text_key") is String and rec.get("done_when") is Dictionary):
 			errs.append(PowerGrid.diag("BAD_MISSION", "objective needs id, text_key, done_when", []))
@@ -159,6 +169,35 @@ func tick(now: int) -> Array[Dictionary]:
 				_completed_tick = now
 				events.append({"type": "mission_complete", "tick": now})
 	return events
+
+
+## Host passes the tick's grid and recovery events here so the results report can count them.
+func note_events(events: Array[Dictionary]) -> void:
+	if _completed_tick >= 0:
+		return
+	for e: Dictionary in events:
+		if e.get("type") == "trip":
+			_trips += 1
+		elif e.get("type") == "player_recovered":
+			_recoveries += 1
+
+
+## Results report (blueprint p.12 scoring): required restored, optional services, trips, crew recoveries, time and
+## equipment collected; stars: 1 completion, 2 all optional services (granted when the contract has none), 3 no
+## preventable branch trips after the tutorial allowance. No speed star. Empty until the mission is complete.
+func results() -> Dictionary:
+	if _completed_tick < 0:
+		return {}
+	var st: Dictionary = _grid.canonical_state()
+	var restored: int = 0
+	for c: String in _required:
+		if _on_grid(c, st):
+			restored += 1
+	var preventable: int = maxi(0, _trips - _trip_allowance)
+	var stars: int = 1 + (1 if _optional.is_empty() else 0) + (1 if preventable == 0 else 0)
+	return {"required_restored": restored, "required_total": _required.size(), "optional_services": [] as Array[String],
+		"optional_total": _optional.size(), "trips": _trips, "preventable_trips": preventable, "crew_recoveries": _recoveries,
+		"ticks": _completed_tick, "equipment_collected": _equipment.all_stowed(), "stars": stars}
 
 
 # ---------- extraction ----------
@@ -269,6 +308,7 @@ func canonical_state() -> Dictionary:
 	for lid: String in _latch_ticks:
 		latch_ticks[lid] = _latch_ticks[lid]
 	return {"schema": SCHEMA, "latch_ticks": latch_ticks, "latched": _latched.duplicate(), "verify_ticks": _verify_ticks,
+		"trips": _trips, "recoveries": _recoveries,
 		"countdown_left": _countdown_left, "completed_tick": _completed_tick, "in_zone": _sorted(_in_zone.keys())}
 
 

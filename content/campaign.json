@@ -1,0 +1,4 @@
+{
+  "_note": "Campaign order (blueprint section 3, p.4). Completing a contract unlocks it and every earlier one on that player's personal board (blueprint p.11).",
+  "contracts": ["C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10", "C11", "C12"]
+}

@@ -581,8 +581,13 @@
       "milestone_name": "Playable slice",
       "env": "cloud",
       "env_note": "",
-      "status": "NOT_STARTED",
-      "evidence_file": "docs/evidence/V08.md"
+      "status": "CLOUD_VERIFIED",
+      "evidence_file": "docs/evidence/V08.md",
+      "pending_local": [
+        "receipts delivered over real peers on the F02 tuple",
+        "results screen UI",
+        "Steam Cloud sync of profile and receipts (H05)"
+      ]
     },
     {
       "id": "V09",
