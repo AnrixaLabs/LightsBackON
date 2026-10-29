@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dwdx4nu0pblpm"]
+
+[sub_resource type="StandardMaterial3D" id="mat_wall"]
+albedo_color = Color(0.54901963, 0.5803922, 0.60784316, 1)
+
+[sub_resource type="BoxMesh" id="mesh_Support"]
+size = Vector3(2.5, 1.75, 2.5)
+
+[sub_resource type="StandardMaterial3D" id="mat_floor"]
+albedo_color = Color(0.43137255, 0.4627451, 0.4862745, 1)
+
+[sub_resource type="BoxMesh" id="mesh_Slab"]
+size = Vector3(2.5, 0.25, 2.5)
+
+[sub_resource type="BoxShape3D" id="shape_01"]
+size = Vector3(2.5, 2, 2.5)
+
+[node name="StairLanding" type="StaticBody3D" unique_id=409091635]
+
+[node name="Support" type="MeshInstance3D" parent="." unique_id=737470672]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 0.875, 1.25)
+material_override = SubResource("mat_wall")
+mesh = SubResource("mesh_Support")
+
+[node name="Slab" type="MeshInstance3D" parent="." unique_id=652137237]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 1.875, 1.25)
+material_override = SubResource("mat_floor")
+mesh = SubResource("mesh_Slab")
+
+[node name="Collision01" type="CollisionShape3D" parent="." unique_id=1036543328]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 1, 1.25)
+shape = SubResource("shape_01")
+
+[node name="EdgeNear" type="Marker3D" parent="." unique_id=209881262]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 2, 0)
+
+[node name="EdgeFar" type="Marker3D" parent="." unique_id=1307856449]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 2, 2.5)
+
+[node name="EdgeLeft" type="Marker3D" parent="." unique_id=209809555]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1.25)
+
+[node name="EdgeRight" type="Marker3D" parent="." unique_id=488524454]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2, 1.25)

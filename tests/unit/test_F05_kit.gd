@@ -6,8 +6,9 @@ extends "res://tests/test_case.gd"
 const KitBuilder := preload("res://scripts/world/kit_builder.gd")
 
 ## Blueprint p.11: "wall, window wall, door wall, corner, roof edge, roof plane, floor, stair flight, railing, service panel recess".
+## p.40 ENV01 counts 11; the owner chose a stair landing as the 11th (30 Oct 2026).
 const BLUEPRINT_PIECES: Array[String] = ["wall", "window_wall", "door_wall", "corner", "roof_edge", "roof_plane", "floor",
-	"stair_flight", "railing", "service_panel_recess"]
+	"stair_flight", "stair_landing", "railing", "service_panel_recess"]
 ## CharacterBody3D's default floor_max_angle; movement has no authored slope limit yet (V01/V05 revisit).
 const MAX_WALKABLE_SLOPE_DEG: float = 45.0
 
@@ -90,6 +91,31 @@ func test_F05_stairs_are_wide_walkable_and_collide_as_a_ramp() -> void:
 	var cols: Array = def["collision"]
 	assert_eq(cols.size(), 1)
 	assert_eq(str(cols[0]["shape"]), "wedge", "one smooth ramp, no step edges to snag on")
+
+
+func test_F05_stair_landing_joins_two_flights_into_one_storey() -> void:
+	var flight: Dictionary = _defs["stair_flight"]
+	var landing: Dictionary = _defs["stair_landing"]
+	var rise: int = int(flight["envelope_cm"][1])
+	var width: int = int(flight["envelope_cm"][0])
+	assert_eq(rise * 2, int(_dims["module_cm"]), "two flights climb one 4 m storey")
+	assert_eq(int(landing["envelope_cm"][1]), rise, "landing surface at one flight's rise")
+	assert_eq(int(landing["envelope_cm"][0]), width, "as wide as a flight")
+	assert_true(int(landing["envelope_cm"][2]) >= width, "deep enough to turn a flight-width route")
+	# a flight's Top meets the landing's near edge when the landing sits at the flight's far end; the next flight leaves from the
+	# far edge (straight) or a side edge (L turn) and climbs the same rise again
+	var top: Array = _anchor(flight, "Top")
+	var landing_origin := Vector3i(0, 0, int(flight["envelope_cm"][2]))
+	var near: Array = _anchor(landing, "EdgeNear")
+	assert_eq(Vector3i(int(near[0]), int(near[1]), int(near[2])) + landing_origin, Vector3i(int(top[0]), int(top[1]), int(top[2])),
+		"flight Top = landing EdgeNear")
+	for edge: String in ["EdgeNear", "EdgeFar", "EdgeLeft", "EdgeRight"]:
+		assert_eq(int(_anchor(landing, edge)[1]), rise, "%s at the walking surface" % edge)
+	var cols: Array = landing["collision"]
+	assert_eq(cols.size(), 1, "one box, no seams under the feet")
+	assert_eq(int(cols[0]["min"][1]) + int(cols[0]["size"][1]), rise, "collision top = walking surface")
+	var underside: int = rise - int(_parts(landing)["Slab"]["size"][1])
+	assert_true(underside < int(_defs["worker_silhouette"]["envelope_cm"][1]), "%d cm underside is lower than a worker, so it is solid" % underside)
 
 
 func test_F05_service_panel_sits_at_interaction_height_and_reach() -> void:

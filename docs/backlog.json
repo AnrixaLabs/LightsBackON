@@ -149,7 +149,6 @@
       "status": "CLOUD_VERIFIED",
       "evidence_file": "docs/evidence/F05.md",
       "pending_local": [
-        "11th ENV01 kit piece: blueprint p.40 counts 11, p.11 names 10",
         "contrast on a rendered HUD over the scene (V07)"
       ]
     },
