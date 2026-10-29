@@ -10,6 +10,9 @@ Until F02 starts, the cloud continues with the logic-only V tasks (ADR-011), cei
 everything that waits on F02. Actionable without Steam: F05 local part (block kit, silhouette, icons, rendered contrast; font = owner decision),
 G06 real-process kill on the exported build, V01 graybox (prep without G08), then V07.
 
+**30 Oct 2026, later:** F05 is DONE (rendered contrast passed with V07). V07 (field HUD + network tablet) is merged, CLOUD_VERIFIED. The owner
+deferred the V07 look-and-feel reviews and provisionally approved them; they are listed in section 5. Next actionable local task: A04.
+
 Updated by every session that leaves a task CLOUD_VERIFIED. Source of truth is still `python3 tools/backlog.py next --env local`;
 this file adds the exact steps. Tick a box only when the evidence file is updated. Order = dependency order.
 
@@ -56,10 +59,30 @@ All of these pass in cloud/CI on the ENet **development** transport or in-proces
 
 ## 3. Editor-side checks (when the matching task reaches CLOUD_VERIFIED)
 
-- [ ] **F05** (art_ui, split): import the 4 m block kit at 1 unit = 1 m, check theme tokens render with WCAG AA contrast (ADR-004). Not started.
+- [x] **F05** (art_ui, split): block kit at 1 unit = 1 m, owner-approved icons and font, rendered HUD contrast AA (252 probes, GTX 1650, with V07).
+  DONE 30 Oct 2026, see docs/evidence/F05.md part 5.
 - [ ] **F06** foundation gate: export evidence + gate report; owner decision. Claude stops here for you.
 
 ## 4. Later local-only tasks (not yet unblocked)
 
-G07/G08 (commands + grid on real peers, grid-toy gate), V01 graybox, V07 field/tablet UI, V09 slice gate, all art/audio/profiling (target GTX 1650 class,
+G07/G08 (commands + grid on real peers, grid-toy gate), V09 slice gate, all art/audio/profiling (target GTX 1650 class,
 report P95 frame time), controller-only run (UX01), studies with testers (A05, D07).
+
+## 5. Delayed human reviews (provisionally approved; look when convenient)
+
+The owner chose to review these later and **provisionally approved them on 30 Oct 2026**, so work continues on top of them. A provisional
+approval is not a test result: the item stays open here until the owner has looked. If the look asks for a change, open a fix task
+(the files to touch are listed). Tick a box only after the owner's look, and record it in the evidence file.
+
+- [ ] **V07 objective icons** (`icon_objective_done`, `_active`, `_pending`): look at `docs/evidence/img/V07_objective_icons.png`.
+  Change: `art_source/ui_icons/icon_objective_*.svg`, then `tools/godot/export_icons.gd` and commit SVG + PNG exports together.
+- [ ] **V07 readability at 150 %**: HUD screenshots `docs/evidence/img/V07_hud_*_150.png` and tablet `V07_tablet_150.png`. Points to judge:
+  - the compact tool bar (numbers + icons, selected name above), used when the full bar would run under the prompt;
+  - prompt width kept at the reference 560 px on screen;
+  - the tablet opening at full text size with pan (Zoom out shows the whole network smaller).
+  Rules are in the ADR-004 V07 addendum point 3/5.
+- [ ] **V01 graybox look**: the renders and the five layout interpretations in `docs/evidence/V01.md` (listed in V01's pending items).
+
+Not deferrable by approval (these are test runs, not judgements; they stay in sections 2b-4):
+- [ ] **UX01 controller-only run** of the HUD and tablet with a real pad once a player controller scene exists (stick focus, pan, zoom,
+  evidence-panel scrolling). The automated focus-graph test passes; a person must still press the buttons.
