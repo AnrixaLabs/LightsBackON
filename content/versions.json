@@ -1,5 +1,5 @@
 {
-  "_note": "Versions recorded in build_manifest.json. 0 = not defined yet; F03 sets protocol_version, save_schema_version 1 = G06 save envelope. Bump on any incompatible change.",
-  "protocol_version": 0,
+  "_note": "Versions recorded in build_manifest.json. 0 = not defined yet; protocol_version 1 = F03 command envelope, save_schema_version 1 = G06 save envelope. Bump on any incompatible change.",
+  "protocol_version": 1,
   "save_schema_version": 1
 }

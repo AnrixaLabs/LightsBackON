@@ -1,0 +1,256 @@
+extends RefCounted
+## Host command authority (F03; blueprint p.9-10 "Host authority and command protocol", CLAUDE.md section 4).
+##
+## Every action, including the host player's own, arrives here as bytes plus the sender's transport peer ID.
+## The host never trusts identity, session or authority claims inside the payload. Order of checks:
+## size -> parse -> envelope shape -> membership (peer admitted) -> session -> sequence (dedupe) -> rate -> entity ->
+## dispatch to the owning service (grid switch, meter, interaction, equipment). Duplicates (same peer, already seen
+## seq) get the original reply back with "duplicate": true and are never applied twice. Every reply carries the host
+## revision, which increments once per accepted command that changed authoritative state.
+##
+## Transport-agnostic and pure: no scene tree, no autoloads. The transport adapter delivers (peer_id, bytes).
+
+const PowerGrid := preload("res://scripts/simulation/power_grid.gd")
+const MeterModel := preload("res://scripts/simulation/meter_model.gd")
+const Interaction := preload("res://scripts/interaction/interaction_service.gd")
+const Equipment := preload("res://scripts/interaction/equipment_service.gd")
+
+const ENVELOPE_KEYS: Array[String] = ["session", "seq", "type", "entity", "payload"]
+const INTENTS: Array[String] = ["inspect", "request_lock", "release", "heartbeat", "repair_step", "equip", "toggle_switch", "place_item"]
+const DEFERRED_INTENTS: Array[String] = ["ping", "ready", "request_extract"]  # V02/V06; refused until implemented
+const PLACE_ACTIONS: Array[String] = ["pickup", "place", "connect", "disconnect", "start", "stop", "reset_breaker", "recover"]
+
+var session_id: String = ""
+var revision: int = 0
+var _protocol_version: int = 0
+var _content_revision: String = ""
+var _limits: Dictionary = {}
+var _grid: PowerGrid
+var _meter: MeterModel
+var _interaction: Interaction
+var _equipment: Equipment
+var _switches: Dictionary = {}  # switch id -> {"target", "field"}
+var _members: Dictionary = {}  # transport peer id (int) -> player id
+var _last_seq: Dictionary = {}  # peer id -> highest accepted seq
+var _replies: Dictionary = {}  # peer id -> {seq: reply} (bounded by dedupe_window)
+var _recent: Dictionary = {}  # peer id -> Array[int] ticks of accepted commands (rate window)
+var _range_check: Callable  # (player_id: String, entity_id: String) -> bool, from host movement
+var _now: int = 0
+
+
+func configure(limits: Dictionary, protocol_version: int, content_revision: String, new_session_id: String,
+		grid: PowerGrid, meter: MeterModel, interaction: Interaction, equipment: Equipment,
+		switches_def: Dictionary, range_check: Callable) -> Array[Dictionary]:
+	_limits = {}
+	var errs: Array[Dictionary] = []
+	for key: String in ["max_message_bytes", "max_payload_keys", "max_string_length", "dedupe_window", "rate_limit_commands", "rate_limit_window_ticks"]:
+		var v: Variant = PowerGrid.to_int(limits.get(key))
+		if v == null or int(v) < 1:
+			errs.append(PowerGrid.diag("BAD_VALUE", "network limit %s must be an int >= 1" % key, []))
+		else:
+			_limits[key] = int(v)
+	for rec: Variant in switches_def.get("switches", []):
+		var s: Dictionary = rec if rec is Dictionary else {}
+		var target: Variant = s.get("target")
+		var field: Variant = s.get("field")
+		var nodes: Dictionary = grid.canonical_state()["nodes"]
+		if not PowerGrid.is_valid_id(s.get("id")) or not (target is String and nodes.has(target)) \
+				or not (field is String and (PowerGrid.SETTABLE[nodes[target]["kind"]] as Array).has(field)):
+			errs.append(PowerGrid.diag("BAD_SWITCH", "switch %s needs an ID and a settable grid field" % str(s.get("id")), []))
+		else:
+			_switches[s["id"]] = {"target": target, "field": field}
+	session_id = new_session_id
+	_protocol_version = protocol_version
+	_content_revision = content_revision
+	_grid = grid
+	_meter = meter
+	_interaction = interaction
+	_equipment = equipment
+	_range_check = range_check
+	return errs
+
+
+## Join handshake (NET08 logic): rejects before spawning on any version mismatch, with a reason.
+func admit(peer_id: int, player_id: String, protocol_version: int, content_revision: String, tools: Array[String]) -> Dictionary:
+	if protocol_version != _protocol_version:
+		return _refuse("PROTOCOL_MISMATCH", "this game version uses protocol %d, the host uses %d" % [protocol_version, _protocol_version], [])
+	if content_revision != _content_revision:
+		return _refuse("CONTENT_MISMATCH", "content differs from the host's; update the game", [])
+	if _members.has(peer_id) or _members.values().has(player_id) or not PowerGrid.is_valid_id(player_id):
+		return _refuse("ALREADY_JOINED", "peer or player is already in the session", [])
+	_members[peer_id] = player_id
+	_last_seq[peer_id] = 0
+	_replies[peer_id] = {}
+	_recent[peer_id] = [] as Array[int]
+	_interaction.join(player_id, tools)
+	revision += 1
+	return {"ok": true, "session": session_id, "player": player_id, "revision": revision}
+
+
+## Transport reports a disconnect: locks release and carried items return to a pad.
+func remove(peer_id: int) -> Array[Dictionary]:
+	if not _members.has(peer_id):
+		return []
+	var player: String = _members[peer_id]
+	var events: Array[Dictionary] = _interaction.disconnect_player(player)
+	events.append_array(_equipment.disconnect_player(player))
+	for d: Dictionary in [_members, _last_seq, _replies, _recent]:
+		d.erase(peer_id)
+	revision += 1
+	return events
+
+
+func tick(now: int) -> Array[Dictionary]:
+	_now = now
+	var events: Array[Dictionary] = _interaction.tick(now)
+	if not events.is_empty():
+		revision += 1
+	return events
+
+
+## The single entry point for commands. peer_id comes from the transport, never from the bytes.
+func receive(peer_id: int, bytes: PackedByteArray) -> Dictionary:
+	if bytes.size() > int(_limits["max_message_bytes"]):
+		return _refuse("TOO_LARGE", "command exceeds %d bytes" % _limits["max_message_bytes"], [])
+	var json: JSON = JSON.new()
+	if json.parse(bytes.get_string_from_utf8()) != OK or not json.data is Dictionary:
+		return _refuse("MALFORMED", "command is not a JSON object", [])
+	var msg: Dictionary = json.data
+	var shape: Dictionary = _check_shape(msg)
+	if not shape.is_empty():
+		return shape
+	if not _members.has(peer_id):
+		return _refuse("UNKNOWN_PEER", "sender is not a member of this session", [])
+	if msg["session"] != session_id:
+		return _refuse("WRONG_SESSION", "command is for another session", [])
+	var seq: int = int(PowerGrid.to_int(msg["seq"]))
+	var cache: Dictionary = _replies[peer_id]
+	if seq <= int(_last_seq[peer_id]):
+		if cache.has(seq):
+			var again: Dictionary = (cache[seq] as Dictionary).duplicate(true)
+			again["duplicate"] = true
+			return again
+		return _refuse("STALE_SEQUENCE", "sequence %d is older than the dedupe window" % seq, [])
+	var window: Array[int] = _recent[peer_id]
+	while not window.is_empty() and _now - window[0] >= int(_limits["rate_limit_window_ticks"]):
+		window.pop_front()
+	if window.size() >= int(_limits["rate_limit_commands"]):
+		return _refuse("RATE_LIMITED", "too many commands; slow down", [])
+	# from here the sequence is consumed: a resend of this seq returns this exact reply
+	window.append(_now)
+	_last_seq[peer_id] = seq
+	var before: String = state_hash()
+	var reply: Dictionary = _dispatch(_members[peer_id], msg)
+	if reply.get("ok", false) and state_hash() != before:
+		revision += 1
+	reply["seq"] = seq
+	reply["revision"] = revision
+	cache[seq] = reply.duplicate(true)
+	cache.erase(seq - int(_limits["dedupe_window"]))
+	return reply
+
+
+func _check_shape(msg: Dictionary) -> Dictionary:
+	if msg.size() != ENVELOPE_KEYS.size():
+		return _refuse("MALFORMED", "command needs exactly %s" % str(ENVELOPE_KEYS), [])
+	for key: String in ENVELOPE_KEYS:
+		if not msg.has(key):
+			return _refuse("MALFORMED", "command is missing %s" % key, [])
+	var seq: Variant = PowerGrid.to_int(msg["seq"])
+	if seq == null or int(seq) < 1:
+		return _refuse("MALFORMED", "seq must be an int >= 1", [])
+	if not (msg["session"] is String and msg["type"] is String and msg["entity"] is String and msg["payload"] is Dictionary):
+		return _refuse("MALFORMED", "session, type and entity are strings; payload is an object", [])
+	var payload: Dictionary = msg["payload"]
+	if payload.size() > int(_limits["max_payload_keys"]):
+		return _refuse("TOO_LARGE", "payload has too many fields", [])
+	for k: Variant in payload:
+		var v: Variant = payload[k]
+		if not (v is bool or v is float or (v is String and (v as String).length() <= int(_limits["max_string_length"]))):
+			return _refuse("MALFORMED", "payload values are bools, numbers or short strings", [])
+	return {}
+
+
+func _dispatch(player: String, msg: Dictionary) -> Dictionary:
+	var kind: String = msg["type"]
+	var entity: String = msg["entity"]
+	var payload: Dictionary = msg["payload"]
+	if DEFERRED_INTENTS.has(kind):
+		return _refuse("UNSUPPORTED_INTENT", "%s is not available in this build" % kind, [])
+	if not INTENTS.has(kind):
+		return _refuse("UNKNOWN_INTENT", "unknown intent %s" % kind, [])
+	var in_range: bool = _range_check.call(player, entity)
+	match kind:
+		"toggle_switch":
+			if not _switches.has(entity):
+				return _refuse("UNKNOWN_ENTITY", "no switch %s" % entity, [])
+			if not in_range:
+				return _refuse("NOT_IN_RANGE", "move closer to %s" % entity, [entity])
+			if not payload.get("value") is bool:
+				return _refuse("MALFORMED", "toggle_switch needs a bool value", [entity])
+			var sw: Dictionary = _switches[entity]
+			var res: Dictionary = _grid.apply({"op": "set", "id": sw["target"], "field": sw["field"], "value": payload["value"]})
+			if not res["ok"]:
+				var ids: Array = (res["ids"] as Array).duplicate()
+				ids.append(entity)
+				var refusal: Dictionary = _refuse("GRID_REFUSED", res["message"], ids)
+				refusal["grid_code"] = res["code"]
+				return refusal
+			_meter.observe(_grid)
+			return {"ok": true}
+		"inspect":
+			if not _meter.has_panel(entity):
+				return _refuse("UNKNOWN_ENTITY", "no meter panel %s" % entity, [])
+			if not in_range:
+				return _refuse("NOT_IN_RANGE", "move closer to %s" % entity, [entity])
+			return _meter.inspect(entity, _grid)
+		"equip":
+			return _interaction.handle(player, {"type": "equip", "tool": payload.get("tool", "")})
+		"place_item":
+			var action: Variant = payload.get("action")
+			if not (action is String and PLACE_ACTIONS.has(action)):
+				return _refuse("MALFORMED", "place_item needs an action", [entity])
+			var intent: Dictionary = {"type": action, "item": entity, "in_range": in_range}
+			for key: String in ["anchor", "route"]:
+				if payload.has(key):
+					intent[key] = payload[key]
+			var res: Dictionary = _equipment.handle(player, intent)
+			return _strip(res)
+	# request_lock, release, heartbeat, repair_step go to the repair interaction service
+	var intent: Dictionary = {"type": kind, "repair": entity, "in_range": in_range}
+	if payload.has("step"):
+		intent["step"] = payload["step"]
+	var res: Dictionary = _interaction.handle(player, intent)
+	if res.get("code") == "UNKNOWN_REPAIR":
+		return _refuse("UNKNOWN_ENTITY", "no repair %s" % entity, [])
+	return _strip(res)
+
+
+## Hash of every authoritative state this host owns (ADR-003 canonical bytes); clients compare it (G07).
+func state_hash() -> String:
+	return PowerGrid.serialize(authoritative_state()).sha256_text()
+
+
+func authoritative_state() -> Dictionary:
+	var repairs: Dictionary = _interaction.canonical_state()
+	repairs.erase("revision")
+	var items: Dictionary = _equipment.canonical_state()
+	items.erase("revision")
+	return {"grid": _grid.canonical_state(), "repairs": repairs, "equipment": items, "meter": _meter.canonical_state()}
+
+
+func member(peer_id: int) -> String:
+	return _members.get(peer_id, "")
+
+
+## Service replies carry their own revision counters; the host revision is the only one clients see.
+static func _strip(res: Dictionary) -> Dictionary:
+	var out: Dictionary = res.duplicate(true)
+	out.erase("revision")
+	return out
+
+
+func _refuse(code: String, message: String, ids: Array) -> Dictionary:
+	var d: Dictionary = PowerGrid.diag(code, message, ids)
+	return {"ok": false, "code": code, "key": "network.refused." + code.to_lower(), "message": message, "ids": d["ids"],
+		"revision": revision}

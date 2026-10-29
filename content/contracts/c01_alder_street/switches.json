@@ -1,0 +1,7 @@
+{
+  "contract_id": "C01",
+  "source_note": "Player-operable switches that are not part of a repair. C01: the pub sign training load (blueprint p.7; default off, excluded from stars).",
+  "switches": [
+    {"id": "SW_SIGN", "target": "SIGN", "field": "enabled"}
+  ]
+}
