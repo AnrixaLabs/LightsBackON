@@ -101,10 +101,11 @@ func tick(now: int) -> bool:
 				_schedule_reconnect()
 			else:
 				_end("CONNECT_TIMEOUT", [ACTION_RETRY, ACTION_BACK])
-		STATE_HANDSHAKE:
-			_end("HANDSHAKE_TIMEOUT", [ACTION_RETRY, ACTION_BACK])
-		STATE_JOINING:
-			_end("SNAPSHOT_TIMEOUT", [ACTION_RETRY, ACTION_BACK])
+		STATE_HANDSHAKE, STATE_JOINING:
+			if _was_in_session:
+				_schedule_reconnect()  # a stalled reconnect uses the remaining bounded attempts
+			else:
+				_end("HANDSHAKE_TIMEOUT" if state == STATE_HANDSHAKE else "SNAPSHOT_TIMEOUT", [ACTION_RETRY, ACTION_BACK])
 		STATE_RECONNECT_WAIT:
 			_enter(STATE_CONNECTING, int(_limits["connect_timeout_ticks"]))
 			return true

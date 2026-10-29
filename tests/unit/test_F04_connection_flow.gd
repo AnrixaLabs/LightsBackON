@@ -100,6 +100,23 @@ func test_NET06_logic_reconnect_succeeds_and_resets_attempts() -> void:
 	assert_eq(_flow.reconnect_attempt, 0)
 
 
+func test_F04_stalled_reconnect_handshake_or_snapshot_uses_remaining_attempts() -> void:
+	# review finding: a handshake/snapshot timeout during reconnect ended the flow after the first attempt
+	_in_session()
+	_flow.on_transport_lost()
+	_run(int(_limits["reconnect_backoff_ticks"]))
+	_flow.on_transport_connected()
+	_run(int(_limits["handshake_timeout_ticks"]))
+	assert_eq(_flow.state, Flow.STATE_RECONNECT_WAIT, "handshake stall schedules attempt 2")
+	assert_eq(_flow.reconnect_attempt, 2)
+	_run(int(_limits["reconnect_backoff_ticks"]) * 2)
+	_flow.on_transport_connected()
+	_flow.on_handshake_reply({"ok": true})
+	_run(int(_limits["snapshot_timeout_ticks"]))
+	assert_eq(_flow.state, Flow.STATE_RECONNECT_WAIT, "snapshot stall schedules attempt 3")
+	assert_eq(_flow.reconnect_attempt, 3)
+
+
 func test_NET07_host_left_ends_immediately_without_reconnect_loop() -> void:
 	_in_session()
 	_flow.on_host_left()
