@@ -91,8 +91,12 @@
       "prep_ok_without": [
         "F02"
       ],
-      "status": "NOT_STARTED",
-      "evidence_file": "docs/evidence/F03.md"
+      "status": "CLOUD_VERIFIED",
+      "evidence_file": "docs/evidence/F03.md",
+      "pending_local": [
+        "rerun the F03 tests on the qualified Steam peer (F02 tuple) between two PCs on separate networks",
+        "NET01/NET02 with two real clients"
+      ]
     },
     {
       "id": "F04",
