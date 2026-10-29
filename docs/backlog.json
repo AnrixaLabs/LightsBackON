@@ -119,8 +119,12 @@
       "milestone_name": "Foundation",
       "env": "split",
       "env_note": "Handshake/reconnect logic in cloud; Steam-offline and real reconnect checks local.",
-      "status": "NOT_STARTED",
-      "evidence_file": "docs/evidence/F04.md"
+      "status": "CLOUD_VERIFIED",
+      "evidence_file": "docs/evidence/F04.md",
+      "pending_local": [
+        "Steam-offline start of the exported build (REL02)",
+        "real host shutdown (NET07) and same-participant reconnect (NET06) on the Steam peer"
+      ]
     },
     {
       "id": "F05",
