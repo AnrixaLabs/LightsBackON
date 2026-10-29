@@ -81,7 +81,8 @@ Decisions made while building S06/S07 (blueprint p.23, references p.42-43). None
    `icon_objective_pending` (dashed box). They follow the F05 family rules and the tests check them like the others (39 icons now).
    - Creator: original work drawn for this project in a Claude Code desktop session, 30 Oct 2026, for Anrixa Labs. Source:
      `art_source/ui_icons/icon_objective_*.svg`. License: project-owned. No third-party icon was used or traced.
-   - Approval: **pending the owner's look** at `docs/evidence/img/V07_objective_icons.png` (the F05 approval covered the 36 icons at e5ab01e).
+   - Approval: **provisionally approved by the owner, 30 Oct 2026** ("they can be reviewed later; consider approved for now"). The look at
+     `docs/evidence/img/V07_objective_icons.png` is deferred and tracked in `docs/PC-WORK.md` section 5. The F05 approval covered the 36 icons at e5ab01e.
 2. **UI scale.** Effective scale = slider (80-150 %) x how much of the 1920x1080 canvas the window shows, so 150 % on 1280x720 draws like
    100 % on 1080p. The theme is rebuilt at that scale (fonts, padding, icons from `export_px_for_scale`) so containers reflow; the canvas
    is never stretched. The 80 px safe area follows the screen size, not the slider.

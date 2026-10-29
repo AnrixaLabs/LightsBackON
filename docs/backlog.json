@@ -586,10 +586,9 @@
       "evidence_file": "docs/evidence/V07.md",
       "pending_local": [
         "UX01: a person runs the HUD and network tablet controller-only (stick focus, pan, zoom, evidence scroll feel)",
-        "readability judgement at 150 % UI scale, compact tool bar and tablet default zoom (owner)",
-        "owner look at the three new objective icons (docs/evidence/img/V07_objective_icons.png)",
         "V01 is CLOUD_VERIFIED (waits on G08)",
-        "wire the HUD into MissionRoot once it exists"
+        "wire the HUD into MissionRoot once it exists",
+        "deferred owner looks, provisionally approved 30 Oct 2026: objective icons and 150 % readability (docs/PC-WORK.md section 5)"
       ]
     },
     {
