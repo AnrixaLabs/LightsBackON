@@ -37,7 +37,14 @@ func test_F05_every_real_state_has_one_icon_and_text_and_nothing_invented() -> v
 	codes.sort()
 	assert_eq(findings, codes, "finding icons = meter_model FINDING_CODES")
 	var icons: Dictionary = {}
-	for group: String in ["repair_states", "findings", "supply", "other"]:
+	var pings: Array = (_states["pings"] as Dictionary).keys()
+	pings.sort()
+	var comms_types: Array = []
+	for t: Dictionary in _json("res://content/comms.json")["ping_types"]:
+		comms_types.append(t["id"])
+	comms_types.sort()
+	assert_eq(pings, comms_types, "ping icons = comms ping types")
+	for group: String in ["repair_states", "findings", "supply", "other", "pings"]:
 		for state: String in _states[group]:
 			var e: Dictionary = _states[group][state]
 			assert_true(_tokens["colors"].has(e["color"]), "%s.%s color is a token" % [group, state])

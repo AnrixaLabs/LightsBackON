@@ -15,11 +15,12 @@ const MeterModel := preload("res://scripts/simulation/meter_model.gd")
 const Interaction := preload("res://scripts/interaction/interaction_service.gd")
 const Equipment := preload("res://scripts/interaction/equipment_service.gd")
 const MissionDirector := preload("res://scripts/simulation/mission_director.gd")
+const Comms := preload("res://scripts/network/comms_service.gd")
 
 const ENVELOPE_KEYS: Array[String] = ["session", "seq", "type", "entity", "payload"]
 const INTENTS: Array[String] = ["inspect", "request_lock", "release", "heartbeat", "repair_step", "equip", "toggle_switch", "place_item",
-	"request_extract", "recover_self"]
-const DEFERRED_INTENTS: Array[String] = ["ping", "ready"]  # V06 / lobby; refused until implemented
+	"request_extract", "recover_self", "ping", "chat"]
+const DEFERRED_INTENTS: Array[String] = ["ready"]  # lobby; refused until implemented
 const PLACE_ACTIONS: Array[String] = ["pickup", "place", "connect", "disconnect", "start", "stop", "reset_breaker", "recover", "drop"]
 
 var session_id: String = ""
@@ -32,6 +33,7 @@ var _meter: MeterModel
 var _interaction: Interaction
 var _equipment: Equipment
 var _mission: MissionDirector = null  # optional: sessions without a contract (tests, lobby) run without one
+var _comms: Comms = null  # optional; comms are ephemeral and never part of the authoritative state
 var _switches: Dictionary = {}  # switch id -> {"target", "field"}
 var _members: Dictionary = {}  # transport peer id (int) -> player id
 var _last_seq: Dictionary = {}  # peer id -> highest accepted seq
@@ -106,6 +108,8 @@ func remove(peer_id: int) -> Array[Dictionary]:
 	events.append_array(_equipment.disconnect_player(player))
 	if _mission != null:
 		_mission.player_left(player)
+	if _comms != null:
+		events.append_array(_comms.player_left(player))
 	for d: Dictionary in [_members, _last_seq, _replies, _recent]:
 		d.erase(peer_id)
 	revision += 1
@@ -122,6 +126,8 @@ func tick(now: int) -> Array[Dictionary]:
 	events.append_array(_interaction.tick(now))
 	if _mission != null:
 		events.append_array(_mission.tick(now))  # after the grid step, so latches and verification see this tick's supply
+	if _comms != null:
+		events.append_array(_comms.tick(now))
 	if now - _last_checkpoint_tick >= int(_limits["checkpoint_interval_ticks"]):
 		_last_checkpoint_tick = now
 		events.append({"type": "checkpoint_due", "reason": "interval", "tick": now})
@@ -250,6 +256,16 @@ func _dispatch(player: String, msg: Dictionary) -> Dictionary:
 		return _refuse("UNSUPPORTED_INTENT", "%s is not available in this build" % kind, [])
 	if not INTENTS.has(kind):
 		return _refuse("UNKNOWN_INTENT", "unknown intent %s" % kind, [])
+	if kind == "ping" or kind == "chat":
+		if _comms == null:
+			return _refuse("UNSUPPORTED_INTENT", "communication is not available in this session", [])
+		if kind == "ping":
+			if entity != "" and not PowerGrid.is_valid_id(entity):
+				return _refuse("UNKNOWN_ENTITY", "pings target a content ID or nothing", [])
+			return _comms.ping(player, payload.get("ping"), entity, _position_of.call(player))
+		if payload.has("phrase"):
+			return _comms.phrase(player, payload["phrase"])
+		return _comms.chat(player, payload.get("text"))
 	if kind == "recover_self":
 		return _recover_player(player)
 	if kind == "request_extract":
@@ -325,6 +341,11 @@ func authoritative_state() -> Dictionary:
 	if _mission != null:
 		state["mission"] = _mission.canonical_state()
 	return state
+
+
+## Attach crew communication (V06).
+func set_comms(comms: Comms) -> void:
+	_comms = comms
 
 
 ## Host movement supplies player positions (integer cm) used for item drops; until V01 every player is at the origin.

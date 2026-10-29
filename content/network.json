@@ -1,8 +1,8 @@
 {
-  "_note": "Host command protocol limits (blueprint p.9-10). Design choices, not measurements. Ticks are 10 Hz grid ticks. checkpoint_interval_ticks 600 = 60 s; snapshot chunks bound join messages. Connection deadlines (F04): connect 10 s, handshake 5 s, snapshot 15 s, 3 reconnect attempts with doubling backoff from 2 s.",
+  "_note": "Host command protocol limits (blueprint p.9-10). Design choices, not measurements. Ticks are 10 Hz grid ticks. checkpoint_interval_ticks 600 = 60 s; snapshot chunks bound join messages. Connection deadlines (F04): connect 10 s, handshake 5 s, snapshot 15 s, 3 reconnect attempts with doubling backoff from 2 s. max_string_length 128 fits a 120-character chat line.",
   "max_message_bytes": 2048,
   "max_payload_keys": 8,
-  "max_string_length": 64,
+  "max_string_length": 128,
   "dedupe_window": 64,
   "rate_limit_commands": 20,
   "rate_limit_window_ticks": 10,
