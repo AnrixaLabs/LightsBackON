@@ -135,7 +135,7 @@ def cmd_next(doc: dict, env: str, limit: int) -> int:
         override = any(d in skip and idx[d]["status"] not in ("DONE", "CLOUD_VERIFIED") for d in t["depends_on"])
         note = t["env_note"]
         if override:
-            note = ("OVERRIDE: starts before " + ", ".join(sorted(skip)) + " is DONE (blueprint s12 allows the grid toy to proceed in parallel); "
+            note = ("OVERRIDE: starts before " + ", ".join(sorted(skip)) + " is DONE (prep_ok_without: blueprint s12 for the grid toy, ADR-011 for V02); "
                     "ceiling is CLOUD_VERIFIED. " + note).strip()
         elif not deps_for_done(t, idx):
             note = ("ceiling CLOUD_VERIFIED until dependencies are DONE. " + note).strip()

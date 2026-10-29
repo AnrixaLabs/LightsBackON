@@ -2,6 +2,10 @@
 
 **Step-by-step version: `docs/PC-RUNBOOK.md`.**
 
+**PC pass status (owner-confirmed, 29 Oct 2026):** runbook A done, B PASS, C PASS (F01, G01-G03 DONE, PR #17).
+D/E (Steam, two PCs) **not started**: no second Steam account yet, so F02 is BLOCKED. F decisions (font, HUD panels, repo visibility) still open.
+Until F02 starts, the cloud continues with the logic-only V tasks (ADR-011), ceiling CLOUD_VERIFIED. Resume here at runbook session D.
+
 Updated by every cloud session that leaves a task CLOUD_VERIFIED. Source of truth is still `python3 tools/backlog.py next --env local`;
 this file adds the exact steps. Tick a box only when the evidence file is updated. Order = dependency order.
 
