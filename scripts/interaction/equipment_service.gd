@@ -212,6 +212,31 @@ func canonical_state() -> Dictionary:
 	return {"schema": SCHEMA, "revision": revision, "items": items}
 
 
+## Restores item placement from a checkpoint (G06). A carried item is restored to its last anchor, because
+## carrying is session state. All-or-nothing: returns diagnostics and changes nothing on any problem.
+func restore_state(saved: Dictionary) -> Array[Dictionary]:
+	var errs: Array[Dictionary] = []
+	var placed: Dictionary = {}
+	var items: Dictionary = saved.get("items", {})
+	for iid: Variant in items:
+		var rec: Dictionary = items[iid] if items[iid] is Dictionary else {}
+		var anchor: Variant = rec.get("anchor")
+		if anchor == "":
+			anchor = rec.get("last_anchor")
+		if not (iid is String and _items.has(iid) and anchor is String and _anchors.has(anchor)):
+			errs.append(PowerGrid.diag("BAD_SAVE", "saved item %s is unknown or has no valid anchor" % str(iid), []))
+		else:
+			placed[iid] = anchor
+	if not errs.is_empty():
+		return errs
+	for iid: String in placed:
+		_items[iid]["anchor"] = placed[iid]
+		_items[iid]["last_anchor"] = placed[iid]
+		_items[iid]["carrier"] = ""
+	revision += 1
+	return errs
+
+
 # ---------- helpers ----------
 
 func _connected_routes(it: Dictionary) -> Array[String]:

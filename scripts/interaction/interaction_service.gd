@@ -306,6 +306,39 @@ func canonical_state() -> Dictionary:
 		"access": _sorted(_access.keys())}
 
 
+## Restores durable repair progress, supplies and access flags from a checkpoint (G06). Locks are session state
+## and are not restored. All-or-nothing: returns diagnostics and changes nothing on any problem.
+func restore_state(saved: Dictionary) -> Array[Dictionary]:
+	var errs: Array[Dictionary] = []
+	var states: Dictionary = {}
+	var repairs: Dictionary = saved.get("repairs", {})
+	for rid: Variant in repairs:
+		var st: Variant = (repairs[rid] as Dictionary).get("state") if repairs[rid] is Dictionary else null
+		if not (rid is String and _repairs.has(rid) and st is String and STATES.has(st)):
+			errs.append(PowerGrid.diag("BAD_SAVE", "saved repair %s is unknown or has a bad state" % str(rid), []))
+		else:
+			states[rid] = STATES.find(st)
+	var supplies: Dictionary = {}
+	var saved_supplies: Dictionary = saved.get("supplies", {})
+	for item: Variant in saved_supplies:
+		var n: Variant = PowerGrid.to_int(saved_supplies[item])
+		if not (item is String and _supplies.has(item)) or n == null or int(n) < 0:
+			errs.append(PowerGrid.diag("BAD_SAVE", "saved supply %s is unknown or negative" % str(item), []))
+		else:
+			supplies[item] = int(n)
+	if not errs.is_empty():
+		return errs
+	_state.merge(states, true)
+	_supplies.merge(supplies, true)
+	_locks = {}
+	_access = {}
+	for flag: Variant in saved.get("access", []):
+		if flag is String:
+			_access[flag] = true
+	revision += 1
+	return errs
+
+
 # ---------- helpers ----------
 
 func _owns(sender: String, rid: String) -> bool:

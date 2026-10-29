@@ -407,6 +407,94 @@ func _mutate(cmd: Dictionary) -> Dictionary:
 	return diag("UNKNOWN_OP", "unknown command %s" % str(op), [])
 
 
+# ---------- causes (saves, G06) ----------
+
+## The authored-content-independent causes of the current state: runtime flags, edges added by commands,
+## tick and overload counters. Derived values (energized, supplied, flow, load) are never saved; restore_causes()
+## recomputes them (blueprint: load recomputes derived power state from saved causes).
+func causes() -> Dictionary:
+	var flags: Dictionary = {}
+	for nid: String in _nodes:
+		var n: Dictionary = _nodes[nid]
+		var f: Dictionary = {}
+		for field: String in SETTABLE[n["kind"]]:
+			f[field] = n[field]
+		flags[nid] = f
+	var edge_flags: Dictionary = {}
+	for eid: String in _edges:
+		edge_flags[eid] = {"from": _edges[eid]["from"], "to": _edges[eid]["to"], "capacity": _edges[eid]["capacity"],
+			"enabled": _edges[eid]["enabled"], "healthy": _edges[eid]["healthy"]}
+	return {"tick": tick, "nodes": flags, "edges": edge_flags, "overload_ticks": _overload_ticks.duplicate()}
+
+
+## Applies saved causes on top of the loaded definition. All-or-nothing: on any diagnostic the grid is unchanged.
+## Only runtime fields are taken from the save; capacities/demands of authored nodes always come from content.
+func restore_causes(saved: Dictionary) -> Array[Dictionary]:
+	var keep_nodes: Dictionary = _nodes.duplicate(true)
+	var keep_edges: Dictionary = _edges.duplicate(true)
+	var keep_ticks: Dictionary = _overload_ticks.duplicate()
+	var keep_tick: int = tick
+	var errs: Array[Dictionary] = _restore_into(saved)
+	if errs.is_empty():
+		errs = validate()
+	if not errs.is_empty():
+		_nodes = keep_nodes
+		_edges = keep_edges
+		_overload_ticks = keep_ticks
+		tick = keep_tick
+	evaluate()
+	return errs
+
+
+func _restore_into(saved: Dictionary) -> Array[Dictionary]:
+	var errs: Array[Dictionary] = []
+	var t: Variant = to_int(saved.get("tick"))
+	if t == null or int(t) < 0:
+		return [diag("BAD_SAVE", "tick must be an int >= 0", [])]
+	tick = int(t)
+	var flags: Dictionary = saved.get("nodes", {})
+	for nid: Variant in flags:
+		if not (nid is String and _nodes.has(nid)):
+			errs.append(diag("UNKNOWN_ID", "saved node %s is not in this content revision" % str(nid), []))
+			continue
+		for field: Variant in flags[nid]:
+			var v: Variant = flags[nid][field]
+			if not ((SETTABLE[_nodes[nid]["kind"]] as Array).has(field) and v is bool):
+				errs.append(diag("BAD_SAVE", "%s: %s is not a saved runtime flag" % [nid, str(field)], [nid]))
+			else:
+				_nodes[nid][field] = v
+	var edges: Dictionary = saved.get("edges", {})
+	for eid: Variant in _edges.keys():
+		if not edges.has(eid):
+			_edges.erase(eid)  # removed by a command before the save
+	for eid: Variant in edges:
+		var checked: Array = _check_record(_with_id(edges[eid], eid), EDGE_FIELDS, EDGE_DEFAULTS, "saved edge")
+		errs.append_array(checked[1])
+		if checked[0] != null:
+			var e: Dictionary = checked[0]
+			if _edges.has(eid):
+				_edges[eid]["enabled"] = e["enabled"]
+				_edges[eid]["healthy"] = e["healthy"]
+			else:
+				_edges[eid] = e  # added by a command (e.g. a temporary cable) before the save
+	var counters: Dictionary = saved.get("overload_ticks", {})
+	for pid: Variant in counters:
+		var n: Variant = to_int(counters[pid])
+		if not (pid is String and _protections.has(pid)) or n == null or int(n) < 0:
+			errs.append(diag("BAD_SAVE", "bad overload counter %s" % str(pid), []))
+		else:
+			_overload_ticks[pid] = int(n)
+	return errs
+
+
+static func _with_id(rec: Variant, rid: Variant) -> Variant:
+	if not rec is Dictionary:
+		return rec
+	var d: Dictionary = (rec as Dictionary).duplicate()
+	d["id"] = rid
+	return d
+
+
 # ---------- canonical state (ADR-003) ----------
 
 func canonical_state() -> Dictionary:
