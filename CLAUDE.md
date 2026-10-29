@@ -52,6 +52,9 @@ Removing co-op is a product decision for the owner, not a scope cut.
 3. See and hear recovery: windows, signs, fans, music; recovery must stay legible without darkness hiding the scene.
 If testers can finish every mission by following markers and holding Interact, fix the fault layout before adding content.
 
+**Owner quality bar (ADR-004):** bright, professional, accurate design. Icons, characters and UI elements match the real game states
+and industry conventions; blueprint design tokens, icon + text for every status, WCAG AA contrast on the rendered background.
+
 ## 3. Power network rules (exact)
 
 Abstract capacity puzzle in invented **PU**. It is not an electrical simulator.
