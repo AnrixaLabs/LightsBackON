@@ -38,11 +38,8 @@
       "milestone_name": "Foundation",
       "env": "split",
       "env_note": "Scaffold + headless import in cloud; Windows export and launch check local.",
-      "status": "CLOUD_VERIFIED",
-      "evidence_file": "docs/evidence/F01.md",
-      "pending_local": [
-        "launch exported Windows build on a real GPU (window, Compatibility renderer); record hash (headless Windows launch already passes in CI)"
-      ]
+      "status": "DONE",
+      "evidence_file": "docs/evidence/F01.md"
     },
     {
       "id": "F02",
@@ -199,11 +196,8 @@
       "milestone_name": "Grid toy",
       "env": "cloud",
       "env_note": "",
-      "status": "CLOUD_VERIFIED",
-      "evidence_file": "docs/evidence/G01.md",
-      "pending_local": [
-        "Windows rerun passes in CI (run 40838296362); promote to DONE when F01 is DONE"
-      ]
+      "status": "DONE",
+      "evidence_file": "docs/evidence/G01.md"
     },
     {
       "id": "G02",
@@ -226,12 +220,8 @@
       "milestone_name": "Grid toy",
       "env": "cloud",
       "env_note": "",
-      "status": "CLOUD_VERIFIED",
-      "evidence_file": "docs/evidence/G02.md",
-      "pending_local": [
-        "Windows rerun passes in CI (run 40838296362); promote to DONE when F01 is DONE",
-        "host 10 Hz loop and trip replication verified in G07"
-      ]
+      "status": "DONE",
+      "evidence_file": "docs/evidence/G02.md"
     },
     {
       "id": "G03",
@@ -252,12 +242,8 @@
       "milestone_name": "Grid toy",
       "env": "cloud",
       "env_note": "",
-      "status": "CLOUD_VERIFIED",
-      "evidence_file": "docs/evidence/G03.md",
-      "pending_local": [
-        "Windows rerun passes in CI (run 40838296362); promote to DONE when F01 is DONE",
-        "on-screen meter display checked when the UI exists (V07)"
-      ]
+      "status": "DONE",
+      "evidence_file": "docs/evidence/G03.md"
     },
     {
       "id": "G04",
