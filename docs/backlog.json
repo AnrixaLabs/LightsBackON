@@ -531,8 +531,12 @@
       "milestone_name": "Playable slice",
       "env": "split",
       "env_note": "Two-tester pings-only run is human.",
-      "status": "NOT_STARTED",
-      "evidence_file": "docs/evidence/V06.md"
+      "status": "CLOUD_VERIFIED",
+      "evidence_file": "docs/evidence/V06.md",
+      "pending_local": [
+        "two testers complete C01 with voice disabled using pings alone (human, graybox, two clients)",
+        "comms UI and radial menu (V07)"
+      ]
     },
     {
       "id": "V07",

@@ -1,5 +1,5 @@
 {
-  "_note": "One icon per real game state (ADR-004 point 2), generated from the state lists in code: interaction_service.gd STATES, meter_model.gd FINDING_CODES, building supply states and unknown. Every status shows icon + text (text_key) in its token color. Icons themselves are art work (not drawn yet); icon ids name them.",
+  "_note": "One icon per real game state (ADR-004 point 2), generated from the state lists in code: interaction_service.gd STATES, meter_model.gd FINDING_CODES, building supply states and unknown. Every status shows icon + text (text_key) in its token color. Icons themselves are art work (not drawn yet); icon ids name them. pings come from content/comms.json ping_types.",
   "repair_states": {
     "undiagnosed": {
       "icon": "icon_repair_undiagnosed",
@@ -136,6 +136,28 @@
       "icon": "icon_lock_owner",
       "text_key": "status.lock_owner",
       "color": "action"
+    }
+  },
+  "pings": {
+    "PING_LOOK": {
+      "icon": "icon_ping_look",
+      "text_key": "ping.look",
+      "color": "text"
+    },
+    "PING_HELP": {
+      "icon": "icon_ping_help",
+      "text_key": "ping.need_help",
+      "color": "action"
+    },
+    "PING_FAULT": {
+      "icon": "icon_ping_fault",
+      "text_key": "ping.fault_here",
+      "color": "fault"
+    },
+    "PING_EQUIPMENT": {
+      "icon": "icon_ping_equipment",
+      "text_key": "ping.equipment",
+      "color": "restored"
     }
   }
 }

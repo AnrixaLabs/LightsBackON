@@ -9,6 +9,7 @@ const Interaction := preload("res://scripts/interaction/interaction_service.gd")
 const Equipment := preload("res://scripts/interaction/equipment_service.gd")
 const MissionDirector := preload("res://scripts/simulation/mission_director.gd")
 const SessionHost := preload("res://scripts/network/session_host.gd")
+const Comms := preload("res://scripts/network/comms_service.gd")
 
 const SESSION: String = "S_SOLUTION"
 const CONTENT_REVISION: String = "REV_SOLUTION"
@@ -38,6 +39,9 @@ static func build(contract_dir: String, players: Array, tools: Array) -> Diction
 	(ctx["errors"] as Array).append_array(host.configure(json("res://content/network.json"), 1, CONTENT_REVISION, SESSION, grid,
 		meter, inter, eq, json(contract_dir.path_join("switches.json")), func(_p: String, _e: String) -> bool: return true))
 	host.set_mission(mission)
+	var comms: Comms = Comms.new()
+	(ctx["errors"] as Array).append_array(comms.load_definition(json("res://content/comms.json")))
+	host.set_comms(comms)
 	var typed_tools: Array[String] = []
 	typed_tools.assign(tools)
 	var peers: Dictionary = {}
@@ -46,7 +50,7 @@ static func build(contract_dir: String, players: Array, tools: Array) -> Diction
 		host.admit(peer, str(p), 1, CONTENT_REVISION, typed_tools)
 		peers[str(p)] = peer
 		peer += 1
-	ctx.merge({"host": host, "grid": grid, "meter": meter, "interaction": inter, "equipment": eq, "mission": mission,
+	ctx.merge({"host": host, "grid": grid, "meter": meter, "interaction": inter, "equipment": eq, "mission": mission, "comms": comms,
 		"peers": peers, "seq": {}, "now": 0, "events": [] as Array[Dictionary]})
 	return ctx
 

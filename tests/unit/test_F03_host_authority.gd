@@ -180,7 +180,8 @@ func test_F03_disconnect_releases_lock_through_host() -> void:
 
 
 func test_F03_deferred_intents_and_steam_refused_clearly() -> void:
-	assert_eq(_send(PEER_A, "ping", "SW_SIGN", {})["code"], "UNSUPPORTED_INTENT")
+	assert_eq(_send(PEER_A, "ready", "SW_SIGN", {})["code"], "UNSUPPORTED_INTENT")
+	assert_eq(_send(PEER_A, "ping", "SW_SIGN", {})["code"], "UNSUPPORTED_INTENT", "no comms service attached")
 	assert_eq(_send(PEER_A, "teleport", "SW_SIGN", {})["code"], "UNKNOWN_INTENT")
 	assert_eq(Transport.create_host(Transport.MODE_STEAM, 0)["code"], "STEAM_NOT_QUALIFIED")
 	assert_eq(Transport.create_client(Transport.MODE_OFFLINE, "", 0)["code"], "UNKNOWN_TRANSPORT")

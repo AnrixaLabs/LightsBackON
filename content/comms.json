@@ -1,0 +1,24 @@
+{
+  "_note": "Crew communication (blueprint p.9 co-op; CLAUDE.md sections 1 and 9). The game must be completable with pings alone; there is no voice chat. Ticks are 10 Hz. Phrase and ping texts are localization keys; chat is plain text, escaped for display.",
+  "ping_types": [
+    {"id": "PING_LOOK", "text_key": "ping.look", "icon": "icon_ping_look", "color": "text"},
+    {"id": "PING_HELP", "text_key": "ping.need_help", "icon": "icon_ping_help", "color": "action"},
+    {"id": "PING_FAULT", "text_key": "ping.fault_here", "icon": "icon_ping_fault", "color": "fault"},
+    {"id": "PING_EQUIPMENT", "text_key": "ping.equipment", "icon": "icon_ping_equipment", "color": "restored"}
+  ],
+  "ping_lifetime_ticks": 80,
+  "max_active_pings_per_player": 3,
+  "ping_rate": {"count": 4, "window_ticks": 20},
+  "phrases": [
+    {"id": "PHRASE_YES", "text_key": "phrase.yes"},
+    {"id": "PHRASE_NO", "text_key": "phrase.no"},
+    {"id": "PHRASE_WAIT", "text_key": "phrase.wait"},
+    {"id": "PHRASE_ON_MY_WAY", "text_key": "phrase.on_my_way"},
+    {"id": "PHRASE_NEED_TOOL", "text_key": "phrase.need_tool"},
+    {"id": "PHRASE_DONE_HERE", "text_key": "phrase.done_here"},
+    {"id": "PHRASE_THANKS", "text_key": "phrase.thanks"},
+    {"id": "PHRASE_SORRY", "text_key": "phrase.sorry"}
+  ],
+  "chat_max_chars": 120,
+  "chat_rate": {"count": 3, "window_ticks": 50}
+}
