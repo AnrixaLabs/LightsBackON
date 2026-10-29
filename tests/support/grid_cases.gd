@@ -40,6 +40,7 @@ static func definition_for(doc: Dictionary, case: Dictionary, reverse: bool) -> 
 
 
 ## Returns {"grid": PowerGrid, "load_errors": Array, "log": Array of {cmd, result, hash_before, hash_after}}.
+## Tick steps ({"op": "tick", "count": N}) step the grid N times and report the tripped breakers in order.
 static func run_case(doc: Dictionary, case: Dictionary, reverse: bool) -> Dictionary:
 	var g: PowerGrid = PowerGrid.new()
 	var errs: Array[Dictionary] = g.load_definition(definition_for(doc, case, reverse))
@@ -51,6 +52,18 @@ static func run_case(doc: Dictionary, case: Dictionary, reverse: bool) -> Dictio
 				if not k.begins_with("expect"):
 					clean[k] = cmd[k]
 			var before: String = g.canonical_hash()
-			var res: Dictionary = g.apply(clean)
+			var res: Dictionary
+			if cmd["op"] == "tick":
+				var trips: Array[String] = []
+				for _i: int in int(cmd["count"]):
+					for ev: Dictionary in g.step():
+						trips.append(ev["breaker"])
+				var counters: Dictionary = {}
+				var protections: Dictionary = g.canonical_state()["protections"]
+				for pid: String in protections:
+					counters[pid] = protections[pid]["overload_ticks"]
+				res = {"ok": true, "trips": trips, "overload_ticks": counters}
+			else:
+				res = g.apply(clean)
 			log.append({"cmd": cmd, "result": res, "hash_before": before, "hash_after": g.canonical_hash()})
 	return {"grid": g, "load_errors": errs, "log": log}

@@ -63,3 +63,20 @@ Interpretations (blueprint section 5 does not state these verbatim):
    integral (and within 2^53) and stores it as int; non-integral values are BAD_VALUE. Python rejects any float. To keep the two strict
    in practice, `tools/validate_content.py` (run by `tools/run_tests.sh`) rejects any non-integer number token in `content/`.
 8. Canonical strings are printable ASCII (0x20-0x7E); only `"` and `\` are escaped. Anything else is not serializable (Godot returns "").
+
+## Addendum G02 (29 Oct 2026): schema 2, protections and trips
+
+Canonical grid state `schema` 2 adds top-level `"trip_ticks":<int>` and
+`"protections":{<ID>: {"breaker","element","overload_ticks"}}`. Everything else is unchanged from schema 1.
+
+1. **Protection** (content): `{"id", "element": <edge id>, "breaker": <junction id>}`; the breaker must be the junction the edge feeds
+   (PROTECTION_BREAKER otherwise), so a trip always removes that edge's load. `trip_ticks` is required when protections exist (C01: 15).
+   Unprotected elements (C01: the GRID source) still report `overloaded` but never trip.
+2. **step()** = one grid tick: `tick += 1`; per protection in ID order: overloaded edge (flow strictly greater than capacity) ->
+   `overload_ticks += 1`, else `0`; when the counter reaches `trip_ticks` the breaker's `tripped` becomes true, the counter returns to 0 and a
+   `trip` event `{type, tick, protection, element, breaker}` is emitted. After any trip the grid is re-evaluated in the same tick (step 7).
+   Commands between ticks re-evaluate immediately; counters only change in step().
+3. **Reset** = a `set tripped false` command on a tripped junction. It is accepted only if, on the evaluated trial state, no edge protected by
+   that breaker is overloaded; otherwise RESET_OVERLOADED (ids: breaker, edge; the message names the PU and the limit) and nothing changes,
+   so a refused reset cannot start a trip cycle. Other blocks (isolated, failed) do not stop a reset; the repair state machine (G04) orders them.
+4. Removing a protected edge is refused (PROTECTION_ELEMENT).

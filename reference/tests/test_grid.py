@@ -19,7 +19,11 @@ class GridCases(unittest.TestCase):
         for rec in log:
             cmd, res = rec["cmd"], rec["result"]
             want = cmd["expect"]
-            if want == "ok":
+            if cmd["op"] == "tick":
+                self.assertEqual(res["trips"], cmd["expect_trips"], f"{case['name']}: {cmd}")
+                for pid, n in cmd.get("expect_overload_ticks", {}).items():
+                    self.assertEqual(res["overload_ticks"][pid], n, f"{case['name']}: {cmd} counter {pid}")
+            elif want == "ok":
                 self.assertTrue(res["ok"], f"{case['name']}: {cmd} refused: {res}")
             else:
                 self.assertFalse(res["ok"], f"{case['name']}: {cmd} should be refused")
@@ -34,6 +38,10 @@ class GridCases(unittest.TestCase):
         self.assertEqual(g.overloads(), exp["overloaded"], case["name"])
         for nid, v in exp.get("load", {}).items():
             self.assertEqual(st["nodes"][nid]["load"], v, f"{case['name']} load {nid}")
+        if "tripped" in exp:
+            self.assertEqual(sorted(i for i, n in st["nodes"].items() if n.get("tripped")), exp["tripped"], case["name"])
+        if "tick" in exp:
+            self.assertEqual(st["tick"], exp["tick"], case["name"])
         for eid, v in exp.get("flow", {}).items():
             self.assertEqual(st["edges"][eid]["flow"], v, f"{case['name']} flow {eid}")
         # SIM11: reversed input order gives identical canonical bytes

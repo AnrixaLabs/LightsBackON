@@ -214,8 +214,12 @@
       "milestone_name": "Grid toy",
       "env": "cloud",
       "env_note": "",
-      "status": "NOT_STARTED",
-      "evidence_file": "docs/evidence/G02.md"
+      "status": "CLOUD_VERIFIED",
+      "evidence_file": "docs/evidence/G02.md",
+      "pending_local": [
+        "rerun bash tools/run_tests.sh on Windows",
+        "host 10 Hz loop and trip replication verified in G07"
+      ]
     },
     {
       "id": "G03",

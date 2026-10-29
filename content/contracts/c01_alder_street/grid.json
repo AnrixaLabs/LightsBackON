@@ -1,6 +1,7 @@
 {
   "contract_id": "C01",
-  "source_note": "Re-derived from blueprint v1.0 p.7 (C01 starting network) and CLAUDE.md section 3; the original reference/data/first_shift.json was not delivered. Service-drop edge capacities (junction -> consumer, TEMP -> consumer) are not in the blueprint; they are set equal to the consumer demand (design choice recorded in ADR-003).",
+  "source_note": "Re-derived from blueprint v1.0 p.7 (C01 starting network) and CLAUDE.md section 3; the original reference/data/first_shift.json was not delivered. Service-drop edge capacities (junction -> consumer, TEMP -> consumer) are not in the blueprint; they are set equal to the consumer demand (design choice recorded in ADR-003). trip_ticks 15 = 1.5 s at the 10 Hz grid tick. Protections: each watched trunk edge trips the junction breaker it feeds; the GRID source itself is unprotected in C01 (its 24 PU cannot be exceeded once a trunk edge trips at 12).",
+  "trip_ticks": 15,
   "nodes": [
     {"id": "GRID", "kind": "source", "capacity": 24, "online": true},
     {"id": "GEN", "kind": "source", "capacity": 6, "online": false},
@@ -27,5 +28,10 @@
     {"id": "E_GEN_TEMP", "from": "GEN", "to": "TEMP", "capacity": 6, "enabled": true, "healthy": true},
     {"id": "E_TEMP_PUMP", "from": "TEMP", "to": "PUMP", "capacity": 4, "enabled": false, "healthy": true},
     {"id": "E_TEMP_PUB", "from": "TEMP", "to": "PUB", "capacity": 4, "enabled": false, "healthy": true}
+  ],
+  "protections": [
+    {"id": "BRK_JW", "element": "E_GRID_JW", "breaker": "JW"},
+    {"id": "BRK_JE", "element": "E_GRID_JE", "breaker": "JE"},
+    {"id": "BRK_TEMP", "element": "E_GEN_TEMP", "breaker": "TEMP"}
   ]
 }
