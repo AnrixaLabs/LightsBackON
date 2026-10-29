@@ -22,7 +22,8 @@ static func json(path: String) -> Dictionary:
 
 ## Returns a context: {"host", "grid", "meter", "interaction", "equipment", "mission", "peers": {player: peer},
 ## "seq": {peer: int}, "now": int, "events": Array, "errors": Array}.
-static func build(contract_dir: String, players: Array, tools: Array) -> Dictionary:
+## mission_override: fields replacing those in mission.json (tests of content variants).
+static func build(contract_dir: String, players: Array, tools: Array, mission_override: Dictionary = {}) -> Dictionary:
 	var ctx: Dictionary = {"errors": [] as Array[Dictionary]}
 	var grid: PowerGrid = PowerGrid.new()
 	(ctx["errors"] as Array).append_array(grid.load_definition(json(contract_dir.path_join("grid.json"))))
@@ -34,7 +35,9 @@ static func build(contract_dir: String, players: Array, tools: Array) -> Diction
 	var eq: Equipment = Equipment.new()
 	(ctx["errors"] as Array).append_array(eq.load_definition(json(contract_dir.path_join("equipment.json")), grid, meter))
 	var mission: MissionDirector = MissionDirector.new()
-	(ctx["errors"] as Array).append_array(mission.load_definition(json(contract_dir.path_join("mission.json")), grid, inter, eq))
+	var mission_def: Dictionary = json(contract_dir.path_join("mission.json"))
+	mission_def.merge(mission_override, true)
+	(ctx["errors"] as Array).append_array(mission.load_definition(mission_def, grid, inter, eq))
 	var host: SessionHost = SessionHost.new()
 	(ctx["errors"] as Array).append_array(host.configure(json("res://content/network.json"), 1, CONTENT_REVISION, SESSION, grid,
 		meter, inter, eq, json(contract_dir.path_join("switches.json")), func(_p: String, _e: String) -> bool: return true))
