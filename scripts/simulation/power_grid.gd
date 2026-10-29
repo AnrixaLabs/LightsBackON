@@ -1,5 +1,5 @@
 extends RefCounted
-## Pure grid evaluation (blueprint section 5 steps 1-5, ADR-003).
+## Pure grid evaluation (blueprint section 5 steps 1-8, ADR-003).
 ##
 ## No scene tree, no autoloads, no Steam: only value types, so it runs headless in unit tests and is
 ## compared byte for byte with reference/lbo_grid.py by tools/cross_check_reference.py. Keep the two in
@@ -11,8 +11,11 @@ extends RefCounted
 ##
 ## Records are plain Dictionaries mirroring the content JSON so the port reads like the reference.
 ## All PU are int. IDs match ^[A-Z0-9_]+$ and every traversal runs in ascending ID order (SIM11).
+##
+## Time is integer ticks: the host calls step() at the grid rate (10 Hz). Each protection watches one edge and
+## trips the junction breaker that edge feeds once the edge has been overloaded for trip_ticks consecutive ticks.
 
-const SCHEMA: int = 1
+const SCHEMA: int = 2
 const KIND_SOURCE: String = "source"
 const KIND_JUNCTION: String = "junction"
 const KIND_CONSUMER: String = "consumer"
@@ -33,6 +36,7 @@ const NODE_DEFAULTS: Dictionary = {
 }
 const EDGE_FIELDS: Dictionary = {"from": TYPE_STRING, "to": TYPE_STRING, "capacity": TYPE_INT, "enabled": TYPE_BOOL, "healthy": TYPE_BOOL}
 const EDGE_DEFAULTS: Dictionary = {"enabled": true, "healthy": true}
+const PROTECTION_FIELDS: Dictionary = {"element": TYPE_STRING, "breaker": TYPE_STRING}
 # Fields a command may change at runtime; capacities, demands and endpoints are authored content.
 const SETTABLE: Dictionary = {
 	KIND_SOURCE: ["online"],
@@ -44,6 +48,9 @@ const SETTABLE: Dictionary = {
 var tick: int = 0
 var _nodes: Dictionary = {}  # id -> record (includes "kind")
 var _edges: Dictionary = {}  # id -> record
+var _protections: Dictionary = {}  # id -> {"id", "element": edge id, "breaker": junction id}
+var _overload_ticks: Dictionary = {}  # protection id -> consecutive overloaded ticks
+var _trip_ticks: int = 0
 # evaluation result (steps 3-4); rebuilt by evaluate()
 var _energized: Dictionary = {}  # node id -> true
 var _live: Dictionary = {}  # edge id -> true (active edge leaving a node that passes supply)
@@ -57,8 +64,7 @@ var _load: Dictionary = {}  # source id -> int PU
 ## Loads a definition ({"nodes": [...], "edges": [...]}). Returns diagnostics; empty means loaded and evaluated.
 ## On any diagnostic the grid stays empty.
 func load_definition(definition: Dictionary) -> Array[Dictionary]:
-	_nodes = {}
-	_edges = {}
+	_clear()
 	var errs: Array[Dictionary] = []
 	for rec: Variant in definition.get("nodes", []):
 		var kind: Variant = (rec as Dictionary).get("kind") if rec is Dictionary else null
@@ -88,14 +94,40 @@ func load_definition(definition: Dictionary) -> Array[Dictionary]:
 			errs.append(diag("DUPLICATE_ID", "duplicate id %s" % eid, [eid]))
 			continue
 		_edges[eid] = e
+	for rec: Variant in definition.get("protections", []):
+		var checked: Array = _check_record(rec, PROTECTION_FIELDS, {}, "protection")
+		errs.append_array(checked[1])
+		if checked[0] == null:
+			continue
+		var pr: Dictionary = checked[0]
+		var pid: String = pr["id"]
+		if _protections.has(pid) or _edges.has(pid) or _nodes.has(pid):
+			errs.append(diag("DUPLICATE_ID", "duplicate id %s" % pid, [pid]))
+			continue
+		_protections[pid] = pr
+		_overload_ticks[pid] = 0
+	if not _protections.is_empty():
+		var trip: Variant = _to_int(definition.get("trip_ticks"))
+		if trip == null or int(trip) < 1:
+			errs.append(diag("BAD_VALUE", "trip_ticks must be an int >= 1 when protections exist", []))
+		else:
+			_trip_ticks = int(trip)
 	if errs.is_empty():
 		errs = validate()
 	if not errs.is_empty():
-		_nodes = {}
-		_edges = {}
+		_clear()
 		return errs
 	evaluate()
 	return errs
+
+
+func _clear() -> void:
+	tick = 0
+	_nodes = {}
+	_edges = {}
+	_protections = {}
+	_overload_ticks = {}
+	_trip_ticks = 0
 
 
 func validate() -> Array[Dictionary]:
@@ -121,6 +153,15 @@ func _validate_structure() -> Array[Dictionary]:
 			errs.append(diag("SOURCE_BACKFEED", "%s: %s (%s -> %s)" % [eid, what, a, b], [eid, a, b]))
 		if _kind(a) == KIND_CONSUMER:
 			errs.append(diag("CONSUMER_OUTPUT", "%s: consumer %s cannot supply other nodes" % [eid, a], [eid, a]))
+	for pid: String in _sorted_keys(_protections):
+		var pr: Dictionary = _protections[pid]
+		var element: String = pr["element"]
+		var breaker: String = pr["breaker"]
+		if not _edges.has(element):
+			errs.append(diag("PROTECTION_ELEMENT", "%s: protected edge %s does not exist" % [pid, element], [pid]))
+		elif _edges[element]["to"] != breaker or not _nodes.has(breaker) or _kind(breaker) != KIND_JUNCTION:
+			# tripping the junction the edge feeds is what removes the edge's load, so a trip always clears it
+			errs.append(diag("PROTECTION_BREAKER", "%s: breaker %s must be the junction fed by %s" % [pid, breaker, element], [pid, element]))
 	if not errs.is_empty():
 		return errs
 	var cycle: Array[String] = _find_cycle()
@@ -262,17 +303,64 @@ func _passes(nid: String, energized: Dictionary) -> bool:
 func apply(cmd: Dictionary) -> Dictionary:
 	var saved_nodes: Dictionary = _nodes.duplicate(true)
 	var saved_edges: Dictionary = _edges.duplicate(true)
+	var resets: String = _resetting_breaker(cmd)
 	var err: Dictionary = _mutate(cmd)
 	if err.is_empty():
 		var errs: Array[Dictionary] = validate()
 		if not errs.is_empty():
 			err = errs[0]
+	if err.is_empty():
+		evaluate()
+		if resets != "":
+			err = _reset_refusal(resets)
 	if not err.is_empty():
 		_nodes = saved_nodes
 		_edges = saved_edges
+		evaluate()
 		return {"ok": false, "code": err["code"], "message": err["message"], "ids": err["ids"]}
-	evaluate()
 	return {"ok": true}
+
+
+## Step 6 at one tick: count consecutive overloaded ticks per protection, trip breakers whose count reaches
+## trip_ticks, then recompute (step 7). Returns the authoritative events of this tick (step 8), in protection ID order.
+func step() -> Array[Dictionary]:
+	tick += 1
+	var events: Array[Dictionary] = []
+	for pid: String in _sorted_keys(_protections):
+		var element: String = _protections[pid]["element"]
+		if _flow.get(element, 0) > int(_edges[element]["capacity"]):
+			_overload_ticks[pid] = int(_overload_ticks[pid]) + 1
+		else:
+			_overload_ticks[pid] = 0  # healthy demand resets the timer (SIM09)
+		if int(_overload_ticks[pid]) >= _trip_ticks:
+			var breaker: String = _protections[pid]["breaker"]
+			_nodes[breaker]["tripped"] = true
+			_overload_ticks[pid] = 0
+			events.append({"type": "trip", "tick": tick, "protection": pid, "element": element, "breaker": breaker})
+	if not events.is_empty():
+		evaluate()
+	return events
+
+
+## A command that clears a tripped breaker is a reset; returns that junction's id, else "".
+func _resetting_breaker(cmd: Dictionary) -> String:
+	var tid: Variant = cmd.get("id")
+	if cmd.get("op") is String and cmd.get("op") == "set" and cmd.get("field") is String and cmd.get("field") == "tripped" \
+			and cmd.get("value") is bool and cmd.get("value") == false and tid is String and _nodes.has(tid) \
+			and _kind(tid) == KIND_JUNCTION and _nodes[tid]["tripped"]:
+		return tid
+	return ""
+
+
+## Step 7: a reset is accepted only if no edge protected by that breaker would be overloaded afterwards, so a
+## refused reset never starts a trip cycle (SIM10). Call on the evaluated trial state.
+func _reset_refusal(breaker: String) -> Dictionary:
+	for pid: String in _sorted_keys(_protections):
+		var element: String = _protections[pid]["element"]
+		if _protections[pid]["breaker"] == breaker and _flow.get(element, 0) > int(_edges[element]["capacity"]):
+			return diag("RESET_OVERLOADED", "%s cannot reset: %s would carry %d PU over its %d PU limit" % [
+				breaker, element, int(_flow[element]), int(_edges[element]["capacity"])], [breaker, element])
+	return {}
 
 
 func _mutate(cmd: Dictionary) -> Dictionary:
@@ -340,7 +428,11 @@ func canonical_state() -> Dictionary:
 		var f: int = _flow.get(eid, 0)
 		edges[eid] = {"from": e["from"], "to": e["to"], "capacity": e["capacity"], "enabled": e["enabled"],
 			"healthy": e["healthy"], "energized": _live.has(eid), "flow": f, "overloaded": f > int(e["capacity"])}
-	return {"schema": SCHEMA, "tick": tick, "nodes": nodes, "edges": edges}
+	var protections: Dictionary = {}
+	for pid: String in _protections:
+		protections[pid] = {"element": _protections[pid]["element"], "breaker": _protections[pid]["breaker"],
+			"overload_ticks": _overload_ticks[pid]}
+	return {"schema": SCHEMA, "tick": tick, "trip_ticks": _trip_ticks, "nodes": nodes, "edges": edges, "protections": protections}
 
 
 func canonical_string() -> String:

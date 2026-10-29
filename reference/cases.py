@@ -37,11 +37,17 @@ def definition_for(doc: dict, case: dict, reverse: bool = False) -> dict:
 
 
 def run_case(doc: dict, case: dict, reverse: bool = False) -> tuple[Grid, list[dict]]:
-    """Returns the final grid and one record per command: {cmd, result, hash_before, hash_after}."""
+    """Returns the final grid and one record per step: {cmd, result, hash_before, hash_after}. Tick steps report trips."""
     g = Grid.load(definition_for(doc, case, reverse))
     log: list[dict] = []
     for cmd in expand(case["steps"], doc["macros"]):
         before = g.canonical_hash()
-        res = g.apply({k: v for k, v in cmd.items() if not k.startswith("expect")})
+        if cmd["op"] == "tick":
+            events: list[dict] = []
+            for _ in range(cmd["count"]):
+                events += g.step()
+            res = {"ok": True, "trips": [e["breaker"] for e in events], "overload_ticks": dict(g.overload_ticks)}
+        else:
+            res = g.apply({k: v for k, v in cmd.items() if not k.startswith("expect")})
         log.append({"cmd": cmd, "result": res, "hash_before": before, "hash_after": g.canonical_hash()})
     return g, log

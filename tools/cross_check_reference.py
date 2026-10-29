@@ -35,7 +35,10 @@ def python_records() -> list[list[str]]:
             g, log = run_case(doc, c, rev)
             for i, rec in enumerate(log):
                 res = rec["result"]
-                out.append(["STEP", c["name"], direction, str(i), "ok" if res["ok"] else res["code"], rec["hash_after"]])
+                outcome = "ok" if res["ok"] else res["code"]
+                if "trips" in res:
+                    outcome = "trips:" + ",".join(res["trips"])
+                out.append(["STEP", c["name"], direction, str(i), outcome, rec["hash_after"]])
             out.append(["CASE", c["name"], direction, g.canonical_hash(), g.canonical_string()])
     for c in doc["definition_cases"]:
         try:

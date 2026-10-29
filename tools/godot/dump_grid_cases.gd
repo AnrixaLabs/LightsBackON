@@ -19,6 +19,8 @@ func _initialize() -> void:
 			for rec: Dictionary in r["log"]:
 				var res: Dictionary = rec["result"]
 				var outcome: String = "ok" if res["ok"] else str(res["code"])
+				if res.has("trips"):
+					outcome = "trips:" + ",".join(res["trips"])
 				print("\t".join(["STEP", c["name"], direction, str(i), outcome, rec["hash_after"]]))
 				i += 1
 			var g: PowerGrid = r["grid"]
