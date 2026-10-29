@@ -53,4 +53,4 @@ surfaces and on HUD panels composited over a white (bright restored window) and 
    - Creator: original work drawn for this project in a Claude Code desktop session, 30 Oct 2026, for Anrixa Labs.
    - Source: `art_source/ui_icons/*.svg` at the commit that adds them.
    - License: project-owned. No third-party icon pack, font or image was used or traced.
-   - Approval: pending the owner (review sheet `docs/evidence/img/F05_icon_sheet.png`).
+   - Approval: approved by the owner (Levon), 30 Oct 2026, from the review sheet `docs/evidence/img/F05_icon_sheet.png`.
