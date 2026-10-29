@@ -32,10 +32,21 @@ Stop-and-ask items (Claude must ask you first): Steamworks app ID / depots, addi
 - [ ] Record the tuple (engine, templates, extension, peer, Steamworks runtime) in the manifest and `docs/evidence/F02.md`.
   Localhost or same-network runs are smoke tests only and never satisfy F02.
 
+## 2b. After F02: rerun the drafted network logic on the Steam peer (two PCs, separate networks)
+
+All of these pass in cloud/CI on the ENet **development** transport or in-process; none is a network result yet.
+- [ ] **F03** host authority: run `tests/unit/test_F03_*` logic over the Steam peer; NET01 (two real clients request the same lock at once), NET02 (resend a durable repair command).
+- [ ] **F04** connection failures: start the exported build with Steam closed (REL02 -> offline solo offered), quit the host with a guest connected
+      (NET07 -> guest sees HOST_LEFT), pull the guest's network for 5 s and restore it (NET06 -> one actor, no duplicate reward eligibility).
+- [ ] **G07** two peers agree: host + guest compare the state hash after repair, trip, reset and reconnect (`session_host.state_hash()` vs the
+      guest mirror's `state_hash()`; log both). Then **F06** gate, then **G08** grid-toy gate.
+- [ ] **G04/G05** with real clients: NET05 (guest disconnects while carrying the generator -> it returns to the pad; lock clears).
+- [ ] **G06** real kill: start a checkpoint write in the exported build and kill the process (Task Manager / `taskkill /F`), relaunch, confirm current
+      or backup loads and the recovery is reported (SAVE01 on a real process).
+
 ## 3. Editor-side checks (when the matching task reaches CLOUD_VERIFIED)
 
 - [ ] **F05** (art_ui, split): import the 4 m block kit at 1 unit = 1 m, check theme tokens render with WCAG AA contrast (ADR-004). Not started.
-- [ ] **F03 / F04** (if drafted in cloud on the offline/ENet dev transport): rerun on the Steam peer from F02 across the two networks.
 - [ ] **F06** foundation gate: export evidence + gate report; owner decision. Claude stops here for you.
 
 ## 4. Later local-only tasks (not yet unblocked)
