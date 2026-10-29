@@ -20,7 +20,8 @@ static func select(origin: Vector3, forward: Vector3, candidates: Array, ray_len
 		if along <= 0.0 or to.length() - radius > ray_length_m:
 			continue
 		var miss: float = (to - dir * along).length()  # distance from the ray to the candidate center
-		var hit: bool = miss <= radius
+		# a hit counts only if the ray enters the candidate's sphere before its end point (finite 2.3 m ray)
+		var hit: bool = miss <= radius and along - sqrt(radius * radius - miss * miss) <= ray_length_m
 		var angle: float = rad_to_deg(dir.angle_to(to))
 		if not hit and angle > cone_deg:
 			continue

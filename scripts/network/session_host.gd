@@ -204,7 +204,10 @@ func receive(peer_id: int, bytes: PackedByteArray) -> Dictionary:
 	reply["seq"] = seq
 	reply["revision"] = revision
 	cache[seq] = reply.duplicate(true)
-	cache.erase(seq - int(_limits["dedupe_window"]))
+	var cutoff: int = seq - int(_limits["dedupe_window"])
+	for old: int in cache.keys():
+		if old <= cutoff:
+			cache.erase(old)  # skipped sequence numbers must not grow the cache
 	return reply
 
 
@@ -272,6 +275,9 @@ func _dispatch(player: String, msg: Dictionary) -> Dictionary:
 			for key: String in ["anchor", "route"]:
 				if payload.has(key):
 					intent[key] = payload[key]
+			if action == "place" and payload.get("anchor") is String and not _range_check.call(player, payload["anchor"]):
+				# the carrier must stand at the destination too; carrying never teleports an item across the map
+				return _refuse("NOT_IN_RANGE", "move closer to %s" % payload["anchor"], [entity, payload["anchor"]])
 			var res: Dictionary = _equipment.handle(player, intent)
 			return _strip(res)
 	# request_lock, release, heartbeat, repair_step go to the repair interaction service
