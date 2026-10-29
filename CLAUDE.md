@@ -166,6 +166,10 @@ Code style: static types on every variable, parameter and return; `class_name` o
    pass headless in the cloud but real hardware / network / people / Windows are still needed, or a dependency is only CLOUD_VERIFIED.
    A cloud session may never set a task to DONE if its acceptance needs a real PC, device, network or person.
 7. Open a PR into `main`. Never push to `main` directly; never force-push. Commit and push after each logical step, because a session can end at any time.
+   **Claude owns the git/GitHub process (owner delegation, 30 Oct 2026, ADR-015 amendment):** commit, push, open the PR, merge it into `main`
+   with a merge commit once the `linux` and `windows` CI jobs pass, fix CI, tag, manage issues. Do not wait for the owner to merge. Before merging a
+   branch that is behind `main` and touches the same area, merge `main` into it and rerun `bash tools/run_tests.sh`. The stop-and-ask list below
+   still applies; this delegation covers only the git/GitHub process.
 8. Before stopping, update the `Resume notes` section of the evidence file for the task in progress.
 9. At the last task of a milestone, write the gate report (what the gate required, evidence links, open risks, hours actually spent) and **stop for the owner**.
    A failed gate moves the schedule; it is not rounded up.
