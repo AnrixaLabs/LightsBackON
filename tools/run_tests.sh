@@ -8,7 +8,8 @@ set -uo pipefail
 cd "$(dirname "$0")/.."
 
 GODOT_BIN="${GODOT_BIN:-godot}"
-PY="$(command -v python3 || command -v python || true)"
+# PYTHON overrides discovery (Windows: python3 may be the Store alias stub)
+PY="${PYTHON:-$(command -v python3 || command -v python || true)}"
 FAIL=0
 
 echo "== backlog =="
