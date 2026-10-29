@@ -45,7 +45,12 @@ func load_definition(definition: Dictionary, grid: PowerGrid, meter: MeterModel)
 				errs.append(PowerGrid.diag("BAD_ROUTE", "%s: route %s is not a grid edge" % [aid, str(r)], [aid]))
 			else:
 				routes.append(r)
-		_anchors[aid] = {"id": aid, "storage": a.get("storage") == true, "routes": routes}
+		var pos: Variant = a.get("position_cm")
+		var has_pos: bool = pos is Array and (pos as Array).size() == 3 and (pos as Array).all(func(v: Variant) -> bool: return PowerGrid.to_int(v) != null)
+		if pos != null and not has_pos:
+			errs.append(PowerGrid.diag("BAD_ANCHOR", "%s: position_cm must be three integers" % aid, [aid]))
+		var cm: Vector3i = Vector3i(int(pos[0]), int(pos[1]), int(pos[2])) if has_pos else Vector3i.ZERO
+		_anchors[aid] = {"id": aid, "storage": a.get("storage") == true, "routes": routes, "has_pos": has_pos, "pos": cm}
 	for rec: Variant in definition.get("equipment", []):
 		var e: Dictionary = rec if rec is Dictionary else {}
 		var eid: Variant = e.get("id")
@@ -89,6 +94,9 @@ func handle(sender: String, intent: Dictionary) -> Dictionary:
 	var kind: Variant = intent.get("type")
 	if kind == "recover":
 		return _recover(it)  # the van-menu recovery action works from anywhere
+	if kind == "drop":
+		# drop needs no reach: the item is in hand, and a carrier who is out of range is exactly who must be able to let go
+		return drop(sender, iid, intent.get("position_cm", Vector3i.ZERO))
 	if intent.get("in_range") != true:
 		return _refuse("NOT_IN_RANGE", "move closer to %s" % iid, [iid])
 	match kind:
@@ -170,6 +178,47 @@ func _recovery_commands(it: Dictionary) -> Array[Dictionary]:
 	for r: String in _connected_routes(it):
 		cmds.append({"op": "set", "id": r, "field": "enabled", "value": false})
 	return cmds
+
+
+## The carrier lets go of the item at the host's position for that player. Loose physics items do not exist: the item
+## snaps to the nearest free anchor (blueprint p.6: a misplaced carried item returns to the nearest valid drop anchor).
+## Without authored positions it returns to the last anchor it stood on.
+func drop(sender: String, iid: String, position_cm: Vector3i) -> Dictionary:
+	var it: Dictionary = _items[iid]
+	if it["carrier"] != sender:
+		return _refuse("NOT_CARRIER", "you are not carrying %s" % iid, [iid])
+	var target: String = _nearest_free_anchor(position_cm, iid)
+	if target == "":
+		target = it["last_anchor"]
+	it["anchor"] = target
+	it["last_anchor"] = target
+	it["carrier"] = ""
+	revision += 1
+	return _ok({"anchor": target})
+
+
+func _nearest_free_anchor(position_cm: Vector3i, iid: String) -> String:
+	var best: String = ""
+	var best_d: int = 0
+	for aid: String in _sorted(_anchors.keys()):
+		var a: Dictionary = _anchors[aid]
+		if not a["has_pos"] or _occupied(aid, iid):
+			continue
+		var delta: Vector3i = (a["pos"] as Vector3i) - position_cm
+		var d2: int = delta.x * delta.x + delta.y * delta.y + delta.z * delta.z  # integer cm, so ties are exact and ID order breaks them
+		if best == "" or d2 < best_d:
+			best = aid
+			best_d = d2
+	return best
+
+
+func _occupied(aid: String, except_item: String) -> bool:
+	if _anchors[aid]["storage"]:
+		return false
+	for other: String in _items:
+		if other != except_item and _items[other]["anchor"] == aid:
+			return true
+	return false
 
 
 ## The carrier dropped out: the item returns to the last valid anchor it stood on (NET05 logic).

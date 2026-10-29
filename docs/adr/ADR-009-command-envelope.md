@@ -21,3 +21,8 @@
    interaction service; place_item with payload `action` -> equipment service.
 7. **Transport**: `transport_adapter.gd` offers offline, ENet (development only) and Steam (refused STEAM_NOT_QUALIFIED until F02); one reliable
    ordered channel 0 is the baseline.
+
+## Addendum V02/V03 (29 Oct 2026)
+`request_extract` (entity = extraction zone, payload `action`: start | cancel) and `recover_self` (entity = the player) are live intents;
+`place_item` gains action `drop`. `ping` and `ready` stay UNSUPPORTED_INTENT until V06 / the lobby. Host movement supplies zone presence
+(`set_in_zone`) and player positions (`set_position_provider`, integer cm) to the host; clients never send positions as authority.

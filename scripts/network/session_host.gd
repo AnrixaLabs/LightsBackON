@@ -18,9 +18,9 @@ const MissionDirector := preload("res://scripts/simulation/mission_director.gd")
 
 const ENVELOPE_KEYS: Array[String] = ["session", "seq", "type", "entity", "payload"]
 const INTENTS: Array[String] = ["inspect", "request_lock", "release", "heartbeat", "repair_step", "equip", "toggle_switch", "place_item",
-	"request_extract"]
+	"request_extract", "recover_self"]
 const DEFERRED_INTENTS: Array[String] = ["ping", "ready"]  # V06 / lobby; refused until implemented
-const PLACE_ACTIONS: Array[String] = ["pickup", "place", "connect", "disconnect", "start", "stop", "reset_breaker", "recover"]
+const PLACE_ACTIONS: Array[String] = ["pickup", "place", "connect", "disconnect", "start", "stop", "reset_breaker", "recover", "drop"]
 
 var session_id: String = ""
 var revision: int = 0
@@ -38,6 +38,7 @@ var _last_seq: Dictionary = {}  # peer id -> highest accepted seq
 var _replies: Dictionary = {}  # peer id -> {seq: reply} (bounded by dedupe_window)
 var _recent: Dictionary = {}  # peer id -> Array[int] ticks of accepted commands (rate window)
 var _range_check: Callable  # (player_id: String, entity_id: String) -> bool, from host movement
+var _position_of: Callable = func(_p: String) -> Vector3i: return Vector3i.ZERO  # host movement: player position in cm
 var _now: int = 0
 var _last_checkpoint_tick: int = 0
 var _published_state: Dictionary = {}  # authoritative state as of _published_revision (what clients have been sent)
@@ -249,6 +250,8 @@ func _dispatch(player: String, msg: Dictionary) -> Dictionary:
 		return _refuse("UNSUPPORTED_INTENT", "%s is not available in this build" % kind, [])
 	if not INTENTS.has(kind):
 		return _refuse("UNKNOWN_INTENT", "unknown intent %s" % kind, [])
+	if kind == "recover_self":
+		return _recover_player(player)
 	if kind == "request_extract":
 		if _mission == null:
 			return _refuse("NO_MISSION", "no contract is running", [])
@@ -286,6 +289,8 @@ func _dispatch(player: String, msg: Dictionary) -> Dictionary:
 			if not (action is String and PLACE_ACTIONS.has(action)):
 				return _refuse("MALFORMED", "place_item needs an action", [entity])
 			var intent: Dictionary = {"type": action, "item": entity, "in_range": in_range}
+			if action == "drop":
+				intent["position_cm"] = _position_of.call(player)  # host's own position for the player, never the client's claim
 			for key: String in ["anchor", "route"]:
 				if payload.has(key):
 					intent[key] = payload[key]
@@ -320,6 +325,21 @@ func authoritative_state() -> Dictionary:
 	if _mission != null:
 		state["mission"] = _mission.canonical_state()
 	return state
+
+
+## Host movement supplies player positions (integer cm) used for item drops; until V01 every player is at the origin.
+func set_position_provider(position_of: Callable) -> void:
+	_position_of = position_of
+
+
+## Van-menu recovery for a stranded player (blueprint p.6): the player returns to the van; their locks release and a
+## carried item goes back to the last anchor it stood on. The network and every repair stay exactly as they are.
+func _recover_player(player: String) -> Dictionary:
+	var events: Array[Dictionary] = _interaction.recover_player(player)
+	events.append_array(_equipment.disconnect_player(player))  # same return path as a carrier who dropped out
+	# zone presence is not touched here: the player lands at the van and host movement reports where they stand
+	events.append({"type": "player_recovered", "player": player})
+	return {"ok": true, "events": events}
 
 
 ## Attach the contract's mission director (V02). Players already admitted are reported to it.
