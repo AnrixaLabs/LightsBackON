@@ -142,6 +142,12 @@ func read_record(path: String) -> Dictionary:
 	return out
 
 
+## Diagnostics for the kill test and support logs: {"current", "temp", "backup"} -> missing | ok | corrupt | newer_schema.
+func inspect_files(path: String) -> Dictionary:
+	return {"current": _inspect(path)["status"], "temp": _inspect(path + TMP_SUFFIX)["status"],
+		"backup": _inspect(path + BAK_SUFFIX)["status"]}
+
+
 ## status: missing | ok | corrupt | newer_schema; "envelope" when ok.
 func _inspect(path: String) -> Dictionary:
 	if not FileAccess.file_exists(path):
