@@ -1,0 +1,4224 @@
+{
+  "adapter": "NVIDIA GeForce GTX 1650",
+  "renderer": "gl_compatibility",
+  "resolution": [
+    1920,
+    1055
+  ],
+  "failed": 0,
+  "probes": [
+    {
+      "what": "Alder Street  /  First Shift",
+      "kind": "body_text",
+      "rect": [
+        99,
+        99,
+        368,
+        30
+      ],
+      "fg": "#65d6b4",
+      "min": 4.5,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "icon_objective_done.png",
+      "kind": "icon",
+      "rect": [
+        99,
+        141,
+        23,
+        23
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "Drain the pump house basement",
+      "kind": "body_text",
+      "rect": [
+        131,
+        141,
+        336,
+        30
+      ],
+      "fg": "#65d6b4",
+      "min": 4.5,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "icon_objective_active.png",
+      "kind": "icon",
+      "rect": [
+        99,
+        183,
+        23,
+        23
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "Restore the east services",
+      "kind": "body_text",
+      "rect": [
+        131,
+        183,
+        336,
+        30
+      ],
+      "fg": "#ffc86b",
+      "min": 4.5,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "icon_objective_active.png",
+      "kind": "icon",
+      "rect": [
+        99,
+        225,
+        23,
+        23
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "Hold grid supply for 10 seconds",
+      "kind": "body_text",
+      "rect": [
+        131,
+        225,
+        336,
+        30
+      ],
+      "fg": "#ffc86b",
+      "min": 4.5,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "Crew",
+      "kind": "body_text",
+      "rect": [
+        1482,
+        99,
+        339,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "Rowan (You)",
+      "kind": "body_text",
+      "rect": [
+        1482,
+        141,
+        126,
+        30
+      ],
+      "fg": "#65d6b4",
+      "min": 4.5,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "No task",
+      "kind": "body_text",
+      "rect": [
+        1620,
+        141,
+        201,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "Mira",
+      "kind": "body_text",
+      "rect": [
+        1482,
+        183,
+        107,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "icon_lock_owner.png",
+      "kind": "icon",
+      "rect": [
+        1601,
+        183,
+        23,
+        23
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "East trunk cable",
+      "kind": "body_text",
+      "rect": [
+        1633,
+        183,
+        188,
+        30
+      ],
+      "fg": "#ffc86b",
+      "min": 4.5,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "Alex",
+      "kind": "body_text",
+      "rect": [
+        1482,
+        225,
+        107,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "No task",
+      "kind": "body_text",
+      "rect": [
+        1601,
+        225,
+        220,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "Jo",
+      "kind": "body_text",
+      "rect": [
+        1482,
+        267,
+        107,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "No task",
+      "kind": "body_text",
+      "rect": [
+        1601,
+        267,
+        220,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "Pump socket",
+      "kind": "body_text",
+      "rect": [
+        707,
+        685,
+        505,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "[E] Connect generator cable",
+      "kind": "large_text",
+      "rect": [
+        707,
+        721,
+        505,
+        35
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 25,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "Demand 4 PU / source capacity 6 PU",
+      "kind": "body_text",
+      "rect": [
+        707,
+        762,
+        505,
+        30
+      ],
+      "fg": "#65d6b4",
+      "min": 4.5,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "1",
+      "kind": "body_text",
+      "rect": [
+        111,
+        880,
+        12,
+        30
+      ],
+      "fg": "#ffc86b",
+      "min": 4.5,
+      "worst": 8.0,
+      "rendered_peak": 8.0,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "icon_tool_meter",
+      "kind": "icon",
+      "rect": [
+        135,
+        880,
+        23,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "Meter",
+      "kind": "body_text",
+      "rect": [
+        111,
+        914,
+        93,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "2",
+      "kind": "body_text",
+      "rect": [
+        240,
+        880,
+        12,
+        30
+      ],
+      "fg": "#ffc86b",
+      "min": 4.5,
+      "worst": 8.0,
+      "rendered_peak": 8.0,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "icon_tool_screwdriver",
+      "kind": "icon",
+      "rect": [
+        264,
+        880,
+        23,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.05,
+      "pass": true,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "Screwdriver",
+      "kind": "body_text",
+      "rect": [
+        240,
+        914,
+        116,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "3",
+      "kind": "body_text",
+      "rect": [
+        392,
+        880,
+        12,
+        30
+      ],
+      "fg": "#ffc86b",
+      "min": 4.5,
+      "worst": 8.0,
+      "rendered_peak": 8.0,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "icon_tool_puller",
+      "kind": "icon",
+      "rect": [
+        416,
+        880,
+        23,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "Fuse puller",
+      "kind": "body_text",
+      "rect": [
+        392,
+        914,
+        109,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "4",
+      "kind": "body_text",
+      "rect": [
+        537,
+        880,
+        12,
+        30
+      ],
+      "fg": "#ffc86b",
+      "min": 4.5,
+      "worst": 8.0,
+      "rendered_peak": 8.0,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "icon_tool_cutter",
+      "kind": "icon",
+      "rect": [
+        561,
+        880,
+        23,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "Cutter",
+      "kind": "body_text",
+      "rect": [
+        537,
+        914,
+        93,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "icon_supply_restored.png",
+      "kind": "icon",
+      "rect": [
+        1365,
+        888,
+        23,
+        23
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "West branch restored",
+      "kind": "body_text",
+      "rect": [
+        1397,
+        888,
+        424,
+        30
+      ],
+      "fg": "#65d6b4",
+      "min": 4.5,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "[Tab] Network tablet",
+      "kind": "body_text",
+      "rect": [
+        1365,
+        926,
+        202,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "[MMB] Ping",
+      "kind": "body_text",
+      "rect": [
+        1590,
+        926,
+        115,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "reticle",
+      "kind": "reticle",
+      "rect": [
+        948,
+        516,
+        23,
+        23
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 6.65,
+      "rendered_peak": 6.65,
+      "pass": true,
+      "view": "hud_dark_100"
+    },
+    {
+      "what": "Alder Street  /  First Shift",
+      "kind": "large_text",
+      "rect": [
+        110,
+        110,
+        551,
+        45
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "icon_objective_done.png",
+      "kind": "icon",
+      "rect": [
+        110,
+        173,
+        35,
+        35
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "Drain the pump house basement",
+      "kind": "large_text",
+      "rect": [
+        158,
+        173,
+        503,
+        45
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "icon_objective_active.png",
+      "kind": "icon",
+      "rect": [
+        110,
+        236,
+        35,
+        35
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "Restore the east services",
+      "kind": "large_text",
+      "rect": [
+        158,
+        236,
+        503,
+        45
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "icon_objective_active.png",
+      "kind": "icon",
+      "rect": [
+        110,
+        299,
+        35,
+        35
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "Hold grid supply for 10 seconds",
+      "kind": "large_text",
+      "rect": [
+        158,
+        299,
+        503,
+        45
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "Crew",
+      "kind": "large_text",
+      "rect": [
+        1303,
+        110,
+        507,
+        45
+      ],
+      "fg": "#b9c6cf",
+      "min": 3.0,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "Rowan (You)",
+      "kind": "large_text",
+      "rect": [
+        1303,
+        173,
+        192,
+        45
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "No task",
+      "kind": "large_text",
+      "rect": [
+        1513,
+        173,
+        297,
+        45
+      ],
+      "fg": "#b9c6cf",
+      "min": 3.0,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "Mira",
+      "kind": "large_text",
+      "rect": [
+        1303,
+        236,
+        161,
+        45
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "icon_lock_owner.png",
+      "kind": "icon",
+      "rect": [
+        1482,
+        236,
+        35,
+        35
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "East trunk cable",
+      "kind": "large_text",
+      "rect": [
+        1530,
+        236,
+        280,
+        45
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "Alex",
+      "kind": "large_text",
+      "rect": [
+        1303,
+        299,
+        161,
+        45
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "No task",
+      "kind": "large_text",
+      "rect": [
+        1482,
+        299,
+        328,
+        45
+      ],
+      "fg": "#b9c6cf",
+      "min": 3.0,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "Jo",
+      "kind": "large_text",
+      "rect": [
+        1303,
+        362,
+        161,
+        45
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "No task",
+      "kind": "large_text",
+      "rect": [
+        1482,
+        362,
+        328,
+        45
+      ],
+      "fg": "#b9c6cf",
+      "min": 3.0,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "Pump socket",
+      "kind": "large_text",
+      "rect": [
+        718,
+        680,
+        483,
+        45
+      ],
+      "fg": "#b9c6cf",
+      "min": 3.0,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "[E] Connect generator cable",
+      "kind": "large_text",
+      "rect": [
+        718,
+        734,
+        483,
+        109
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 38,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "Demand 4 PU / source capacity 6 PU",
+      "kind": "large_text",
+      "rect": [
+        718,
+        852,
+        483,
+        93
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "Meter",
+      "kind": "large_text",
+      "rect": [
+        110,
+        801,
+        482,
+        45
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "1",
+      "kind": "large_text",
+      "rect": [
+        128,
+        882,
+        18,
+        45
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 8.0,
+      "rendered_peak": 8.0,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "icon_tool_meter",
+      "kind": "icon",
+      "rect": [
+        164,
+        882,
+        35,
+        45
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "2",
+      "kind": "large_text",
+      "rect": [
+        253,
+        882,
+        18,
+        45
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 8.0,
+      "rendered_peak": 8.0,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "icon_tool_screwdriver",
+      "kind": "icon",
+      "rect": [
+        289,
+        882,
+        35,
+        45
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "3",
+      "kind": "large_text",
+      "rect": [
+        378,
+        882,
+        18,
+        45
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 8.0,
+      "rendered_peak": 8.0,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "icon_tool_puller",
+      "kind": "icon",
+      "rect": [
+        414,
+        882,
+        35,
+        45
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "4",
+      "kind": "large_text",
+      "rect": [
+        503,
+        882,
+        18,
+        45
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 8.0,
+      "rendered_peak": 8.0,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "icon_tool_cutter",
+      "kind": "icon",
+      "rect": [
+        539,
+        882,
+        35,
+        45
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "icon_supply_restored.png",
+      "kind": "icon",
+      "rect": [
+        1300,
+        794,
+        35,
+        35
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "West branch restored",
+      "kind": "large_text",
+      "rect": [
+        1348,
+        794,
+        461,
+        45
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "[Tab] Network tablet",
+      "kind": "large_text",
+      "rect": [
+        1300,
+        851,
+        306,
+        45
+      ],
+      "fg": "#b9c6cf",
+      "min": 3.0,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "[MMB] Ping",
+      "kind": "large_text",
+      "rect": [
+        1300,
+        900,
+        175,
+        45
+      ],
+      "fg": "#b9c6cf",
+      "min": 3.0,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 32,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "reticle",
+      "kind": "reticle",
+      "rect": [
+        942,
+        510,
+        35,
+        35
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 6.65,
+      "rendered_peak": 6.65,
+      "pass": true,
+      "view": "hud_dark_150"
+    },
+    {
+      "what": "Alder Street  /  First Shift",
+      "kind": "body_text",
+      "rect": [
+        99,
+        99,
+        368,
+        30
+      ],
+      "fg": "#65d6b4",
+      "min": 4.5,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "icon_objective_done.png",
+      "kind": "icon",
+      "rect": [
+        99,
+        141,
+        23,
+        23
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "Drain the pump house basement",
+      "kind": "body_text",
+      "rect": [
+        131,
+        141,
+        336,
+        30
+      ],
+      "fg": "#65d6b4",
+      "min": 4.5,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "icon_objective_active.png",
+      "kind": "icon",
+      "rect": [
+        99,
+        183,
+        23,
+        23
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "Restore the east services",
+      "kind": "body_text",
+      "rect": [
+        131,
+        183,
+        336,
+        30
+      ],
+      "fg": "#ffc86b",
+      "min": 4.5,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "icon_objective_active.png",
+      "kind": "icon",
+      "rect": [
+        99,
+        225,
+        23,
+        23
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "Hold grid supply for 10 seconds",
+      "kind": "body_text",
+      "rect": [
+        131,
+        225,
+        336,
+        30
+      ],
+      "fg": "#ffc86b",
+      "min": 4.5,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "Crew",
+      "kind": "body_text",
+      "rect": [
+        1482,
+        99,
+        339,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "Rowan (You)",
+      "kind": "body_text",
+      "rect": [
+        1482,
+        141,
+        126,
+        30
+      ],
+      "fg": "#65d6b4",
+      "min": 4.5,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "No task",
+      "kind": "body_text",
+      "rect": [
+        1620,
+        141,
+        201,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "Mira",
+      "kind": "body_text",
+      "rect": [
+        1482,
+        183,
+        107,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "icon_lock_owner.png",
+      "kind": "icon",
+      "rect": [
+        1601,
+        183,
+        23,
+        23
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "East trunk cable",
+      "kind": "body_text",
+      "rect": [
+        1633,
+        183,
+        188,
+        30
+      ],
+      "fg": "#ffc86b",
+      "min": 4.5,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "Alex",
+      "kind": "body_text",
+      "rect": [
+        1482,
+        225,
+        107,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "No task",
+      "kind": "body_text",
+      "rect": [
+        1601,
+        225,
+        220,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "Jo",
+      "kind": "body_text",
+      "rect": [
+        1482,
+        267,
+        107,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "No task",
+      "kind": "body_text",
+      "rect": [
+        1601,
+        267,
+        220,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "Pump socket",
+      "kind": "body_text",
+      "rect": [
+        707,
+        685,
+        505,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "[E] Connect generator cable",
+      "kind": "large_text",
+      "rect": [
+        707,
+        721,
+        505,
+        35
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 25,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "Demand 4 PU / source capacity 6 PU",
+      "kind": "body_text",
+      "rect": [
+        707,
+        762,
+        505,
+        30
+      ],
+      "fg": "#65d6b4",
+      "min": 4.5,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "1",
+      "kind": "body_text",
+      "rect": [
+        111,
+        880,
+        12,
+        30
+      ],
+      "fg": "#ffc86b",
+      "min": 4.5,
+      "worst": 8.0,
+      "rendered_peak": 8.0,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "icon_tool_meter",
+      "kind": "icon",
+      "rect": [
+        135,
+        880,
+        23,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "Meter",
+      "kind": "body_text",
+      "rect": [
+        111,
+        914,
+        93,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "2",
+      "kind": "body_text",
+      "rect": [
+        240,
+        880,
+        12,
+        30
+      ],
+      "fg": "#ffc86b",
+      "min": 4.5,
+      "worst": 8.0,
+      "rendered_peak": 8.0,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "icon_tool_screwdriver",
+      "kind": "icon",
+      "rect": [
+        264,
+        880,
+        23,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.05,
+      "pass": true,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "Screwdriver",
+      "kind": "body_text",
+      "rect": [
+        240,
+        914,
+        116,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "3",
+      "kind": "body_text",
+      "rect": [
+        392,
+        880,
+        12,
+        30
+      ],
+      "fg": "#ffc86b",
+      "min": 4.5,
+      "worst": 8.0,
+      "rendered_peak": 8.0,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "icon_tool_puller",
+      "kind": "icon",
+      "rect": [
+        416,
+        880,
+        23,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "Fuse puller",
+      "kind": "body_text",
+      "rect": [
+        392,
+        914,
+        109,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "4",
+      "kind": "body_text",
+      "rect": [
+        537,
+        880,
+        12,
+        30
+      ],
+      "fg": "#ffc86b",
+      "min": 4.5,
+      "worst": 8.0,
+      "rendered_peak": 8.0,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "icon_tool_cutter",
+      "kind": "icon",
+      "rect": [
+        561,
+        880,
+        23,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "Cutter",
+      "kind": "body_text",
+      "rect": [
+        537,
+        914,
+        93,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "icon_supply_restored.png",
+      "kind": "icon",
+      "rect": [
+        1365,
+        888,
+        23,
+        23
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "West branch restored",
+      "kind": "body_text",
+      "rect": [
+        1397,
+        888,
+        424,
+        30
+      ],
+      "fg": "#65d6b4",
+      "min": 4.5,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "[Tab] Network tablet",
+      "kind": "body_text",
+      "rect": [
+        1365,
+        926,
+        202,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "[MMB] Ping",
+      "kind": "body_text",
+      "rect": [
+        1590,
+        926,
+        115,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "reticle",
+      "kind": "reticle",
+      "rect": [
+        948,
+        516,
+        23,
+        23
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 6.65,
+      "rendered_peak": 6.65,
+      "pass": true,
+      "view": "hud_restored_100"
+    },
+    {
+      "what": "Alder Street  /  First Shift",
+      "kind": "large_text",
+      "rect": [
+        110,
+        110,
+        551,
+        45
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "icon_objective_done.png",
+      "kind": "icon",
+      "rect": [
+        110,
+        173,
+        35,
+        35
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "Drain the pump house basement",
+      "kind": "large_text",
+      "rect": [
+        158,
+        173,
+        503,
+        45
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "icon_objective_active.png",
+      "kind": "icon",
+      "rect": [
+        110,
+        236,
+        35,
+        35
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "Restore the east services",
+      "kind": "large_text",
+      "rect": [
+        158,
+        236,
+        503,
+        45
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "icon_objective_active.png",
+      "kind": "icon",
+      "rect": [
+        110,
+        299,
+        35,
+        35
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "Hold grid supply for 10 seconds",
+      "kind": "large_text",
+      "rect": [
+        158,
+        299,
+        503,
+        45
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "Crew",
+      "kind": "large_text",
+      "rect": [
+        1303,
+        110,
+        507,
+        45
+      ],
+      "fg": "#b9c6cf",
+      "min": 3.0,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "Rowan (You)",
+      "kind": "large_text",
+      "rect": [
+        1303,
+        173,
+        192,
+        45
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "No task",
+      "kind": "large_text",
+      "rect": [
+        1513,
+        173,
+        297,
+        45
+      ],
+      "fg": "#b9c6cf",
+      "min": 3.0,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "Mira",
+      "kind": "large_text",
+      "rect": [
+        1303,
+        236,
+        161,
+        45
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "icon_lock_owner.png",
+      "kind": "icon",
+      "rect": [
+        1482,
+        236,
+        35,
+        35
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "East trunk cable",
+      "kind": "large_text",
+      "rect": [
+        1530,
+        236,
+        280,
+        45
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "Alex",
+      "kind": "large_text",
+      "rect": [
+        1303,
+        299,
+        161,
+        45
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "No task",
+      "kind": "large_text",
+      "rect": [
+        1482,
+        299,
+        328,
+        45
+      ],
+      "fg": "#b9c6cf",
+      "min": 3.0,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "Jo",
+      "kind": "large_text",
+      "rect": [
+        1303,
+        362,
+        161,
+        45
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "No task",
+      "kind": "large_text",
+      "rect": [
+        1482,
+        362,
+        328,
+        45
+      ],
+      "fg": "#b9c6cf",
+      "min": 3.0,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "Pump socket",
+      "kind": "large_text",
+      "rect": [
+        718,
+        680,
+        483,
+        45
+      ],
+      "fg": "#b9c6cf",
+      "min": 3.0,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "[E] Connect generator cable",
+      "kind": "large_text",
+      "rect": [
+        718,
+        734,
+        483,
+        109
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 38,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "Demand 4 PU / source capacity 6 PU",
+      "kind": "large_text",
+      "rect": [
+        718,
+        852,
+        483,
+        93
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "Meter",
+      "kind": "large_text",
+      "rect": [
+        110,
+        801,
+        482,
+        45
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "1",
+      "kind": "large_text",
+      "rect": [
+        128,
+        882,
+        18,
+        45
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 8.0,
+      "rendered_peak": 8.0,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "icon_tool_meter",
+      "kind": "icon",
+      "rect": [
+        164,
+        882,
+        35,
+        45
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "2",
+      "kind": "large_text",
+      "rect": [
+        253,
+        882,
+        18,
+        45
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 8.0,
+      "rendered_peak": 8.0,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "icon_tool_screwdriver",
+      "kind": "icon",
+      "rect": [
+        289,
+        882,
+        35,
+        45
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "3",
+      "kind": "large_text",
+      "rect": [
+        378,
+        882,
+        18,
+        45
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 8.0,
+      "rendered_peak": 8.0,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "icon_tool_puller",
+      "kind": "icon",
+      "rect": [
+        414,
+        882,
+        35,
+        45
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "4",
+      "kind": "large_text",
+      "rect": [
+        503,
+        882,
+        18,
+        45
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 8.0,
+      "rendered_peak": 8.0,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "icon_tool_cutter",
+      "kind": "icon",
+      "rect": [
+        539,
+        882,
+        35,
+        45
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "icon_supply_restored.png",
+      "kind": "icon",
+      "rect": [
+        1300,
+        794,
+        35,
+        35
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "West branch restored",
+      "kind": "large_text",
+      "rect": [
+        1348,
+        794,
+        461,
+        45
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "[Tab] Network tablet",
+      "kind": "large_text",
+      "rect": [
+        1300,
+        851,
+        306,
+        45
+      ],
+      "fg": "#b9c6cf",
+      "min": 3.0,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "[MMB] Ping",
+      "kind": "large_text",
+      "rect": [
+        1300,
+        900,
+        175,
+        45
+      ],
+      "fg": "#b9c6cf",
+      "min": 3.0,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 32,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "reticle",
+      "kind": "reticle",
+      "rect": [
+        942,
+        510,
+        35,
+        35
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 6.65,
+      "rendered_peak": 6.65,
+      "pass": true,
+      "view": "hud_restored_150"
+    },
+    {
+      "what": "Alder Street  /  First Shift",
+      "kind": "body_text",
+      "rect": [
+        78,
+        78,
+        1443,
+        30
+      ],
+      "fg": "#65d6b4",
+      "min": 4.5,
+      "worst": 9.8,
+      "rendered_peak": 9.8,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Network tablet",
+      "kind": "large_text",
+      "rect": [
+        78,
+        112,
+        1443,
+        59
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 15.84,
+      "rendered_peak": 15.84,
+      "pass": true,
+      "px": 43,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Measured paths and limits. Inspect a jun",
+      "kind": "body_text",
+      "rect": [
+        78,
+        175,
+        1443,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 9.97,
+      "rendered_peak": 9.97,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Network",
+      "kind": "large_text",
+      "rect": [
+        1549,
+        158,
+        106,
+        35
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "px": 25,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Objectives",
+      "kind": "large_text",
+      "rect": [
+        1699,
+        158,
+        127,
+        35
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "px": 25,
+      "view": "tablet_100"
+    },
+    {
+      "what": "map edge restored",
+      "kind": "graphic",
+      "rect": [
+        99,
+        242,
+        1230,
+        639
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 0.0,
+      "pass": true,
+      "view": "tablet_100"
+    },
+    {
+      "what": "map edge action",
+      "kind": "graphic",
+      "rect": [
+        99,
+        242,
+        1230,
+        639
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 9.57,
+      "rendered_peak": 0.0,
+      "pass": true,
+      "view": "tablet_100"
+    },
+    {
+      "what": "map edge fault",
+      "kind": "graphic",
+      "rect": [
+        99,
+        242,
+        1230,
+        639
+      ],
+      "fg": "#f28b82",
+      "min": 3.0,
+      "worst": 6.13,
+      "rendered_peak": 0.0,
+      "pass": true,
+      "view": "tablet_100"
+    },
+    {
+      "what": "map edge unknown",
+      "kind": "graphic",
+      "rect": [
+        99,
+        242,
+        1230,
+        639
+      ],
+      "fg": "#7e93a3",
+      "min": 3.0,
+      "worst": 4.59,
+      "rendered_peak": 0.0,
+      "pass": true,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Grid",
+      "kind": "body_text",
+      "rect": [
+        674,
+        281,
+        201,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "icon_supply_restored.png",
+      "kind": "icon",
+      "rect": [
+        674,
+        315,
+        23,
+        23
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Grid supply",
+      "kind": "body_text",
+      "rect": [
+        706,
+        315,
+        169,
+        30
+      ],
+      "fg": "#65d6b4",
+      "min": 4.5,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Source limit 24 PU",
+      "kind": "body_text",
+      "rect": [
+        674,
+        349,
+        201,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Load 9 / 24 PU",
+      "kind": "body_text",
+      "rect": [
+        674,
+        383,
+        201,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Junction JW",
+      "kind": "body_text",
+      "rect": [
+        406,
+        500,
+        201,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "icon_unknown.png",
+      "kind": "icon",
+      "rect": [
+        406,
+        534,
+        23,
+        23
+      ],
+      "fg": "#7e93a3",
+      "min": 3.0,
+      "worst": 4.59,
+      "rendered_peak": 4.48,
+      "pass": true,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Not measured",
+      "kind": "body_text",
+      "rect": [
+        438,
+        534,
+        169,
+        30
+      ],
+      "fg": "#7e93a3",
+      "min": 4.5,
+      "worst": 4.59,
+      "rendered_peak": 4.59,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Changed since inspection - inspect again",
+      "kind": "body_text",
+      "rect": [
+        406,
+        568,
+        201,
+        96
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Junction JE",
+      "kind": "body_text",
+      "rect": [
+        942,
+        500,
+        201,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "icon_finding_no_source.png",
+      "kind": "icon",
+      "rect": [
+        942,
+        534,
+        23,
+        23
+      ],
+      "fg": "#f28b82",
+      "min": 3.0,
+      "worst": 6.13,
+      "rendered_peak": 6.13,
+      "pass": true,
+      "view": "tablet_100"
+    },
+    {
+      "what": "No supply at the junction",
+      "kind": "body_text",
+      "rect": [
+        974,
+        534,
+        169,
+        63
+      ],
+      "fg": "#f28b82",
+      "min": 4.5,
+      "worst": 6.13,
+      "rendered_peak": 6.13,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Measured: 0 / 12 PU",
+      "kind": "body_text",
+      "rect": [
+        942,
+        601,
+        201,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "West apartments",
+      "kind": "body_text",
+      "rect": [
+        138,
+        751,
+        201,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "icon_supply_restored.png",
+      "kind": "icon",
+      "rect": [
+        138,
+        785,
+        23,
+        23
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Grid supply",
+      "kind": "body_text",
+      "rect": [
+        170,
+        785,
+        169,
+        30
+      ],
+      "fg": "#65d6b4",
+      "min": 4.5,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Demand 4 PU",
+      "kind": "body_text",
+      "rect": [
+        138,
+        819,
+        201,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Market",
+      "kind": "body_text",
+      "rect": [
+        406,
+        751,
+        201,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "icon_supply_restored.png",
+      "kind": "icon",
+      "rect": [
+        406,
+        785,
+        23,
+        23
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Grid supply",
+      "kind": "body_text",
+      "rect": [
+        438,
+        785,
+        169,
+        30
+      ],
+      "fg": "#65d6b4",
+      "min": 4.5,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Demand 5 PU",
+      "kind": "body_text",
+      "rect": [
+        406,
+        819,
+        201,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Pub",
+      "kind": "body_text",
+      "rect": [
+        674,
+        751,
+        201,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "icon_supply_dark.png",
+      "kind": "icon",
+      "rect": [
+        674,
+        785,
+        23,
+        23
+      ],
+      "fg": "#f28b82",
+      "min": 3.0,
+      "worst": 6.13,
+      "rendered_peak": 6.13,
+      "pass": true,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Dark",
+      "kind": "body_text",
+      "rect": [
+        706,
+        785,
+        169,
+        30
+      ],
+      "fg": "#f28b82",
+      "min": 4.5,
+      "worst": 6.13,
+      "rendered_peak": 6.13,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Demand 4 PU",
+      "kind": "body_text",
+      "rect": [
+        674,
+        819,
+        201,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "East apartments",
+      "kind": "body_text",
+      "rect": [
+        942,
+        751,
+        201,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "icon_supply_dark.png",
+      "kind": "icon",
+      "rect": [
+        942,
+        785,
+        23,
+        23
+      ],
+      "fg": "#f28b82",
+      "min": 3.0,
+      "worst": 6.13,
+      "rendered_peak": 6.13,
+      "pass": true,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Dark",
+      "kind": "body_text",
+      "rect": [
+        974,
+        785,
+        169,
+        30
+      ],
+      "fg": "#f28b82",
+      "min": 4.5,
+      "worst": 6.13,
+      "rendered_peak": 6.13,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Demand 4 PU",
+      "kind": "body_text",
+      "rect": [
+        942,
+        819,
+        201,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Workshop",
+      "kind": "body_text",
+      "rect": [
+        1210,
+        751,
+        119,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "icon_supply_dark.png",
+      "kind": "icon",
+      "rect": [
+        1210,
+        785,
+        23,
+        23
+      ],
+      "fg": "#f28b82",
+      "min": 3.0,
+      "worst": 6.13,
+      "rendered_peak": 6.13,
+      "pass": true,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Dark",
+      "kind": "body_text",
+      "rect": [
+        1242,
+        785,
+        87,
+        30
+      ],
+      "fg": "#f28b82",
+      "min": 4.5,
+      "worst": 6.13,
+      "rendered_peak": 6.13,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Demand 3 PU",
+      "kind": "body_text",
+      "rect": [
+        1210,
+        819,
+        119,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Selected: Junction JE",
+      "kind": "body_text",
+      "rect": [
+        1394,
+        242,
+        427,
+        30
+      ],
+      "fg": "#ffc86b",
+      "min": 4.5,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "icon_finding_no_source.png",
+      "kind": "icon",
+      "rect": [
+        1394,
+        280,
+        23,
+        23
+      ],
+      "fg": "#f28b82",
+      "min": 3.0,
+      "worst": 6.13,
+      "rendered_peak": 6.13,
+      "pass": true,
+      "view": "tablet_100"
+    },
+    {
+      "what": "No supply at the junction",
+      "kind": "large_text",
+      "rect": [
+        1426,
+        280,
+        395,
+        44
+      ],
+      "fg": "#f28b82",
+      "min": 3.0,
+      "worst": 6.13,
+      "rendered_peak": 6.13,
+      "pass": true,
+      "px": 31,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Source",
+      "kind": "body_text",
+      "rect": [
+        1394,
+        332,
+        427,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Grid / branch limit 12 PU",
+      "kind": "body_text",
+      "rect": [
+        1394,
+        370,
+        427,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Measured evidence",
+      "kind": "body_text",
+      "rect": [
+        1394,
+        408,
+        427,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Measured: 0 / 12 PU",
+      "kind": "body_text",
+      "rect": [
+        1394,
+        446,
+        427,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "icon_finding_no_source.png",
+      "kind": "icon",
+      "rect": [
+        1394,
+        484,
+        23,
+        23
+      ],
+      "fg": "#f28b82",
+      "min": 3.0,
+      "worst": 6.13,
+      "rendered_peak": 6.13,
+      "pass": true,
+      "view": "tablet_100"
+    },
+    {
+      "what": "No supply at the junction",
+      "kind": "body_text",
+      "rect": [
+        1426,
+        484,
+        395,
+        30
+      ],
+      "fg": "#f28b82",
+      "min": 4.5,
+      "worst": 6.13,
+      "rendered_peak": 6.13,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "icon_finding_feed_open.png",
+      "kind": "icon",
+      "rect": [
+        1394,
+        522,
+        23,
+        23
+      ],
+      "fg": "#f28b82",
+      "min": 3.0,
+      "worst": 6.13,
+      "rendered_peak": 6.13,
+      "pass": true,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Feed cable broken",
+      "kind": "body_text",
+      "rect": [
+        1426,
+        522,
+        395,
+        30
+      ],
+      "fg": "#f28b82",
+      "min": 4.5,
+      "worst": 6.13,
+      "rendered_peak": 6.13,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Current worker",
+      "kind": "body_text",
+      "rect": [
+        1394,
+        560,
+        427,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Mira - East trunk cable",
+      "kind": "body_text",
+      "rect": [
+        1394,
+        598,
+        427,
+        30
+      ],
+      "fg": "#f3f5ef",
+      "min": 4.5,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "[Enter] Inspect at the panel",
+      "kind": "body_text",
+      "rect": [
+        1394,
+        636,
+        427,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Physical switches operate in the world",
+      "kind": "body_text",
+      "rect": [
+        1394,
+        674,
+        427,
+        30
+      ],
+      "fg": "#b9c6cf",
+      "min": 4.5,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "[MMB] Ping Junction JE",
+      "kind": "large_text",
+      "rect": [
+        1410,
+        834,
+        395,
+        35
+      ],
+      "fg": "#111b25",
+      "min": 3.0,
+      "worst": 11.37,
+      "rendered_peak": 11.37,
+      "pass": true,
+      "px": 25,
+      "view": "tablet_100"
+    },
+    {
+      "what": "icon_supply_restored.png",
+      "kind": "icon",
+      "rect": [
+        78,
+        935,
+        23,
+        23
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 9.8,
+      "rendered_peak": 9.8,
+      "pass": true,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Grid supply",
+      "kind": "body_text",
+      "rect": [
+        110,
+        932,
+        112,
+        30
+      ],
+      "fg": "#65d6b4",
+      "min": 4.5,
+      "worst": 9.8,
+      "rendered_peak": 9.8,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "icon_supply_temporary.png",
+      "kind": "icon",
+      "rect": [
+        245,
+        935,
+        23,
+        23
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 11.37,
+      "rendered_peak": 11.37,
+      "pass": true,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Temporary supply",
+      "kind": "body_text",
+      "rect": [
+        277,
+        932,
+        177,
+        30
+      ],
+      "fg": "#ffc86b",
+      "min": 4.5,
+      "worst": 11.37,
+      "rendered_peak": 11.37,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "icon_supply_dark.png",
+      "kind": "icon",
+      "rect": [
+        477,
+        935,
+        23,
+        23
+      ],
+      "fg": "#f28b82",
+      "min": 3.0,
+      "worst": 7.28,
+      "rendered_peak": 7.28,
+      "pass": true,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Dark",
+      "kind": "body_text",
+      "rect": [
+        509,
+        932,
+        47,
+        30
+      ],
+      "fg": "#f28b82",
+      "min": 4.5,
+      "worst": 7.28,
+      "rendered_peak": 7.28,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "icon_unknown.png",
+      "kind": "icon",
+      "rect": [
+        579,
+        935,
+        23,
+        23
+      ],
+      "fg": "#7e93a3",
+      "min": 3.0,
+      "worst": 5.46,
+      "rendered_peak": 5.32,
+      "pass": true,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Not measured",
+      "kind": "body_text",
+      "rect": [
+        611,
+        932,
+        141,
+        30
+      ],
+      "fg": "#7e93a3",
+      "min": 4.5,
+      "worst": 5.46,
+      "rendered_peak": 5.46,
+      "pass": true,
+      "px": 21,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Zoom out",
+      "kind": "large_text",
+      "rect": [
+        1265,
+        930,
+        117,
+        35
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "px": 25,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Zoom in",
+      "kind": "large_text",
+      "rect": [
+        1426,
+        930,
+        99,
+        35
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "px": 25,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Center",
+      "kind": "large_text",
+      "rect": [
+        1569,
+        930,
+        82,
+        35
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "px": 25,
+      "view": "tablet_100"
+    },
+    {
+      "what": "[Tab] Close",
+      "kind": "large_text",
+      "rect": [
+        1695,
+        930,
+        131,
+        35
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "px": 25,
+      "view": "tablet_100"
+    },
+    {
+      "what": "Alder Street  /  First Shift",
+      "kind": "large_text",
+      "rect": [
+        78,
+        78,
+        1280,
+        45
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 9.8,
+      "rendered_peak": 9.8,
+      "pass": true,
+      "px": 32,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Network tablet",
+      "kind": "large_text",
+      "rect": [
+        78,
+        129,
+        1280,
+        88
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 15.84,
+      "rendered_peak": 15.84,
+      "pass": true,
+      "px": 64,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Measured paths and limits. Inspect a jun",
+      "kind": "large_text",
+      "rect": [
+        78,
+        223,
+        1280,
+        45
+      ],
+      "fg": "#b9c6cf",
+      "min": 3.0,
+      "worst": 9.97,
+      "rendered_peak": 9.97,
+      "pass": true,
+      "px": 32,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Network",
+      "kind": "large_text",
+      "rect": [
+        1399,
+        197,
+        162,
+        53
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "px": 38,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Objectives",
+      "kind": "large_text",
+      "rect": [
+        1625,
+        197,
+        194,
+        53
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "px": 38,
+      "view": "tablet_150"
+    },
+    {
+      "what": "map edge restored",
+      "kind": "graphic",
+      "rect": [
+        110,
+        323,
+        962,
+        505
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 0.0,
+      "pass": true,
+      "view": "tablet_150"
+    },
+    {
+      "what": "map edge action",
+      "kind": "graphic",
+      "rect": [
+        110,
+        323,
+        962,
+        505
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 9.57,
+      "rendered_peak": 0.0,
+      "pass": true,
+      "view": "tablet_150"
+    },
+    {
+      "what": "map edge fault",
+      "kind": "graphic",
+      "rect": [
+        110,
+        323,
+        962,
+        505
+      ],
+      "fg": "#f28b82",
+      "min": 3.0,
+      "worst": 6.13,
+      "rendered_peak": 0.0,
+      "pass": true,
+      "view": "tablet_150"
+    },
+    {
+      "what": "map edge unknown",
+      "kind": "graphic",
+      "rect": [
+        110,
+        323,
+        962,
+        505
+      ],
+      "fg": "#7e93a3",
+      "min": 3.0,
+      "worst": 4.59,
+      "rendered_peak": 0.0,
+      "pass": true,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Grid",
+      "kind": "large_text",
+      "rect": [
+        971,
+        382,
+        101,
+        45
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 32,
+      "view": "tablet_150"
+    },
+    {
+      "what": "icon_supply_restored.png",
+      "kind": "icon",
+      "rect": [
+        971,
+        433,
+        35,
+        35
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Grid supply",
+      "kind": "large_text",
+      "rect": [
+        1019,
+        433,
+        53,
+        45
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 8.25,
+      "rendered_peak": 8.25,
+      "pass": true,
+      "px": 32,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Source limit 24 PU",
+      "kind": "large_text",
+      "rect": [
+        971,
+        484,
+        101,
+        45
+      ],
+      "fg": "#b9c6cf",
+      "min": 3.0,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 32,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Load 9 / 24 PU",
+      "kind": "large_text",
+      "rect": [
+        971,
+        535,
+        101,
+        45
+      ],
+      "fg": "#b9c6cf",
+      "min": 3.0,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 32,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Junction JW",
+      "kind": "large_text",
+      "rect": [
+        570,
+        710,
+        301,
+        45
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 32,
+      "view": "tablet_150"
+    },
+    {
+      "what": "icon_unknown.png",
+      "kind": "icon",
+      "rect": [
+        570,
+        761,
+        35,
+        35
+      ],
+      "fg": "#7e93a3",
+      "min": 3.0,
+      "worst": 4.59,
+      "rendered_peak": 4.59,
+      "pass": true,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Not measured",
+      "kind": "large_text",
+      "rect": [
+        618,
+        761,
+        253,
+        45
+      ],
+      "fg": "#7e93a3",
+      "min": 3.0,
+      "worst": 4.59,
+      "rendered_peak": 4.59,
+      "pass": true,
+      "px": 32,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Changed since inspection - inspect again",
+      "kind": "large_text",
+      "rect": [
+        570,
+        812,
+        301,
+        16
+      ],
+      "fg": "#b9c6cf",
+      "min": 3.0,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 32,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Selected: Junction JE",
+      "kind": "large_text",
+      "rect": [
+        1171,
+        323,
+        631,
+        45
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 9.57,
+      "rendered_peak": 9.57,
+      "pass": true,
+      "px": 32,
+      "view": "tablet_150"
+    },
+    {
+      "what": "icon_finding_no_source.png",
+      "kind": "icon",
+      "rect": [
+        1171,
+        380,
+        35,
+        35
+      ],
+      "fg": "#f28b82",
+      "min": 3.0,
+      "worst": 6.13,
+      "rendered_peak": 6.13,
+      "pass": true,
+      "view": "tablet_150"
+    },
+    {
+      "what": "No supply at the junction",
+      "kind": "large_text",
+      "rect": [
+        1219,
+        380,
+        583,
+        65
+      ],
+      "fg": "#f28b82",
+      "min": 3.0,
+      "worst": 6.13,
+      "rendered_peak": 6.13,
+      "pass": true,
+      "px": 47,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Source",
+      "kind": "large_text",
+      "rect": [
+        1171,
+        457,
+        631,
+        45
+      ],
+      "fg": "#b9c6cf",
+      "min": 3.0,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 32,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Grid / branch limit 12 PU",
+      "kind": "large_text",
+      "rect": [
+        1171,
+        514,
+        631,
+        45
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 32,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Measured evidence",
+      "kind": "large_text",
+      "rect": [
+        1171,
+        571,
+        631,
+        45
+      ],
+      "fg": "#b9c6cf",
+      "min": 3.0,
+      "worst": 8.39,
+      "rendered_peak": 8.39,
+      "pass": true,
+      "px": 32,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Measured: 0 / 12 PU",
+      "kind": "large_text",
+      "rect": [
+        1171,
+        628,
+        631,
+        45
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 13.32,
+      "rendered_peak": 13.32,
+      "pass": true,
+      "px": 32,
+      "view": "tablet_150"
+    },
+    {
+      "what": "icon_finding_no_source.png",
+      "kind": "icon",
+      "rect": [
+        1171,
+        685,
+        35,
+        35
+      ],
+      "fg": "#f28b82",
+      "min": 3.0,
+      "worst": 6.13,
+      "rendered_peak": 6.13,
+      "pass": true,
+      "view": "tablet_150"
+    },
+    {
+      "what": "No supply at the junction",
+      "kind": "large_text",
+      "rect": [
+        1219,
+        685,
+        583,
+        36
+      ],
+      "fg": "#f28b82",
+      "min": 3.0,
+      "worst": 6.13,
+      "rendered_peak": 6.13,
+      "pass": true,
+      "px": 32,
+      "view": "tablet_150"
+    },
+    {
+      "what": "[MMB] Ping Junction JE",
+      "kind": "large_text",
+      "rect": [
+        1194,
+        757,
+        593,
+        53
+      ],
+      "fg": "#111b25",
+      "min": 3.0,
+      "worst": 11.37,
+      "rendered_peak": 11.37,
+      "pass": true,
+      "px": 38,
+      "view": "tablet_150"
+    },
+    {
+      "what": "icon_supply_restored.png",
+      "kind": "icon",
+      "rect": [
+        78,
+        888,
+        35,
+        35
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 9.8,
+      "rendered_peak": 9.8,
+      "pass": true,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Grid supply",
+      "kind": "large_text",
+      "rect": [
+        126,
+        883,
+        171,
+        45
+      ],
+      "fg": "#65d6b4",
+      "min": 3.0,
+      "worst": 9.8,
+      "rendered_peak": 9.8,
+      "pass": true,
+      "px": 32,
+      "view": "tablet_150"
+    },
+    {
+      "what": "icon_supply_temporary.png",
+      "kind": "icon",
+      "rect": [
+        332,
+        888,
+        35,
+        35
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 11.37,
+      "rendered_peak": 11.37,
+      "pass": true,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Temporary supply",
+      "kind": "large_text",
+      "rect": [
+        380,
+        883,
+        270,
+        45
+      ],
+      "fg": "#ffc86b",
+      "min": 3.0,
+      "worst": 11.37,
+      "rendered_peak": 11.37,
+      "pass": true,
+      "px": 32,
+      "view": "tablet_150"
+    },
+    {
+      "what": "icon_supply_dark.png",
+      "kind": "icon",
+      "rect": [
+        685,
+        888,
+        35,
+        35
+      ],
+      "fg": "#f28b82",
+      "min": 3.0,
+      "worst": 7.28,
+      "rendered_peak": 7.28,
+      "pass": true,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Dark",
+      "kind": "large_text",
+      "rect": [
+        733,
+        883,
+        72,
+        45
+      ],
+      "fg": "#f28b82",
+      "min": 3.0,
+      "worst": 7.28,
+      "rendered_peak": 7.28,
+      "pass": true,
+      "px": 32,
+      "view": "tablet_150"
+    },
+    {
+      "what": "icon_unknown.png",
+      "kind": "icon",
+      "rect": [
+        78,
+        937,
+        35,
+        35
+      ],
+      "fg": "#7e93a3",
+      "min": 3.0,
+      "worst": 5.46,
+      "rendered_peak": 5.46,
+      "pass": true,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Not measured",
+      "kind": "large_text",
+      "rect": [
+        126,
+        932,
+        215,
+        45
+      ],
+      "fg": "#7e93a3",
+      "min": 3.0,
+      "worst": 5.46,
+      "rendered_peak": 5.46,
+      "pass": true,
+      "px": 32,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Zoom out",
+      "kind": "large_text",
+      "rect": [
+        975,
+        901,
+        178,
+        58
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "px": 38,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Zoom in",
+      "kind": "large_text",
+      "rect": [
+        1217,
+        901,
+        150,
+        58
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "px": 38,
+      "view": "tablet_150"
+    },
+    {
+      "what": "Center",
+      "kind": "large_text",
+      "rect": [
+        1431,
+        901,
+        125,
+        58
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "px": 38,
+      "view": "tablet_150"
+    },
+    {
+      "what": "[Tab] Close",
+      "kind": "large_text",
+      "rect": [
+        1620,
+        901,
+        199,
+        58
+      ],
+      "fg": "#f3f5ef",
+      "min": 3.0,
+      "worst": 11.15,
+      "rendered_peak": 11.15,
+      "pass": true,
+      "px": 38,
+      "view": "tablet_150"
+    }
+  ]
+}

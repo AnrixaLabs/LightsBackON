@@ -1,0 +1,20 @@
+{
+  "contract_id": "C01",
+  "source_note": "Network tablet map layout for C01 (S07, blueprint p.23; reference p.43). Presentation only: column/row cells on the map grid and the localization key of each node's name. The topology, capacities and demands come from grid.json (JSON is the authoritative topology); every grid node must appear here exactly once (test_V07). Rows read top-down from the grid source; the generator branch sits on the bottom row as in the reference.",
+  "columns": 5,
+  "rows": 4,
+  "nodes": [
+    {"id": "GRID", "col": 2, "row": 0, "name_key": "node.c01.grid"},
+    {"id": "JW", "col": 1, "row": 1, "name_key": "node.c01.jw"},
+    {"id": "JE", "col": 3, "row": 1, "name_key": "node.c01.je"},
+    {"id": "APT_W", "col": 0, "row": 2, "name_key": "node.c01.apt_w"},
+    {"id": "MARKET", "col": 1, "row": 2, "name_key": "node.c01.market"},
+    {"id": "PUB", "col": 2, "row": 2, "name_key": "node.c01.pub"},
+    {"id": "APT_E", "col": 3, "row": 2, "name_key": "node.c01.apt_e"},
+    {"id": "WORKSHOP", "col": 4, "row": 2, "name_key": "node.c01.workshop"},
+    {"id": "GEN", "col": 0, "row": 3, "name_key": "node.c01.gen"},
+    {"id": "TEMP", "col": 1, "row": 3, "name_key": "node.c01.temp"},
+    {"id": "PUMP", "col": 2, "row": 3, "name_key": "node.c01.pump"},
+    {"id": "SIGN", "col": 4, "row": 3, "name_key": "node.c01.sign"}
+  ]
+}

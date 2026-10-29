@@ -3,6 +3,7 @@ extends SceneTree
 ## state's token color on the opaque HUD panel, plus the 24 px export in plain text color (reads without color). Labels show the
 ## localization key and icon id in the token theme's font (Noto Sans). Needs a real GPU window, not headless.
 ##   godot --path . --import --headless; godot --path . --resolution 1920x1080 -s "$PWD/tools/godot/capture_icon_sheet.gd" -- --out=build/icon_sheet.png
+## --only=<group>[,<group>] renders just those status_states.json groups (e.g. --only=objectives for the V07 additions).
 ## Exit 0 = PNG written.
 
 const IconRaster := preload("res://scripts/ui/icon_raster.gd")
@@ -15,9 +16,12 @@ const SETTLE_FRAMES: int = 6
 
 func _initialize() -> void:
 	var out: String = "build/icon_sheet.png"
+	var only: PackedStringArray = PackedStringArray()
 	for a: String in OS.get_cmdline_user_args():
 		if a.begins_with("--out="):
 			out = a.trim_prefix("--out=")
+		elif a.begins_with("--only="):
+			only = a.trim_prefix("--only=").split(",")
 	var tokens: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://content/ui/tokens.json"))
 	var states: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(IconRaster.STATES_PATH))
 	var colors: Dictionary = tokens["colors"]
@@ -37,7 +41,7 @@ func _initialize() -> void:
 	grid.add_theme_constant_override("v_separation", 8)
 	margin.add_child(grid)
 	for group: String in states:
-		if group.begins_with("_"):
+		if group.begins_with("_") or (not only.is_empty() and not only.has(group)):
 			continue
 		for state: String in states[group]:
 			var e: Dictionary = states[group][state]
