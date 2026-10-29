@@ -27,7 +27,12 @@ fi
 echo "== godot =="
 if [ -f project.godot ]; then
   "$GODOT_BIN" --headless --path . --import >/dev/null 2>&1 || true   # builds the class cache on a fresh clone
-  "$GODOT_BIN" --headless --path . -s res://tests/run_tests.gd -- "$@" || FAIL=1
+  GD_OUT="$(mktemp)"
+  "$GODOT_BIN" --headless --path . -s res://tests/run_tests.gd -- "$@" 2>&1 | tee "$GD_OUT"
+  [ "${PIPESTATUS[0]}" -eq 0 ] || FAIL=1
+  # GDScript cannot catch runtime errors, so a test that crashes mid-way could still report PASS: fail on any
+  if grep -qE "SCRIPT ERROR|Parse Error" "$GD_OUT"; then echo "FAIL: Godot reported script errors (see above)"; FAIL=1; fi
+  rm -f "$GD_OUT"
   echo "== cross-check: python reference vs godot canonical hashes =="
   if [ -n "$PY" ]; then GODOT_BIN="$GODOT_BIN" "$PY" tools/cross_check_reference.py || FAIL=1; fi
 else

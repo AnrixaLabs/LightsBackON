@@ -34,7 +34,8 @@ func test_G02_trip_event_is_authoritative_and_emitted_once() -> void:
 		events.append_array(g.step())
 	assert_eq(events.size(), 1, "sustained overload trips once")
 	if events.size() == 1:
-		assert_eq(events[0], {"type": "trip", "tick": 15, "protection": "BRK_TEMP", "element": "E_GEN_TEMP", "breaker": "TEMP"})
+		assert_eq(events[0], {"type": "trip", "tick": 15, "protection": "BRK_TEMP", "element": "E_GEN_TEMP", "breaker": "TEMP",
+			"flow": 8, "capacity": 6})
 	var st: Dictionary = g.canonical_state()
 	assert_eq(st["nodes"]["TEMP"]["tripped"], true)
 	assert_eq(st["nodes"]["PUMP"]["supplied"], false, "recomputed after trip (step 7)")

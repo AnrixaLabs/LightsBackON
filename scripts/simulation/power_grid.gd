@@ -336,7 +336,9 @@ func step() -> Array[Dictionary]:
 			var breaker: String = _protections[pid]["breaker"]
 			_nodes[breaker]["tripped"] = true
 			_overload_ticks[pid] = 0
-			events.append({"type": "trip", "tick": tick, "protection": pid, "element": element, "breaker": breaker})
+			# flow/capacity at the moment of the trip: after the recompute the edge carries 0, and the meter needs the cause
+			events.append({"type": "trip", "tick": tick, "protection": pid, "element": element, "breaker": breaker,
+				"flow": int(_flow[element]), "capacity": int(_edges[element]["capacity"])})
 	if not events.is_empty():
 		evaluate()
 	return events

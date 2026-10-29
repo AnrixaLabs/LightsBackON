@@ -314,7 +314,8 @@ class Grid:
                 breaker = self.protections[pid]["breaker"]
                 self.nodes[breaker]["tripped"] = True
                 self.overload_ticks[pid] = 0
-                events.append({"type": "trip", "tick": self.tick, "protection": pid, "element": element, "breaker": breaker})
+                events.append({"type": "trip", "tick": self.tick, "protection": pid, "element": element, "breaker": breaker,
+                               "flow": self.result["flow"][element], "capacity": self.edges[element]["capacity"]})
         if events:
             self.evaluate()
         return events
