@@ -514,8 +514,13 @@
       "milestone_name": "Playable slice",
       "env": "split",
       "env_note": "150 ms RTT check needs controlled impairment.",
-      "status": "IN_PROGRESS",
-      "evidence_file": "docs/evidence/V05.md"
+      "status": "CLOUD_VERIFIED",
+      "evidence_file": "docs/evidence/V05.md",
+      "pending_local": [
+        "controlled impairment on real peers (NET09) on the F02 Steam tuple",
+        "collision in the V01 graybox",
+        "feel test with people"
+      ]
     },
     {
       "id": "V06",

@@ -44,7 +44,8 @@ func test_V05_usable_at_150ms_rtt_3pct_loss_30ms_jitter() -> void:
 	assert_eq(r["unacked"], 0, "host applied every input exactly once")
 	assert_eq(r["corrections"], 0, "prediction never had to be corrected: the local player feels instant")
 	assert_true(r["max_remote_jump_mm"] <= 300, "remote player never snaps more than 30 cm between frames (%d mm)" % r["max_remote_jump_mm"])
-	assert_true(r["remote_lag_ms"] <= 300, "remote view lags truth by about delay + one-way latency (%d ms)" % r["remote_lag_ms"])
+	assert_true(r["remote_lag_ms"] <= 300, "P95 remote view lags truth by about delay + one-way latency (%d ms)" % r["remote_lag_ms"])
+	assert_true(r["remote_lag_ms"] >= 150, "the lag metric measures something real: delay 100 + one-way >= 75 (%d ms)" % r["remote_lag_ms"])
 
 
 func test_V05_host_rule_change_is_corrected_and_converges() -> void:
@@ -163,7 +164,8 @@ func _simulate(rtt_ms: int, loss_pct: int, jitter_ms: int, duration_ms: int, see
 	client.on_snapshot(host.snapshot()["P1"]["pos"], int(host.snapshot()["P1"]["ack"]))
 	return {"host_final": host.position_of("P1"), "client_final": client.predicted, "corrections": client.corrections,
 		"unacked": ticks - int(host.snapshot()["P1"]["ack"]), "max_remote_jump_mm": max_jump,
-		"remote_lag_ms": lag_samples[lag_samples.size() * 95 / 100] if not lag_samples.is_empty() else 0}
+		"remote_lag_ms": lag_samples[lag_samples.size() * 95 / 100] if not lag_samples.is_empty() else 99999,
+		"median_lag_ms": lag_samples[lag_samples.size() / 2] if not lag_samples.is_empty() else 99999}
 
 
 func _send(q: Array[Dictionary], rng: RandomNumberGenerator, now: int, rtt: int, loss: int, jitter: int, to: String, data: Variant) -> void:
@@ -185,10 +187,25 @@ func _arrived(q: Array[Dictionary], now: int) -> Array[Dictionary]:
 	return out
 
 
-## How far in the past the drawn position is: the newest host time whose true position is within 5 cm of it.
+## How far in the past the drawn position is: the time offset (5 ms steps, up to 1 s) at which the true host path,
+## linearly interpolated between 30 Hz ticks, comes closest to the drawn point. A plain "within 5 cm of a tick sample"
+## match fails at sprint speed, where an interpolated point sits up to ~90 mm between two tick samples.
 func _lag_ms(truth: Array[Dictionary], drawn: Vector3, frame_ms: int) -> int:
-	for i: int in range(truth.size() - 1, -1, -1):
-		var p: Vector3i = truth[i]["pos"]
-		if Vector3(p).distance_to(drawn) <= 50.0:
-			return frame_ms - int(truth[i]["t"])
-	return 99999
+	var best_lag: int = 99999
+	var best_dist: float = INF
+	for lag: int in range(0, 1001, 5):
+		var d: float = _truth_at(truth, frame_ms - lag).distance_to(drawn)
+		if d < best_dist - 0.5:  # ties keep the smaller lag (a player standing still)
+			best_dist = d
+			best_lag = lag
+	return best_lag if best_dist <= 50.0 else 99999
+
+
+func _truth_at(truth: Array[Dictionary], t_ms: int) -> Vector3:
+	for i: int in range(truth.size() - 1, 0, -1):
+		var a: Dictionary = truth[i - 1]
+		if int(a["t"]) <= t_ms:
+			var b: Dictionary = truth[i]
+			var w: float = clampf(float(t_ms - int(a["t"])) / float(maxi(1, int(b["t"]) - int(a["t"]))), 0.0, 1.0)
+			return Vector3(a["pos"] as Vector3i).lerp(Vector3(b["pos"] as Vector3i), w)
+	return Vector3(truth[0]["pos"] as Vector3i)
