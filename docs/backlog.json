@@ -186,8 +186,12 @@
       "milestone_name": "Grid toy",
       "env": "cloud",
       "env_note": "",
-      "status": "NOT_STARTED",
-      "evidence_file": "docs/evidence/G01.md"
+      "status": "CLOUD_VERIFIED",
+      "evidence_file": "docs/evidence/G01.md",
+      "pending_local": [
+        "rerun bash tools/run_tests.sh (incl. cross-check) on Windows with the Godot 4.7.2 console exe",
+        "promote to DONE when F01 is DONE"
+      ]
     },
     {
       "id": "G02",
