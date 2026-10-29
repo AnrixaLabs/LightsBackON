@@ -1,0 +1,12 @@
+{
+  "contract_id": "C01",
+  "source_note": "Meter panels for C01 (blueprint p.8: the meter shows source presence, continuity, branch demand, capacity and breaker reason). Panel IDs are authored; targets are grid node IDs. initial_breaker_reasons explains breakers that start tripped (JW: the failed west fuse, blueprint p.7).",
+  "panels": [
+    {"id": "PANEL_GRID", "target": "GRID"},
+    {"id": "PANEL_GEN", "target": "GEN"},
+    {"id": "PANEL_JW", "target": "JW"},
+    {"id": "PANEL_JE", "target": "JE"},
+    {"id": "PANEL_TEMP", "target": "TEMP"}
+  ],
+  "initial_breaker_reasons": {"JW": "fault"}
+}
