@@ -13,11 +13,12 @@ artifact. That is a Windows rerun on a VM with no GPU, so it does **not** replac
   1. `git switch main && git pull`, then `py -3 tools/build_manifest.py --godot "C:\path\Godot_v4.7.2-stable_win64_console.exe"`
   2. Open the project in the 4.7.2 editor once (imports), Project > Export > Windows Desktop > Export Project (release) to `build\windows\LightsBackOn.exe`.
      If templates are missing: Editor > Manage Export Templates > Download (record their version).
-  3. Double-click the exe: a window opens (Compatibility renderer, real GPU), no error dialog. For the log, run
+  3. (CI already proves the headless launch on Windows.) Double-click the exe: a window opens (Compatibility renderer, real GPU), no error dialog. For the log, run
      `build\windows\LightsBackOn.exe --log-file build\smoke.log` and check `Lights Back On boot | ... | build <build_id>` matches `build_manifest.json`.
   4. `certutil -hashfile build\windows\LightsBackOn.exe SHA256` (and `.pck`); paste both, GPU + driver version, and build_id into `docs/evidence/F01.md`.
   5. `py -3 tools/backlog.py set F01 DONE`
-- [ ] **G01, G02, G03** rerun on Windows: in Git Bash
+- [x] **G01, G02, G03** Windows rerun: done by CI (run 40838296362, 39/39 + MATCH). After F01 is DONE just run
+  `set G01 DONE`, `set G02 DONE`, `set G03 DONE`. Optional local rerun in Git Bash:
   `GODOT_BIN="/c/path/Godot_v4.7.2-stable_win64_console.exe" PYTHON=py bash tools/run_tests.sh` -> must end `ALL CHECKS PASSED` and print `MATCH`.
   Add the output line to each evidence file, then `set G01 DONE`, `set G02 DONE`, `set G03 DONE` (in that order). G02's "host 10 Hz loop" and
   G03's "on-screen meter" notes stay open for G07 / V07; record them as follow-ups, they do not block DONE for the pure-logic acceptance.

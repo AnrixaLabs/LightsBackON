@@ -41,8 +41,7 @@
       "status": "CLOUD_VERIFIED",
       "evidence_file": "docs/evidence/F01.md",
       "pending_local": [
-        "launch exported Windows build",
-        "record hash"
+        "launch exported Windows build on a real GPU (window, Compatibility renderer); record hash (headless Windows launch already passes in CI)"
       ]
     },
     {
@@ -189,8 +188,7 @@
       "status": "CLOUD_VERIFIED",
       "evidence_file": "docs/evidence/G01.md",
       "pending_local": [
-        "rerun bash tools/run_tests.sh (incl. cross-check) on Windows with the Godot 4.7.2 console exe",
-        "promote to DONE when F01 is DONE"
+        "Windows rerun passes in CI (run 40838296362); promote to DONE when F01 is DONE"
       ]
     },
     {
@@ -217,7 +215,7 @@
       "status": "CLOUD_VERIFIED",
       "evidence_file": "docs/evidence/G02.md",
       "pending_local": [
-        "rerun bash tools/run_tests.sh on Windows",
+        "Windows rerun passes in CI (run 40838296362); promote to DONE when F01 is DONE",
         "host 10 Hz loop and trip replication verified in G07"
       ]
     },
@@ -243,7 +241,7 @@
       "status": "CLOUD_VERIFIED",
       "evidence_file": "docs/evidence/G03.md",
       "pending_local": [
-        "rerun bash tools/run_tests.sh on Windows",
+        "Windows rerun passes in CI (run 40838296362); promote to DONE when F01 is DONE",
         "on-screen meter display checked when the UI exists (V07)"
       ]
     },
