@@ -1,0 +1,31 @@
+{
+  "contract_id": "C01",
+  "source_note": "Re-derived from blueprint v1.0 p.7 (C01 starting network) and CLAUDE.md section 3; the original reference/data/first_shift.json was not delivered. Service-drop edge capacities (junction -> consumer, TEMP -> consumer) are not in the blueprint; they are set equal to the consumer demand (design choice recorded in ADR-003).",
+  "nodes": [
+    {"id": "GRID", "kind": "source", "capacity": 24, "online": true},
+    {"id": "GEN", "kind": "source", "capacity": 6, "online": false},
+    {"id": "JW", "kind": "junction", "isolated": false, "failed": true, "tripped": true},
+    {"id": "JE", "kind": "junction", "isolated": false, "failed": false, "tripped": false},
+    {"id": "TEMP", "kind": "junction", "isolated": false, "failed": false, "tripped": false},
+    {"id": "APT_W", "kind": "consumer", "demand": 4, "enabled": true, "healthy": true},
+    {"id": "MARKET", "kind": "consumer", "demand": 5, "enabled": true, "healthy": true},
+    {"id": "PUB", "kind": "consumer", "demand": 4, "enabled": true, "healthy": true},
+    {"id": "APT_E", "kind": "consumer", "demand": 4, "enabled": true, "healthy": true},
+    {"id": "WORKSHOP", "kind": "consumer", "demand": 3, "enabled": true, "healthy": true},
+    {"id": "PUMP", "kind": "consumer", "demand": 4, "enabled": true, "healthy": true},
+    {"id": "SIGN", "kind": "consumer", "demand": 3, "enabled": false, "healthy": true}
+  ],
+  "edges": [
+    {"id": "E_GRID_JW", "from": "GRID", "to": "JW", "capacity": 12, "enabled": true, "healthy": true},
+    {"id": "E_GRID_JE", "from": "GRID", "to": "JE", "capacity": 12, "enabled": true, "healthy": false},
+    {"id": "E_JW_APT_W", "from": "JW", "to": "APT_W", "capacity": 4, "enabled": true, "healthy": true},
+    {"id": "E_JW_MARKET", "from": "JW", "to": "MARKET", "capacity": 5, "enabled": true, "healthy": true},
+    {"id": "E_JE_PUB", "from": "JE", "to": "PUB", "capacity": 4, "enabled": true, "healthy": true},
+    {"id": "E_JE_APT_E", "from": "JE", "to": "APT_E", "capacity": 4, "enabled": true, "healthy": true},
+    {"id": "E_JE_WORKSHOP", "from": "JE", "to": "WORKSHOP", "capacity": 3, "enabled": true, "healthy": true},
+    {"id": "E_JE_SIGN", "from": "JE", "to": "SIGN", "capacity": 3, "enabled": true, "healthy": true},
+    {"id": "E_GEN_TEMP", "from": "GEN", "to": "TEMP", "capacity": 6, "enabled": true, "healthy": true},
+    {"id": "E_TEMP_PUMP", "from": "TEMP", "to": "PUMP", "capacity": 4, "enabled": false, "healthy": true},
+    {"id": "E_TEMP_PUB", "from": "TEMP", "to": "PUB", "capacity": 4, "enabled": false, "healthy": true}
+  ]
+}

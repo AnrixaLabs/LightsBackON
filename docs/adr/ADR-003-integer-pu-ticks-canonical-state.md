@@ -30,3 +30,36 @@ state that clients and the reference model can compare.
 - A golden-bytes test exists on both sides (same input -> identical string), not only a hash comparison.
 - If the original Python reference is absent, G01 re-derives it from the C01 table and labels it "re-derived, not the original oracle".
 - Changing the serialization bumps `schema` and is recorded here.
+
+## Addendum G01 (29 Oct 2026): grid state fields and interpretations
+
+Canonical grid state, `schema` 1 (both `scripts/simulation/power_grid.gd` and `reference/lbo_grid.py`):
+
+```
+{"schema":1,"tick":<int>,
+ "nodes":{<ID>: source   {"kind","capacity","online","load","overloaded"}
+               | junction {"kind","isolated","failed","tripped","energized"}
+               | consumer {"kind","demand","enabled","healthy","supplied"}},
+ "edges":{<ID>: {"from","to","capacity","enabled","healthy","energized","flow","overloaded"}}}
+```
+
+Interpretations (blueprint section 5 does not state these verbatim):
+1. **Edge active** = `enabled and healthy`. **Junction blocked** = `isolated or failed or tripped`. A source passes supply when `online`;
+   a junction passes when it is energized (has a live incoming edge) and not blocked. A blocked junction still reports `energized`
+   (live on its input side) so the meter (G03) can show source presence upstream of an open isolator.
+2. **Live edge** (`energized` on an edge) = active edge whose `from` node passes supply. A consumer is `supplied` when it has a live
+   incoming edge and is `enabled` and `healthy`; only supplied consumers add demand.
+3. **Dual supply** = any node with two or more live incoming edges (DUAL_SUPPLY). Potential alternates (disabled, broken, or fed by a
+   dead branch) are allowed.
+4. **Cycles are rejected on the potential graph** (all edges, enabled or not), not only the energized one, so traversal is always a DAG
+   and a later switch flip can never create a loop. Edges into a source (SOURCE_BACKFEED, covers source-to-source) and edges out of a
+   consumer (CONSUMER_OUTPUT) are rejected.
+5. **Service-drop capacities** (junction -> consumer edges) are not in the blueprint; C01 sets them equal to the consumer demand.
+6. Commands: `set` (only runtime fields: source `online`; junction `isolated/failed/tripped`; consumer `enabled/healthy`; edge
+   `enabled/healthy`), `add_edge`, `remove_edge`. Capacities, demands and endpoints of existing records are content, not commands.
+   A command is applied to the state, the whole grid is re-validated, and on any diagnostic the previous state is restored and the
+   first diagnostic returned as `{code, message, ids}` (ids sorted, used by the map to highlight the conflicting tie).
+7. **Integer loading in Godot**: Godot's JSON parser returns every number as float, so the Godot loader accepts a float only when it is
+   integral (and within 2^53) and stores it as int; non-integral values are BAD_VALUE. Python rejects any float. To keep the two strict
+   in practice, `tools/validate_content.py` (run by `tools/run_tests.sh`) rejects any non-integer number token in `content/`.
+8. Canonical strings are printable ASCII (0x20-0x7E); only `"` and `\` are escaped. Anything else is not serializable (Godot returns "").
