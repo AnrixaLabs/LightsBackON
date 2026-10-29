@@ -14,7 +14,10 @@ FAIL=0
 echo "== backlog =="
 if [ -n "$PY" ]; then "$PY" tools/backlog.py validate || FAIL=1; else echo "no python found"; FAIL=1; fi
 
-echo "== python reference model (only if the blueprint package was added under reference/) =="
+echo "== content (ADR-003 integer data) =="
+if [ -n "$PY" ]; then "$PY" tools/validate_content.py || FAIL=1; fi
+
+echo "== python reference model (re-derived, reference/tests) =="
 if [ -d reference/tests ] && [ -n "$PY" ]; then
   ( cd reference && "$PY" -m unittest discover -s tests -v ) || FAIL=1
 else
@@ -25,6 +28,8 @@ echo "== godot =="
 if [ -f project.godot ]; then
   "$GODOT_BIN" --headless --path . --import >/dev/null 2>&1 || true   # builds the class cache on a fresh clone
   "$GODOT_BIN" --headless --path . -s res://tests/run_tests.gd -- "$@" || FAIL=1
+  echo "== cross-check: python reference vs godot canonical hashes =="
+  if [ -n "$PY" ]; then GODOT_BIN="$GODOT_BIN" "$PY" tools/cross_check_reference.py || FAIL=1; fi
 else
   echo "skipped: no project.godot yet (task F01)"
 fi
