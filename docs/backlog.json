@@ -514,7 +514,7 @@
       "milestone_name": "Playable slice",
       "env": "split",
       "env_note": "150 ms RTT check needs controlled impairment.",
-      "status": "NOT_STARTED",
+      "status": "IN_PROGRESS",
       "evidence_file": "docs/evidence/V05.md"
     },
     {

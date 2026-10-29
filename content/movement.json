@@ -1,0 +1,13 @@
+{
+  "_note": "Movement targets (blueprint p.8 speeds, p.9-10 network rates). Fixed point: positions in mm, speeds in mm/s, host ticks at 30 Hz. Starting values to tune, not measurements. Crouch speed is a design choice (the blueprint gives none).",
+  "host_hz": 30,
+  "snapshot_hz": 15,
+  "interpolation_delay_ms": 100,
+  "walk_mm_s": 4000,
+  "sprint_mm_s": 5500,
+  "carry_mm_s": 2800,
+  "crouch_mm_s": 2000,
+  "input_axis_max": 127,
+  "input_redundancy": 3,
+  "max_buffered_inputs": 4
+}
