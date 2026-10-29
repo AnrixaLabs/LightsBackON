@@ -19,7 +19,7 @@ func before_each() -> void:
 
 
 func test_F05_every_icon_has_one_svg_source_and_three_exports_and_nothing_else() -> void:
-	assert_eq(_ids.size(), 36, "repair 9 + findings 11 + supply 3 + other 3 + pings 4 + tools 5 + equipment 1")
+	assert_eq(_ids.size(), 39, "repair 9 + findings 11 + supply 3 + other 3 + pings 4 + tools 5 + equipment 1 + objectives 3 (V07)")
 	assert_eq(_files(IconRaster.SOURCE_DIR, ".svg"), _ids, "art_source/ui_icons holds exactly the icons status_states.json names")
 	for px: int in IconRaster.SIZES_PX:
 		assert_eq(_files("%s/%d" % [IconRaster.EXPORT_DIR, px], ".png"), _ids, "assets/ui/icons/%d" % px)

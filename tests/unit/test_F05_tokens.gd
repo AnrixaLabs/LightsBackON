@@ -4,6 +4,7 @@ extends "res://tests/test_case.gd"
 const ThemeTokens := preload("res://scripts/ui/theme_tokens.gd")
 const Interaction := preload("res://scripts/interaction/interaction_service.gd")
 const MeterModel := preload("res://scripts/simulation/meter_model.gd")
+const MissionDirector := preload("res://scripts/simulation/mission_director.gd")
 
 var _tokens: Dictionary
 var _states: Dictionary
@@ -44,7 +45,12 @@ func test_F05_every_real_state_has_one_icon_and_text_and_nothing_invented() -> v
 		comms_types.append(t["id"])
 	comms_types.sort()
 	assert_eq(pings, comms_types, "ping icons = comms ping types")
-	for group: String in ["repair_states", "findings", "supply", "other", "pings", "tools", "equipment"]:
+	var objectives: Array = (_states["objectives"] as Dictionary).keys()
+	objectives.sort()
+	var statuses: Array = [MissionDirector.STATUS_DONE, MissionDirector.STATUS_ACTIVE, MissionDirector.STATUS_PENDING]
+	statuses.sort()
+	assert_eq(objectives, statuses, "objective icons = mission_director objective statuses (V07)")
+	for group: String in ["repair_states", "findings", "supply", "other", "pings", "tools", "equipment", "objectives"]:
 		for state: String in _states[group]:
 			var e: Dictionary = _states[group][state]
 			assert_true(_tokens["colors"].has(e["color"]), "%s.%s color is a token" % [group, state])

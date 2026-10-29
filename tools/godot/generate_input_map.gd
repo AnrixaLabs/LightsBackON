@@ -36,6 +36,9 @@ const ACTIONS: Dictionary = {
 	"sprint": [["key", KEY_SHIFT, 0], ["joy_button", JOY_BUTTON_LEFT_STICK, 0]],
 	"crouch": [["key", KEY_CTRL, 0], ["joy_button", JOY_BUTTON_RIGHT_STICK, 0]],
 	"pause": [["key", KEY_ESCAPE, 0], ["joy_button", JOY_BUTTON_START, 0]],
+	# menus and the network tablet (V07): Godot's built-in ui_accept / ui_cancel have no controller button, so A and B are added
+	"ui_accept": [["key", KEY_ENTER, 0], ["key", KEY_KP_ENTER, 0], ["key", KEY_SPACE, 0], ["joy_button", JOY_BUTTON_A, 0]],
+	"ui_cancel": [["key", KEY_ESCAPE, 0], ["joy_button", JOY_BUTTON_B, 0]],
 }
 
 

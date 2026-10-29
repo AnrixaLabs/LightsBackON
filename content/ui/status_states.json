@@ -1,5 +1,5 @@
 {
-  "_note": "One icon per real game state (ADR-004 point 2), generated from the state lists in code: interaction_service.gd STATES, meter_model.gd FINDING_CODES, building supply states and unknown. Every status shows icon + text (text_key) in its token color. pings come from content/comms.json ping_types; tools from the tools that contract repairs.json files name, equipment from equipment.json kinds. Each icon is an original SVG in art_source/ui_icons/<icon>.svg (white, tinted with the token color at runtime) exported to assets/ui/icons/<24|32|48>/<icon>.png by tools/godot/export_icons.gd.",
+  "_note": "One icon per real game state (ADR-004 point 2), generated from the state lists in code: interaction_service.gd STATES, meter_model.gd FINDING_CODES, building supply states and unknown. Every status shows icon + text (text_key) in its token color. pings come from content/comms.json ping_types; tools from the tools that contract repairs.json files name, equipment from equipment.json kinds; objectives from mission_director.gd STATUS_DONE/ACTIVE/PENDING (V07). Each icon is an original SVG in art_source/ui_icons/<icon>.svg (white, tinted with the token color at runtime) exported to assets/ui/icons/<24|32|48>/<icon>.png by tools/godot/export_icons.gd.",
   "repair_states": {
     "undiagnosed": {
       "icon": "icon_repair_undiagnosed",
@@ -192,6 +192,23 @@
       "icon": "icon_equipment_generator",
       "text_key": "equipment.generator",
       "color": "text"
+    }
+  },
+  "objectives": {
+    "done": {
+      "icon": "icon_objective_done",
+      "text_key": "status.objective.done",
+      "color": "restored"
+    },
+    "active": {
+      "icon": "icon_objective_active",
+      "text_key": "status.objective.active",
+      "color": "action"
+    },
+    "pending": {
+      "icon": "icon_objective_pending",
+      "text_key": "status.objective.pending",
+      "color": "text_muted"
     }
   }
 }
