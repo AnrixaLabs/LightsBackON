@@ -1,0 +1,13 @@
+{
+  "contract_id": "C01",
+  "source_note": "C01 portable generator (blueprint p.7: 6 PU, no fuel depletion, placed at the pump pad; pump OR pub, never both). Anchors are authored placement points; routes are the grid edges a placed generator can be cabled into from that anchor. Cables are authored curves between sockets (presentation only), never physics.",
+  "equipment": [
+    {"id": "GEN_PORTABLE", "kind": "generator", "source": "GEN", "breaker": "TEMP", "start_anchor": "VAN_BAY"}
+  ],
+  "anchors": [
+    {"id": "VAN_BAY", "storage": true, "routes": []},
+    {"id": "STORE_PUMP_HOUSE", "storage": true, "routes": []},
+    {"id": "PAD_PUMP", "storage": false, "routes": ["E_TEMP_PUMP", "E_TEMP_PUB"]}
+  ],
+  "recovery_anchor": "VAN_BAY"
+}

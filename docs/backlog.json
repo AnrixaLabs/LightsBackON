@@ -295,8 +295,12 @@
       "milestone_name": "Grid toy",
       "env": "cloud",
       "env_note": "",
-      "status": "NOT_STARTED",
-      "evidence_file": "docs/evidence/G05.md"
+      "status": "CLOUD_VERIFIED",
+      "evidence_file": "docs/evidence/G05.md",
+      "pending_local": [
+        "cable visuals and placement against real anchors in the graybox (V01)",
+        "carrier disconnect with real clients (G07)"
+      ]
     },
     {
       "id": "G06",
