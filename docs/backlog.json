@@ -323,8 +323,12 @@
       "milestone_name": "Grid toy",
       "env": "cloud",
       "env_note": "Fault injection (kill during write) can run headless.",
-      "status": "NOT_STARTED",
-      "evidence_file": "docs/evidence/G06.md"
+      "status": "CLOUD_VERIFIED",
+      "evidence_file": "docs/evidence/G06.md",
+      "pending_local": [
+        "kill the exported Windows build during a checkpoint write and reload (SAVE01 real process)",
+        "Steam Cloud in H05"
+      ]
     },
     {
       "id": "G07",
