@@ -360,8 +360,12 @@
       "prep_ok_without": [
         "F06"
       ],
-      "status": "NOT_STARTED",
-      "evidence_file": "docs/evidence/G07.md"
+      "status": "CLOUD_VERIFIED",
+      "evidence_file": "docs/evidence/G07.md",
+      "pending_local": [
+        "two real peers (F06 tuple) agree by state hash after repair, trip, reset and reconnect",
+        "G08 gate"
+      ]
     },
     {
       "id": "G08",
