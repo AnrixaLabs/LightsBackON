@@ -18,6 +18,8 @@ func _initialize() -> void:
 			filter = a.trim_prefix("--filter=")
 		elif a.begins_with("--dir="):
 			root_dir = a.trim_prefix("--dir=")
+	# the root window joins the tree after _initialize starts; scene tests (V01) need its World3D for physics queries
+	await process_frame
 	quit(_run(root_dir, filter))
 
 
