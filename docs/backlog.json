@@ -38,8 +38,12 @@
       "milestone_name": "Foundation",
       "env": "split",
       "env_note": "Scaffold + headless import in cloud; Windows export and launch check local.",
-      "status": "NOT_STARTED",
-      "evidence_file": "docs/evidence/F01.md"
+      "status": "CLOUD_VERIFIED",
+      "evidence_file": "docs/evidence/F01.md",
+      "pending_local": [
+        "launch exported Windows build",
+        "record hash"
+      ]
     },
     {
       "id": "F02",
