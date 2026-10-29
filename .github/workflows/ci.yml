@@ -1,0 +1,85 @@
+# Automated checks on GitHub-hosted runners. Neither job is a real-hardware or network test:
+# windows runners have no GPU, no Steam client and one machine (CLAUDE.md sections 4 and 8).
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  GODOT_VERSION: 4.7.2-stable
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: ~/.local/godot
+          key: godot-linux-${{ env.GODOT_VERSION }}
+      - name: Install Godot (SHA512-verified)
+        run: echo "GODOT_BIN=$(bash tools/setup_godot_linux.sh)" >> "$GITHUB_ENV"
+      - name: Run all checks
+        run: bash tools/run_tests.sh
+
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 40
+    defaults:
+      run:
+        shell: bash
+    env:
+      PYTHON: python
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.local/godot
+            ~/AppData/Roaming/Godot/export_templates
+          key: godot-win64-${{ env.GODOT_VERSION }}-templates
+      - name: Install Godot (SHA512-verified)
+        run: echo "GODOT_BIN=$(bash tools/setup_godot_windows.sh)" >> "$GITHUB_ENV"
+      - name: Run all checks (Windows rerun of the cloud tests)
+        run: bash tools/run_tests.sh
+      - name: Install Windows export templates (SHA512-verified)
+        run: GODOT_TEMPLATES_DIR="$APPDATA/Godot/export_templates/${GODOT_VERSION%-stable}.stable" bash tools/setup_export_templates.sh
+      - name: Write build manifest
+        run: python tools/build_manifest.py --godot "$GODOT_BIN"
+      - name: Export Windows release build
+        run: |
+          mkdir -p build/windows
+          "$GODOT_BIN" --headless --path . --import
+          "$GODOT_BIN" --headless --path . --export-release "Windows Desktop" build/windows/LightsBackOn.exe
+      - name: Smoke-launch exported build (headless, no GPU)
+        run: |
+          ./build/windows/LightsBackOn.exe --headless --quit-after 10 --log-file "$PWD/build/smoke.log" || true
+          cat build/smoke.log
+          want="$(python -c "import json;print(json.load(open('build_manifest.json'))['build_id'])")"
+          grep -F "Lights Back On boot" build/smoke.log | grep -F "build $want"
+      - name: Hashes
+        run: |
+          cp build_manifest.json build/windows/
+          sha256sum build/windows/* | tee build/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-build-${{ github.sha }}
+          path: |
+            build/windows/
+            build/smoke.log
+            build/SHA256SUMS.txt
+          retention-days: 14
