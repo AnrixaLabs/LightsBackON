@@ -1,0 +1,123 @@
+{
+  "_note": "V01 graybox of Alder Street (blueprint p.5-6). Integer centimeters in world space: x east, z south-to-north as the blueprint's (x, z) table, y up; 1 engine unit = 1 m. tools/godot/build_district.gd writes the scene from this file; the V01 tests fail while scene and data disagree. Layout interpretation (owner to review): the main street runs east-west between the junction row (z 24) and the service row (z 46); the rear service alley runs along the south edge behind the pump house and workshop (the blueprint calls the workshop the service-alley landmark); the van yard (west) and the east link close the loop. The open van yard and the main street are the two broad sightlines. Building face lists run west to east (north/south faces) or south to north (east/west faces), one kit piece per 4 m module; missing faces are plain walls. collision 'block' = one box per building, kit pieces collide only in 'kit' buildings that have a walkable interior (the pump house). Markers are interaction points, not placed modules, so they are exempt from the 25 cm increment.",
+  "district_id": "ALDER_STREET",
+  "scene": "res://scenes/world/alder_street.tscn",
+  "envelope_cm": [11000, 7000],
+  "materials": {
+    "ground": "#4C555C",
+    "asphalt": "#353B40",
+    "paving": "#767E85",
+    "pad": "#C9A227",
+    "van": "#E6EAED",
+    "cabinet": "#2F6B8A",
+    "boundary": "#5F6971",
+    "pump": "#3F7F5F",
+    "water": "#2E6E9E"
+  },
+  "ground": {
+    "thickness_cm": 250,
+    "material": "ground",
+    "pit": {"id": "PUMP_BASEMENT", "min_cm": [5425, 1225], "size_cm": [500, 750], "depth_cm": 200}
+  },
+  "boundary": {"height_cm": 300, "thickness_cm": 50, "material": "boundary"},
+  "routes": [
+    {"id": "MAIN_STREET", "min_cm": [200, 3000], "size_cm": [10600, 800], "material": "asphalt"},
+    {"id": "SIDEWALK_NORTH", "min_cm": [200, 3800], "size_cm": [10600, 400], "material": "paving"},
+    {"id": "REAR_ALLEY", "min_cm": [200, 200], "size_cm": [10600, 400], "material": "asphalt"},
+    {"id": "WEST_LINK", "min_cm": [1400, 600], "size_cm": [800, 2400], "material": "paving"},
+    {"id": "EAST_LINK", "min_cm": [10000, 600], "size_cm": [800, 2400], "material": "asphalt"},
+    {"id": "PUMP_FORECOURT", "min_cm": [5200, 2025], "size_cm": [1600, 975], "material": "paving"}
+  ],
+  "loop": ["REAR_ALLEY", "EAST_LINK", "MAIN_STREET", "WEST_LINK", "REAR_ALLEY"],
+  "buildings": [
+    {
+      "id": "APT_W", "service": true, "blueprint_center_m": [20, 46],
+      "min_cm": [1400, 4200], "size_cm": [1200, 800], "storeys": 2, "front": "south", "collision": "block",
+      "ground": {"south": ["window_wall", "door_wall", "window_wall"]},
+      "upper": {"south": ["window_wall", "window_wall", "window_wall"], "north": ["window_wall", "window_wall", "window_wall"]}
+    },
+    {
+      "id": "MARKET", "service": true, "blueprint_center_m": [43, 46],
+      "min_cm": [3500, 4200], "size_cm": [1600, 800], "storeys": 1, "front": "south", "collision": "block",
+      "ground": {"south": ["window_wall", "door_wall", "window_wall", "window_wall"]},
+      "upper": {}
+    },
+    {
+      "id": "PUB", "service": true, "blueprint_center_m": [70, 46],
+      "min_cm": [6400, 4200], "size_cm": [1200, 800], "storeys": 2, "front": "south", "collision": "block",
+      "ground": {"south": ["window_wall", "door_wall", "window_wall"]},
+      "upper": {"south": ["window_wall", "wall", "window_wall"]}
+    },
+    {
+      "id": "APT_E", "service": true, "blueprint_center_m": [92, 46],
+      "min_cm": [8600, 4200], "size_cm": [1200, 800], "storeys": 3, "front": "south", "collision": "block",
+      "ground": {"south": ["window_wall", "door_wall", "window_wall"]},
+      "upper": {"south": ["window_wall", "window_wall", "window_wall"], "west": ["window_wall", "window_wall"]}
+    },
+    {
+      "id": "WORKSHOP", "service": true, "blueprint_center_m": [88, 18],
+      "min_cm": [8200, 1400], "size_cm": [1200, 800], "storeys": 1, "front": "north", "collision": "block",
+      "ground": {"north": ["window_wall", "door_wall", "window_wall"], "south": ["wall", "door_wall", "wall"]},
+      "upper": {}
+    },
+    {
+      "id": "PUMP_HOUSE", "service": true, "blueprint_center_m": [60, 16],
+      "min_cm": [5400, 1200], "size_cm": [1200, 800], "storeys": 1, "front": "north", "collision": "kit",
+      "ground": {"north": ["door_wall", "window_wall", "door_wall"]},
+      "upper": {}
+    },
+    {
+      "id": "SOUTH_FILLER", "service": false,
+      "min_cm": [3800, 1200], "size_cm": [1200, 1200], "storeys": 1, "front": "north", "collision": "block",
+      "ground": {"north": ["window_wall", "door_wall", "window_wall"]},
+      "upper": {}
+    }
+  ],
+  "kit_placements": [
+    {"id": "BASEMENT_STAIR", "piece": "stair_flight", "pos_cm": [5425, -200, 1575], "yaw": 0},
+    {"id": "PIT_RAIL_SOUTH", "piece": "railing", "pos_cm": [5925, 0, 1625], "yaw": 90},
+    {"id": "PIT_RAIL_NORTH", "piece": "railing", "pos_cm": [5925, 0, 1975], "yaw": 90}
+  ],
+  "props": [
+    {"id": "VAN", "blueprint_center_m": [8, 9], "min_cm": [700, 0, 625], "size_cm": [200, 250, 550], "material": "van", "collision": true},
+    {"id": "CABINET_JW", "junction": "JW", "blueprint_center_m": [30, 24], "min_cm": [2925, 0, 2375], "size_cm": [150, 175, 50], "material": "cabinet", "collision": true},
+    {"id": "CABINET_JE", "junction": "JE", "blueprint_center_m": [73, 24], "min_cm": [7225, 0, 2375], "size_cm": [150, 175, 50], "material": "cabinet", "collision": true},
+    {"id": "PUMP_UNIT", "min_cm": [5700, -200, 1300], "size_cm": [100, 75, 100], "material": "pump", "collision": true},
+    {"id": "PAD_VAN_BAY", "min_cm": [725, 0, 1225], "size_cm": [150, 2, 150], "material": "pad", "collision": false},
+    {"id": "PAD_PUMP_SLAB", "min_cm": [6175, 0, 1525], "size_cm": [150, 2, 150], "material": "pad", "collision": false},
+    {"id": "PAD_STORE_PUMP_HOUSE", "min_cm": [6375, 0, 1275], "size_cm": [150, 2, 150], "material": "pad", "collision": false},
+    {"id": "FLOOD_WATER", "min_cm": [5425, -200, 1225], "size_cm": [500, 110, 750], "material": "water", "collision": false}
+  ],
+  "markers": [
+    {"id": "SPAWN_1", "kind": "spawn", "pos_cm": [450, 0, 1500]},
+    {"id": "SPAWN_2", "kind": "spawn", "pos_cm": [1150, 0, 1500]},
+    {"id": "SPAWN_3", "kind": "spawn", "pos_cm": [450, 0, 1800]},
+    {"id": "SPAWN_4", "kind": "spawn", "pos_cm": [1150, 0, 1800]},
+    {"id": "VAN_EYE", "kind": "viewpoint", "pos_cm": [800, 175, 1450]},
+    {"id": "JE_EYE", "kind": "viewpoint", "pos_cm": [7300, 175, 2550]},
+    {"id": "VAN_BAY", "kind": "anchor", "pos_cm": [800, 0, 1300]},
+    {"id": "PAD_PUMP", "kind": "anchor", "pos_cm": [6250, 0, 1600]},
+    {"id": "STORE_PUMP_HOUSE", "kind": "anchor", "pos_cm": [6450, 0, 1350]},
+    {"id": "PANEL_JW", "kind": "panel", "pos_cm": [2960, 140, 2430]},
+    {"id": "SW_JW_BREAKER", "kind": "switch", "pos_cm": [3040, 140, 2430]},
+    {"id": "PANEL_JE", "kind": "panel", "pos_cm": [7260, 140, 2430]},
+    {"id": "SW_JE_BREAKER", "kind": "switch", "pos_cm": [7340, 140, 2430]},
+    {"id": "SW_SIGN", "kind": "switch", "pos_cm": [6460, 140, 4190]},
+    {"id": "SIGN", "kind": "consumer", "pos_cm": [7000, 325, 4190]},
+    {"id": "PUMP", "kind": "consumer", "pos_cm": [5750, -115, 1350]},
+    {"id": "TRUNK_JE", "kind": "panel", "pos_cm": [5915, -60, 1500]}
+  ],
+  "zones": [
+    {"id": "ZONE_VAN", "min_cm": [300, 0, 400], "size_cm": [1000, 300, 1600]}
+  ],
+  "labels": [
+    {"text": "JW", "pos_cm": [3000, 275, 2400]},
+    {"text": "JE", "pos_cm": [7300, 275, 2400]},
+    {"text": "VAN", "pos_cm": [800, 350, 900]}
+  ],
+  "sightlines": [
+    {"from": "VAN_EYE", "to": ["APT_W", "MARKET"]},
+    {"from": "JE_EYE", "to": ["PUB", "APT_E"]}
+  ],
+  "spawn": "SPAWN_1"
+}

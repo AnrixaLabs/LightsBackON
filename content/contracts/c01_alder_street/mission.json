@@ -1,6 +1,6 @@
 {
   "contract_id": "C01",
-  "source_note": "C01 First Shift mission rules (blueprint p.7 known solution, p.18 contract sheet). Ticks are 10 Hz: pump 12 s = 120, final verification 10 s = 100, extraction countdown 5 s = 50. Zone positions are placeholders until the V01 graybox places them. No optional service objective in C01 (p.18), so the second star comes with completion. The first trip is the tutorial warning (the sign overload, p.18); later protection trips count as preventable for the third star.",
+  "source_note": "C01 First Shift mission rules (blueprint p.7 known solution, p.18 contract sheet). Ticks are 10 Hz: pump 12 s = 120, final verification 10 s = 100, extraction countdown 5 s = 50. ZONE_VAN is placed by the V01 graybox (content/world/alder_street.json zones; an Area3D in scenes/world/alder_street.tscn around the van, spawns and VAN_BAY); presentation reports membership, the host decides. No optional service objective in C01 (p.18), so the second star comes with completion. The first trip is the tutorial warning (the sign overload, p.18); later protection trips count as preventable for the third star.",
   "grid_source": "GRID",
   "required_consumers": [
     "APT_E",

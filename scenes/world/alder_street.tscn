@@ -1,0 +1,1931 @@
+[gd_scene format=3 uid="uid://dxwhcgq8byrhp"]
+
+[ext_resource type="PackedScene" path="res://scenes/kit/window_wall.tscn" id="1_window_wall"]
+[ext_resource type="PackedScene" path="res://scenes/kit/door_wall.tscn" id="2_door_wall"]
+[ext_resource type="PackedScene" path="res://scenes/kit/wall.tscn" id="3_wall"]
+[ext_resource type="PackedScene" path="res://scenes/kit/corner.tscn" id="4_corner"]
+[ext_resource type="PackedScene" path="res://scenes/kit/roof_plane.tscn" id="5_roof_plane"]
+[ext_resource type="PackedScene" path="res://scenes/kit/roof_edge.tscn" id="6_roof_edge"]
+[ext_resource type="PackedScene" path="res://scenes/kit/stair_flight.tscn" id="7_stair_flight"]
+[ext_resource type="PackedScene" path="res://scenes/kit/railing.tscn" id="8_railing"]
+
+[sub_resource type="StandardMaterial3D" id="mat_ground"]
+albedo_color = Color(0.29803923, 0.33333334, 0.36078432, 1)
+
+[sub_resource type="BoxMesh" id="mesh_4f194988"]
+size = Vector3(54.25, 2.5, 70)
+
+[sub_resource type="BoxShape3D" id="shape_6e811294"]
+size = Vector3(54.25, 2.5, 70)
+
+[sub_resource type="BoxMesh" id="mesh_4f0f59b2"]
+size = Vector3(50.75, 2.5, 70)
+
+[sub_resource type="BoxShape3D" id="shape_1604f1fe"]
+size = Vector3(50.75, 2.5, 70)
+
+[sub_resource type="BoxMesh" id="mesh_31ff9d38"]
+size = Vector3(5, 2.5, 12.25)
+
+[sub_resource type="BoxShape3D" id="shape_28788c44"]
+size = Vector3(5, 2.5, 12.25)
+
+[sub_resource type="BoxMesh" id="mesh_31a515f0"]
+size = Vector3(5, 2.5, 50.25)
+
+[sub_resource type="BoxShape3D" id="shape_6d5d53fc"]
+size = Vector3(5, 2.5, 50.25)
+
+[sub_resource type="BoxMesh" id="mesh_4dc81872"]
+size = Vector3(5, 0.5, 7.5)
+
+[sub_resource type="BoxShape3D" id="shape_036048be"]
+size = Vector3(5, 0.5, 7.5)
+
+[sub_resource type="StandardMaterial3D" id="mat_boundary"]
+albedo_color = Color(0.37254903, 0.4117647, 0.44313726, 1)
+
+[sub_resource type="BoxMesh" id="mesh_0be3419b"]
+size = Vector3(111, 3, 0.5)
+
+[sub_resource type="BoxShape3D" id="shape_26cad007"]
+size = Vector3(111, 3, 0.5)
+
+[sub_resource type="BoxMesh" id="mesh_0b88ba53"]
+size = Vector3(111, 3, 0.5)
+
+[sub_resource type="BoxShape3D" id="shape_6baf97bf"]
+size = Vector3(111, 3, 0.5)
+
+[sub_resource type="BoxMesh" id="mesh_69186d8b"]
+size = Vector3(0.5, 3, 70)
+
+[sub_resource type="BoxShape3D" id="shape_3fe869f7"]
+size = Vector3(0.5, 3, 70)
+
+[sub_resource type="BoxMesh" id="mesh_690e7db5"]
+size = Vector3(0.5, 3, 70)
+
+[sub_resource type="BoxShape3D" id="shape_676c4961"]
+size = Vector3(0.5, 3, 70)
+
+[sub_resource type="StandardMaterial3D" id="mat_asphalt"]
+albedo_color = Color(0.20784314, 0.23137255, 0.2509804, 1)
+
+[sub_resource type="BoxMesh" id="mesh_1348ce91"]
+size = Vector3(106, 0.02, 8)
+
+[sub_resource type="StandardMaterial3D" id="mat_paving"]
+albedo_color = Color(0.4627451, 0.49411765, 0.52156866, 1)
+
+[sub_resource type="BoxMesh" id="mesh_4850e014"]
+size = Vector3(106, 0.02, 4)
+
+[sub_resource type="BoxMesh" id="mesh_46d02ab6"]
+size = Vector3(106, 0.02, 4)
+
+[sub_resource type="BoxMesh" id="mesh_78cc9a46"]
+size = Vector3(8, 0.02, 24)
+
+[sub_resource type="BoxMesh" id="mesh_170554b0"]
+size = Vector3(8, 0.02, 24)
+
+[sub_resource type="BoxMesh" id="mesh_4b817c10"]
+size = Vector3(16, 0.02, 9.75)
+
+[sub_resource type="BoxShape3D" id="shape_03eb9425"]
+size = Vector3(12, 8, 8)
+
+[sub_resource type="BoxShape3D" id="shape_5ad8044e"]
+size = Vector3(16, 4, 8)
+
+[sub_resource type="BoxShape3D" id="shape_3a34d171"]
+size = Vector3(12, 8, 8)
+
+[sub_resource type="BoxShape3D" id="shape_3099b013"]
+size = Vector3(12, 12, 8)
+
+[sub_resource type="BoxShape3D" id="shape_29f018a7"]
+size = Vector3(12, 4, 8)
+
+[sub_resource type="BoxShape3D" id="shape_23604e5a"]
+size = Vector3(12, 4, 12)
+
+[sub_resource type="StandardMaterial3D" id="mat_van"]
+albedo_color = Color(0.9019608, 0.91764706, 0.92941177, 1)
+
+[sub_resource type="BoxMesh" id="mesh_518eb969"]
+size = Vector3(2, 2.5, 5.5)
+
+[sub_resource type="BoxShape3D" id="shape_1d77cce8"]
+size = Vector3(2, 2.5, 5.5)
+
+[sub_resource type="StandardMaterial3D" id="mat_cabinet"]
+albedo_color = Color(0.18431373, 0.41960785, 0.5411765, 1)
+
+[sub_resource type="BoxMesh" id="mesh_0b08081a"]
+size = Vector3(1.5, 1.75, 0.5)
+
+[sub_resource type="BoxShape3D" id="shape_39d2f239"]
+size = Vector3(1.5, 1.75, 0.5)
+
+[sub_resource type="BoxMesh" id="mesh_610b2cc8"]
+size = Vector3(1.5, 1.75, 0.5)
+
+[sub_resource type="BoxShape3D" id="shape_594e33a7"]
+size = Vector3(1.5, 1.75, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="mat_pump"]
+albedo_color = Color(0.24705882, 0.49803922, 0.37254903, 1)
+
+[sub_resource type="BoxMesh" id="mesh_4d199765"]
+size = Vector3(1, 0.75, 1)
+
+[sub_resource type="BoxShape3D" id="shape_2f28c864"]
+size = Vector3(1, 0.75, 1)
+
+[sub_resource type="StandardMaterial3D" id="mat_pad"]
+albedo_color = Color(0.7882353, 0.63529414, 0.15294118, 1)
+
+[sub_resource type="BoxMesh" id="mesh_0d8c7438"]
+size = Vector3(1.5, 0.02, 1.5)
+
+[sub_resource type="BoxMesh" id="mesh_63a7e53b"]
+size = Vector3(1.5, 0.02, 1.5)
+
+[sub_resource type="BoxMesh" id="mesh_46b85b89"]
+size = Vector3(1.5, 0.02, 1.5)
+
+[sub_resource type="StandardMaterial3D" id="mat_water"]
+transparency = 1
+albedo_color = Color(0.18039216, 0.43137255, 0.61960787, 0.55)
+
+[sub_resource type="BoxMesh" id="mesh_1b1ce9da"]
+size = Vector3(5, 1.1, 7.5)
+
+[sub_resource type="BoxShape3D" id="shape_03321823"]
+size = Vector3(10, 3, 16)
+
+[node name="AlderStreet" type="Node3D" unique_id=1300813905]
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=884549121]
+
+[node name="SlabWest" type="MeshInstance3D" parent="Ground" unique_id=160699637]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.125, -1.25, 35)
+material_override = SubResource("mat_ground")
+mesh = SubResource("mesh_4f194988")
+
+[node name="SlabWestCollision" type="CollisionShape3D" parent="Ground" unique_id=735053985]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.125, -1.25, 35)
+shape = SubResource("shape_6e811294")
+
+[node name="SlabEast" type="MeshInstance3D" parent="Ground" unique_id=160048415]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84.625, -1.25, 35)
+material_override = SubResource("mat_ground")
+mesh = SubResource("mesh_4f0f59b2")
+
+[node name="SlabEastCollision" type="CollisionShape3D" parent="Ground" unique_id=1398007819]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84.625, -1.25, 35)
+shape = SubResource("shape_1604f1fe")
+
+[node name="SlabSouth" type="MeshInstance3D" parent="Ground" unique_id=1003738693]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.75, -1.25, 6.125)
+material_override = SubResource("mat_ground")
+mesh = SubResource("mesh_31ff9d38")
+
+[node name="SlabSouthCollision" type="CollisionShape3D" parent="Ground" unique_id=262554609]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.75, -1.25, 6.125)
+shape = SubResource("shape_28788c44")
+
+[node name="SlabNorth" type="MeshInstance3D" parent="Ground" unique_id=997805821]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.75, -1.25, 44.875)
+material_override = SubResource("mat_ground")
+mesh = SubResource("mesh_31a515f0")
+
+[node name="SlabNorthCollision" type="CollisionShape3D" parent="Ground" unique_id=1418398633]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.75, -1.25, 44.875)
+shape = SubResource("shape_6d5d53fc")
+
+[node name="PitFloor" type="MeshInstance3D" parent="Ground" unique_id=138601439]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.75, -2.25, 16)
+material_override = SubResource("mat_ground")
+mesh = SubResource("mesh_4dc81872")
+
+[node name="PitFloorCollision" type="CollisionShape3D" parent="Ground" unique_id=1085226699]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.75, -2.25, 16)
+shape = SubResource("shape_036048be")
+
+[node name="Boundary" type="StaticBody3D" parent="." unique_id=1356700278]
+
+[node name="WallSouth" type="MeshInstance3D" parent="Boundary" unique_id=1537864168]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 1.5, -0.25)
+material_override = SubResource("mat_boundary")
+mesh = SubResource("mesh_0be3419b")
+
+[node name="WallSouthCollision" type="CollisionShape3D" parent="Boundary" unique_id=272967412]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 1.5, -0.25)
+shape = SubResource("shape_26cad007")
+
+[node name="WallNorth" type="MeshInstance3D" parent="Boundary" unique_id=1531931296]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 1.5, 70.25)
+material_override = SubResource("mat_boundary")
+mesh = SubResource("mesh_0b88ba53")
+
+[node name="WallNorthCollision" type="CollisionShape3D" parent="Boundary" unique_id=1428811436]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 1.5, 70.25)
+shape = SubResource("shape_6baf97bf")
+
+[node name="WallWest" type="MeshInstance3D" parent="Boundary" unique_id=762562616]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 1.5, 35)
+material_override = SubResource("mat_boundary")
+mesh = SubResource("mesh_69186d8b")
+
+[node name="WallWestCollision" type="CollisionShape3D" parent="Boundary" unique_id=214767428]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 1.5, 35)
+shape = SubResource("shape_3fe869f7")
+
+[node name="WallEast" type="MeshInstance3D" parent="Boundary" unique_id=761911394]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110.25, 1.5, 35)
+material_override = SubResource("mat_boundary")
+mesh = SubResource("mesh_690e7db5")
+
+[node name="WallEastCollision" type="CollisionShape3D" parent="Boundary" unique_id=877721262]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 110.25, 1.5, 35)
+shape = SubResource("shape_676c4961")
+
+[node name="Routes" type="Node3D" parent="." unique_id=1311694932]
+
+[node name="MAIN_STREET" type="MeshInstance3D" parent="Routes" unique_id=1661959902]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 0.01, 34)
+material_override = SubResource("mat_asphalt")
+mesh = SubResource("mesh_1348ce91")
+
+[node name="SIDEWALK_NORTH" type="MeshInstance3D" parent="Routes" unique_id=721668417]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 0.01, 40)
+material_override = SubResource("mat_paving")
+mesh = SubResource("mesh_4850e014")
+
+[node name="REAR_ALLEY" type="MeshInstance3D" parent="Routes" unique_id=187401571]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 0.01, 4)
+material_override = SubResource("mat_asphalt")
+mesh = SubResource("mesh_46d02ab6")
+
+[node name="WEST_LINK" type="MeshInstance3D" parent="Routes" unique_id=44094291]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0.01, 18)
+material_override = SubResource("mat_paving")
+mesh = SubResource("mesh_78cc9a46")
+
+[node name="EAST_LINK" type="MeshInstance3D" parent="Routes" unique_id=551128509]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 104, 0.01, 18)
+material_override = SubResource("mat_asphalt")
+mesh = SubResource("mesh_170554b0")
+
+[node name="PUMP_FORECOURT" type="MeshInstance3D" parent="Routes" unique_id=775185725]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0.01, 25.125)
+material_override = SubResource("mat_paving")
+mesh = SubResource("mesh_4b817c10")
+
+[node name="Buildings" type="Node3D" parent="." unique_id=1438321747]
+
+[node name="APT_W" type="Node3D" parent="Buildings" unique_id=408796445]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 42)
+
+[node name="South0_0" parent="Buildings/APT_W" unique_id=157185438 instance=ExtResource("1_window_wall")]
+collision_layer = 0
+collision_mask = 0
+
+[node name="South0_1" parent="Buildings/APT_W" unique_id=157185439 instance=ExtResource("2_door_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="South0_2" parent="Buildings/APT_W" unique_id=157185440 instance=ExtResource("1_window_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North0_0" parent="Buildings/APT_W" unique_id=1695929174 instance=ExtResource("3_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North0_1" parent="Buildings/APT_W" unique_id=1695929175 instance=ExtResource("3_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North0_2" parent="Buildings/APT_W" unique_id=1695929176 instance=ExtResource("3_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 12, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="West0_0" parent="Buildings/APT_W" unique_id=872334094 instance=ExtResource("3_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="West0_1" parent="Buildings/APT_W" unique_id=872334095 instance=ExtResource("3_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="East0_0" parent="Buildings/APT_W" unique_id=1091689208 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 0, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="East0_1" parent="Buildings/APT_W" unique_id=1091689209 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 0, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_0" parent="Buildings/APT_W" unique_id=2019923220 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, -0.25)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_1" parent="Buildings/APT_W" unique_id=2019923221 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -0.25)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_2" parent="Buildings/APT_W" unique_id=2019923222 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_3" parent="Buildings/APT_W" unique_id=2019923223 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="South1_0" parent="Buildings/APT_W" unique_id=157186527 instance=ExtResource("1_window_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="South1_1" parent="Buildings/APT_W" unique_id=157186528 instance=ExtResource("1_window_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="South1_2" parent="Buildings/APT_W" unique_id=157186529 instance=ExtResource("1_window_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North1_0" parent="Buildings/APT_W" unique_id=1695930263 instance=ExtResource("1_window_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North1_1" parent="Buildings/APT_W" unique_id=1695930264 instance=ExtResource("1_window_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North1_2" parent="Buildings/APT_W" unique_id=1695930265 instance=ExtResource("1_window_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 12, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="West1_0" parent="Buildings/APT_W" unique_id=872335183 instance=ExtResource("3_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 4, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="West1_1" parent="Buildings/APT_W" unique_id=872335184 instance=ExtResource("3_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="East1_0" parent="Buildings/APT_W" unique_id=1091690297 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="East1_1" parent="Buildings/APT_W" unique_id=1091690298 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 4, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner1_0" parent="Buildings/APT_W" unique_id=2019924309 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 4, -0.25)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner1_1" parent="Buildings/APT_W" unique_id=2019924310 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 4, -0.25)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner1_2" parent="Buildings/APT_W" unique_id=2019924311 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner1_3" parent="Buildings/APT_W" unique_id=2019924312 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_0_0" parent="Buildings/APT_W" unique_id=236676736 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_0_1" parent="Buildings/APT_W" unique_id=236676737 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_1_0" parent="Buildings/APT_W" unique_id=236677825 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 8, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_1_1" parent="Buildings/APT_W" unique_id=236677826 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 8, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_2_0" parent="Buildings/APT_W" unique_id=236678914 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 8, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_2_1" parent="Buildings/APT_W" unique_id=236678915 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 8, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeSouth_0" parent="Buildings/APT_W" unique_id=1917561177 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeSouth_1" parent="Buildings/APT_W" unique_id=1917561178 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 8, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeSouth_2" parent="Buildings/APT_W" unique_id=1917561179 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 8, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeNorth_0" parent="Buildings/APT_W" unique_id=1899114513 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 8, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeNorth_1" parent="Buildings/APT_W" unique_id=1899114514 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8, 8, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeNorth_2" parent="Buildings/APT_W" unique_id=1899114515 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 12, 8, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeWest_0" parent="Buildings/APT_W" unique_id=202718057 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 8, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeWest_1" parent="Buildings/APT_W" unique_id=202718058 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 8, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeEast_0" parent="Buildings/APT_W" unique_id=1641020947 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 8, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeEast_1" parent="Buildings/APT_W" unique_id=1641020948 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 8, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Collision" type="StaticBody3D" parent="Buildings/APT_W" unique_id=640137848]
+
+[node name="Block" type="CollisionShape3D" parent="Buildings/APT_W/Collision" unique_id=1063360914]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 4, 4)
+shape = SubResource("shape_03eb9425")
+
+[node name="Entrance" type="Marker3D" parent="Buildings/APT_W" unique_id=1313762492]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -0.75)
+
+[node name="Label" type="Label3D" parent="Buildings/APT_W" unique_id=344521164]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 9.5, -0.75)
+pixel_size = 0.01
+billboard = 1
+text = "APT_W"
+font_size = 96
+
+[node name="MARKET" type="Node3D" parent="Buildings" unique_id=1057122534]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0, 42)
+
+[node name="South0_0" parent="Buildings/MARKET" unique_id=599749511 instance=ExtResource("1_window_wall")]
+collision_layer = 0
+collision_mask = 0
+
+[node name="South0_1" parent="Buildings/MARKET" unique_id=599749512 instance=ExtResource("2_door_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="South0_2" parent="Buildings/MARKET" unique_id=599749513 instance=ExtResource("1_window_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="South0_3" parent="Buildings/MARKET" unique_id=599749514 instance=ExtResource("1_window_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North0_0" parent="Buildings/MARKET" unique_id=2138493247 instance=ExtResource("3_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North0_1" parent="Buildings/MARKET" unique_id=2138493248 instance=ExtResource("3_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North0_2" parent="Buildings/MARKET" unique_id=2138493249 instance=ExtResource("3_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 12, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North0_3" parent="Buildings/MARKET" unique_id=2138493250 instance=ExtResource("3_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 16, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="West0_0" parent="Buildings/MARKET" unique_id=1406347223 instance=ExtResource("3_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="West0_1" parent="Buildings/MARKET" unique_id=1406347224 instance=ExtResource("3_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="East0_0" parent="Buildings/MARKET" unique_id=1625702337 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 16, 0, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="East0_1" parent="Buildings/MARKET" unique_id=1625702338 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 16, 0, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_0" parent="Buildings/MARKET" unique_id=1592152093 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, -0.25)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_1" parent="Buildings/MARKET" unique_id=1592152094 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, -0.25)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_2" parent="Buildings/MARKET" unique_id=1592152095 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_3" parent="Buildings/MARKET" unique_id=1592152096 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_0_0" parent="Buildings/MARKET" unique_id=679240809 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_0_1" parent="Buildings/MARKET" unique_id=679240810 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_1_0" parent="Buildings/MARKET" unique_id=679241898 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_1_1" parent="Buildings/MARKET" unique_id=679241899 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_2_0" parent="Buildings/MARKET" unique_id=679242987 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_2_1" parent="Buildings/MARKET" unique_id=679242988 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_3_0" parent="Buildings/MARKET" unique_id=679244076 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_3_1" parent="Buildings/MARKET" unique_id=679244077 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 4, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeSouth_0" parent="Buildings/MARKET" unique_id=939050786 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeSouth_1" parent="Buildings/MARKET" unique_id=939050787 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeSouth_2" parent="Buildings/MARKET" unique_id=939050788 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeSouth_3" parent="Buildings/MARKET" unique_id=939050789 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeNorth_0" parent="Buildings/MARKET" unique_id=920604122 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeNorth_1" parent="Buildings/MARKET" unique_id=920604123 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeNorth_2" parent="Buildings/MARKET" unique_id=920604124 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 12, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeNorth_3" parent="Buildings/MARKET" unique_id=920604125 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 16, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeWest_0" parent="Buildings/MARKET" unique_id=1279345682 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 4, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeWest_1" parent="Buildings/MARKET" unique_id=1279345683 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeEast_0" parent="Buildings/MARKET" unique_id=570164924 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 16, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeEast_1" parent="Buildings/MARKET" unique_id=570164925 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 16, 4, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Collision" type="StaticBody3D" parent="Buildings/MARKET" unique_id=212366721]
+
+[node name="Block" type="CollisionShape3D" parent="Buildings/MARKET/Collision" unique_id=84850523]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 2, 4)
+shape = SubResource("shape_5ad8044e")
+
+[node name="Entrance" type="Marker3D" parent="Buildings/MARKET" unique_id=1756326565]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -0.75)
+
+[node name="Label" type="Label3D" parent="Buildings/MARKET" unique_id=1027315797]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 5.5, -0.75)
+pixel_size = 0.01
+billboard = 1
+text = "MARKET"
+font_size = 96
+
+[node name="PUB" type="Node3D" parent="Buildings" unique_id=442114857]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 0, 42)
+
+[node name="South0_0" parent="Buildings/PUB" unique_id=1831627050 instance=ExtResource("1_window_wall")]
+collision_layer = 0
+collision_mask = 0
+
+[node name="South0_1" parent="Buildings/PUB" unique_id=1831627051 instance=ExtResource("2_door_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="South0_2" parent="Buildings/PUB" unique_id=1831627052 instance=ExtResource("1_window_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North0_0" parent="Buildings/PUB" unique_id=1222887138 instance=ExtResource("3_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North0_1" parent="Buildings/PUB" unique_id=1222887139 instance=ExtResource("3_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North0_2" parent="Buildings/PUB" unique_id=1222887140 instance=ExtResource("3_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 12, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="West0_0" parent="Buildings/PUB" unique_id=2094429466 instance=ExtResource("3_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="West0_1" parent="Buildings/PUB" unique_id=2094429467 instance=ExtResource("3_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="East0_0" parent="Buildings/PUB" unique_id=166300932 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 0, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="East0_1" parent="Buildings/PUB" unique_id=166300933 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 0, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_0" parent="Buildings/PUB" unique_id=1441921568 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, -0.25)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_1" parent="Buildings/PUB" unique_id=1441921569 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -0.25)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_2" parent="Buildings/PUB" unique_id=1441921570 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_3" parent="Buildings/PUB" unique_id=1441921571 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="South1_0" parent="Buildings/PUB" unique_id=1831628139 instance=ExtResource("1_window_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="South1_1" parent="Buildings/PUB" unique_id=1831628140 instance=ExtResource("3_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="South1_2" parent="Buildings/PUB" unique_id=1831628141 instance=ExtResource("1_window_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North1_0" parent="Buildings/PUB" unique_id=1222888227 instance=ExtResource("3_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North1_1" parent="Buildings/PUB" unique_id=1222888228 instance=ExtResource("3_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North1_2" parent="Buildings/PUB" unique_id=1222888229 instance=ExtResource("3_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 12, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="West1_0" parent="Buildings/PUB" unique_id=2094430555 instance=ExtResource("3_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 4, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="West1_1" parent="Buildings/PUB" unique_id=2094430556 instance=ExtResource("3_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="East1_0" parent="Buildings/PUB" unique_id=166302021 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="East1_1" parent="Buildings/PUB" unique_id=166302022 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 4, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner1_0" parent="Buildings/PUB" unique_id=1441922657 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 4, -0.25)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner1_1" parent="Buildings/PUB" unique_id=1441922658 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 4, -0.25)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner1_2" parent="Buildings/PUB" unique_id=1441922659 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner1_3" parent="Buildings/PUB" unique_id=1441922660 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_0_0" parent="Buildings/PUB" unique_id=1911118348 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_0_1" parent="Buildings/PUB" unique_id=1911118349 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_1_0" parent="Buildings/PUB" unique_id=1911119437 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 8, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_1_1" parent="Buildings/PUB" unique_id=1911119438 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 8, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_2_0" parent="Buildings/PUB" unique_id=1911120526 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 8, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_2_1" parent="Buildings/PUB" unique_id=1911120527 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 8, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeSouth_0" parent="Buildings/PUB" unique_id=512403301 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeSouth_1" parent="Buildings/PUB" unique_id=512403302 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 8, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeSouth_2" parent="Buildings/PUB" unique_id=512403303 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 8, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeNorth_0" parent="Buildings/PUB" unique_id=493956637 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 8, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeNorth_1" parent="Buildings/PUB" unique_id=493956638 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8, 8, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeNorth_2" parent="Buildings/PUB" unique_id=493956639 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 12, 8, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeWest_0" parent="Buildings/PUB" unique_id=1982244853 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 8, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeWest_1" parent="Buildings/PUB" unique_id=1982244854 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 8, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeEast_0" parent="Buildings/PUB" unique_id=1273064095 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 8, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeEast_1" parent="Buildings/PUB" unique_id=1273064096 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 8, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Collision" type="StaticBody3D" parent="Buildings/PUB" unique_id=62136196]
+
+[node name="Block" type="CollisionShape3D" parent="Buildings/PUB/Collision" unique_id=1805686686]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 4, 4)
+shape = SubResource("shape_3a34d171")
+
+[node name="Entrance" type="Marker3D" parent="Buildings/PUB" unique_id=840720456]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -0.75)
+
+[node name="Label" type="Label3D" parent="Buildings/PUB" unique_id=1937029336]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 9.5, -0.75)
+pixel_size = 0.01
+billboard = 1
+text = "PUB"
+font_size = 96
+
+[node name="APT_E" type="Node3D" parent="Buildings" unique_id=408796427]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86, 0, 42)
+
+[node name="South0_0" parent="Buildings/APT_E" unique_id=1084244300 instance=ExtResource("1_window_wall")]
+collision_layer = 0
+collision_mask = 0
+
+[node name="South0_1" parent="Buildings/APT_E" unique_id=1084244301 instance=ExtResource("2_door_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="South0_2" parent="Buildings/APT_E" unique_id=1084244302 instance=ExtResource("1_window_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North0_0" parent="Buildings/APT_E" unique_id=475504388 instance=ExtResource("3_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North0_1" parent="Buildings/APT_E" unique_id=475504389 instance=ExtResource("3_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North0_2" parent="Buildings/APT_E" unique_id=475504390 instance=ExtResource("3_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 12, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="West0_0" parent="Buildings/APT_E" unique_id=54448380 instance=ExtResource("3_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="West0_1" parent="Buildings/APT_E" unique_id=54448381 instance=ExtResource("3_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="East0_0" parent="Buildings/APT_E" unique_id=273803494 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 0, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="East0_1" parent="Buildings/APT_E" unique_id=273803495 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 0, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_0" parent="Buildings/APT_E" unique_id=400610946 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, -0.25)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_1" parent="Buildings/APT_E" unique_id=400610947 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -0.25)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_2" parent="Buildings/APT_E" unique_id=400610948 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_3" parent="Buildings/APT_E" unique_id=400610949 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="South1_0" parent="Buildings/APT_E" unique_id=1084245389 instance=ExtResource("1_window_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="South1_1" parent="Buildings/APT_E" unique_id=1084245390 instance=ExtResource("1_window_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="South1_2" parent="Buildings/APT_E" unique_id=1084245391 instance=ExtResource("1_window_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North1_0" parent="Buildings/APT_E" unique_id=475505477 instance=ExtResource("3_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North1_1" parent="Buildings/APT_E" unique_id=475505478 instance=ExtResource("3_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North1_2" parent="Buildings/APT_E" unique_id=475505479 instance=ExtResource("3_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 12, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="West1_0" parent="Buildings/APT_E" unique_id=54449469 instance=ExtResource("1_window_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 4, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="West1_1" parent="Buildings/APT_E" unique_id=54449470 instance=ExtResource("1_window_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="East1_0" parent="Buildings/APT_E" unique_id=273804583 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="East1_1" parent="Buildings/APT_E" unique_id=273804584 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 4, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner1_0" parent="Buildings/APT_E" unique_id=400612035 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 4, -0.25)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner1_1" parent="Buildings/APT_E" unique_id=400612036 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 4, -0.25)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner1_2" parent="Buildings/APT_E" unique_id=400612037 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner1_3" parent="Buildings/APT_E" unique_id=400612038 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="South2_0" parent="Buildings/APT_E" unique_id=1084246478 instance=ExtResource("1_window_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="South2_1" parent="Buildings/APT_E" unique_id=1084246479 instance=ExtResource("1_window_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 8, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="South2_2" parent="Buildings/APT_E" unique_id=1084246480 instance=ExtResource("1_window_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 8, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North2_0" parent="Buildings/APT_E" unique_id=475506566 instance=ExtResource("3_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 8, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North2_1" parent="Buildings/APT_E" unique_id=475506567 instance=ExtResource("3_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8, 8, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North2_2" parent="Buildings/APT_E" unique_id=475506568 instance=ExtResource("3_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 12, 8, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="West2_0" parent="Buildings/APT_E" unique_id=54450558 instance=ExtResource("1_window_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 8, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="West2_1" parent="Buildings/APT_E" unique_id=54450559 instance=ExtResource("1_window_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 8, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="East2_0" parent="Buildings/APT_E" unique_id=273805672 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 8, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="East2_1" parent="Buildings/APT_E" unique_id=273805673 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 8, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner2_0" parent="Buildings/APT_E" unique_id=400613124 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 8, -0.25)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner2_1" parent="Buildings/APT_E" unique_id=400613125 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 8, -0.25)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner2_2" parent="Buildings/APT_E" unique_id=400613126 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 8, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner2_3" parent="Buildings/APT_E" unique_id=400613127 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 8, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_0_0" parent="Buildings/APT_E" unique_id=1163735598 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_0_1" parent="Buildings/APT_E" unique_id=1163735599 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_1_0" parent="Buildings/APT_E" unique_id=1163736687 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 12, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_1_1" parent="Buildings/APT_E" unique_id=1163736688 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 12, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_2_0" parent="Buildings/APT_E" unique_id=1163737776 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 12, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_2_1" parent="Buildings/APT_E" unique_id=1163737777 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 12, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeSouth_0" parent="Buildings/APT_E" unique_id=519685447 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeSouth_1" parent="Buildings/APT_E" unique_id=519685448 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 12, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeSouth_2" parent="Buildings/APT_E" unique_id=519685449 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 12, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeNorth_0" parent="Buildings/APT_E" unique_id=501238783 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 12, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeNorth_1" parent="Buildings/APT_E" unique_id=501238784 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8, 12, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeNorth_2" parent="Buildings/APT_E" unique_id=501238785 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 12, 12, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeWest_0" parent="Buildings/APT_E" unique_id=811110807 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 12, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeWest_1" parent="Buildings/APT_E" unique_id=811110808 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 12, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeEast_0" parent="Buildings/APT_E" unique_id=101930049 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 12, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeEast_1" parent="Buildings/APT_E" unique_id=101930050 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 12, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Collision" type="StaticBody3D" parent="Buildings/APT_E" unique_id=1168309222]
+
+[node name="Block" type="CollisionShape3D" parent="Buildings/APT_E/Collision" unique_id=1812968832]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 6, 4)
+shape = SubResource("shape_3099b013")
+
+[node name="Entrance" type="Marker3D" parent="Buildings/APT_E" unique_id=93337706]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -0.75)
+
+[node name="Label" type="Label3D" parent="Buildings/APT_E" unique_id=720417850]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 13.5, -0.75)
+pixel_size = 0.01
+billboard = 1
+text = "APT_E"
+font_size = 96
+
+[node name="WORKSHOP" type="Node3D" parent="Buildings" unique_id=2039046783]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82, 0, 14)
+
+[node name="South0_0" parent="Buildings/WORKSHOP" unique_id=1182746944 instance=ExtResource("3_wall")]
+collision_layer = 0
+collision_mask = 0
+
+[node name="South0_1" parent="Buildings/WORKSHOP" unique_id=1182746945 instance=ExtResource("2_door_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="South0_2" parent="Buildings/WORKSHOP" unique_id=1182746946 instance=ExtResource("3_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North0_0" parent="Buildings/WORKSHOP" unique_id=574007032 instance=ExtResource("1_window_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North0_1" parent="Buildings/WORKSHOP" unique_id=574007033 instance=ExtResource("2_door_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North0_2" parent="Buildings/WORKSHOP" unique_id=574007034 instance=ExtResource("1_window_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 12, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="West0_0" parent="Buildings/WORKSHOP" unique_id=1554164336 instance=ExtResource("3_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="West0_1" parent="Buildings/WORKSHOP" unique_id=1554164337 instance=ExtResource("3_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="East0_0" parent="Buildings/WORKSHOP" unique_id=1773519450 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 0, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="East0_1" parent="Buildings/WORKSHOP" unique_id=1773519451 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 0, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_0" parent="Buildings/WORKSHOP" unique_id=1503714550 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, -0.25)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_1" parent="Buildings/WORKSHOP" unique_id=1503714551 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -0.25)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_2" parent="Buildings/WORKSHOP" unique_id=1503714552 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_3" parent="Buildings/WORKSHOP" unique_id=1503714553 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_0_0" parent="Buildings/WORKSHOP" unique_id=1262238242 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_0_1" parent="Buildings/WORKSHOP" unique_id=1262238243 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_1_0" parent="Buildings/WORKSHOP" unique_id=1262239331 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_1_1" parent="Buildings/WORKSHOP" unique_id=1262239332 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_2_0" parent="Buildings/WORKSHOP" unique_id=1262240420 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_2_1" parent="Buildings/WORKSHOP" unique_id=1262240421 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeSouth_0" parent="Buildings/WORKSHOP" unique_id=1871303355 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeSouth_1" parent="Buildings/WORKSHOP" unique_id=1871303356 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeSouth_2" parent="Buildings/WORKSHOP" unique_id=1871303357 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeNorth_0" parent="Buildings/WORKSHOP" unique_id=1852856691 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeNorth_1" parent="Buildings/WORKSHOP" unique_id=1852856692 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeNorth_2" parent="Buildings/WORKSHOP" unique_id=1852856693 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 12, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeWest_0" parent="Buildings/WORKSHOP" unique_id=396542091 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 4, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeWest_1" parent="Buildings/WORKSHOP" unique_id=396542092 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeEast_0" parent="Buildings/WORKSHOP" unique_id=1834844981 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeEast_1" parent="Buildings/WORKSHOP" unique_id=1834844982 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 4, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Collision" type="StaticBody3D" parent="Buildings/WORKSHOP" unique_id=123929178]
+
+[node name="Block" type="CollisionShape3D" parent="Buildings/WORKSHOP/Collision" unique_id=1017103092]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2, 4)
+shape = SubResource("shape_29f018a7")
+
+[node name="Entrance" type="Marker3D" parent="Buildings/WORKSHOP" unique_id=191840350]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 8.75)
+
+[node name="Label" type="Label3D" parent="Buildings/WORKSHOP" unique_id=719823022]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 5.5, 8.75)
+pixel_size = 0.01
+billboard = 1
+text = "WORKSHOP"
+font_size = 96
+
+[node name="PUMP_HOUSE" type="Node3D" parent="Buildings" unique_id=530889607]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54, 0, 12)
+
+[node name="South0_0" parent="Buildings/PUMP_HOUSE" unique_id=1203981128 instance=ExtResource("3_wall")]
+
+[node name="South0_1" parent="Buildings/PUMP_HOUSE" unique_id=1203981129 instance=ExtResource("3_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+
+[node name="South0_2" parent="Buildings/PUMP_HOUSE" unique_id=1203981130 instance=ExtResource("3_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
+
+[node name="North0_0" parent="Buildings/PUMP_HOUSE" unique_id=595241216 instance=ExtResource("2_door_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 0, 8)
+
+[node name="North0_1" parent="Buildings/PUMP_HOUSE" unique_id=595241217 instance=ExtResource("1_window_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8, 0, 8)
+
+[node name="North0_2" parent="Buildings/PUMP_HOUSE" unique_id=595241218 instance=ExtResource("2_door_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 12, 0, 8)
+
+[node name="West0_0" parent="Buildings/PUMP_HOUSE" unique_id=1424657272 instance=ExtResource("3_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 4)
+
+[node name="West0_1" parent="Buildings/PUMP_HOUSE" unique_id=1424657273 instance=ExtResource("3_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 8)
+
+[node name="East0_0" parent="Buildings/PUMP_HOUSE" unique_id=1644012386 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 0, 0)
+
+[node name="East0_1" parent="Buildings/PUMP_HOUSE" unique_id=1644012387 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 0, 4)
+
+[node name="Corner0_0" parent="Buildings/PUMP_HOUSE" unique_id=56958974 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, -0.25)
+
+[node name="Corner0_1" parent="Buildings/PUMP_HOUSE" unique_id=56958975 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -0.25)
+
+[node name="Corner0_2" parent="Buildings/PUMP_HOUSE" unique_id=56958976 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, 8)
+
+[node name="Corner0_3" parent="Buildings/PUMP_HOUSE" unique_id=56958977 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 8)
+
+[node name="Roof_0_0" parent="Buildings/PUMP_HOUSE" unique_id=1283472426 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+
+[node name="Roof_0_1" parent="Buildings/PUMP_HOUSE" unique_id=1283472427 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 4)
+
+[node name="Roof_1_0" parent="Buildings/PUMP_HOUSE" unique_id=1283473515 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 0)
+
+[node name="Roof_1_1" parent="Buildings/PUMP_HOUSE" unique_id=1283473516 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 4)
+
+[node name="Roof_2_0" parent="Buildings/PUMP_HOUSE" unique_id=1283474604 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4, 0)
+
+[node name="Roof_2_1" parent="Buildings/PUMP_HOUSE" unique_id=1283474605 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4, 4)
+
+[node name="RoofEdgeSouth_0" parent="Buildings/PUMP_HOUSE" unique_id=1107704771 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+
+[node name="RoofEdgeSouth_1" parent="Buildings/PUMP_HOUSE" unique_id=1107704772 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 0)
+
+[node name="RoofEdgeSouth_2" parent="Buildings/PUMP_HOUSE" unique_id=1107704773 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4, 0)
+
+[node name="RoofEdgeNorth_0" parent="Buildings/PUMP_HOUSE" unique_id=1089258107 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 4, 8)
+
+[node name="RoofEdgeNorth_1" parent="Buildings/PUMP_HOUSE" unique_id=1089258108 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8, 4, 8)
+
+[node name="RoofEdgeNorth_2" parent="Buildings/PUMP_HOUSE" unique_id=1089258109 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 12, 4, 8)
+
+[node name="RoofEdgeWest_0" parent="Buildings/PUMP_HOUSE" unique_id=1479682195 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 4, 4)
+
+[node name="RoofEdgeWest_1" parent="Buildings/PUMP_HOUSE" unique_id=1479682196 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 4, 8)
+
+[node name="RoofEdgeEast_0" parent="Buildings/PUMP_HOUSE" unique_id=770501437 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 4, 0)
+
+[node name="RoofEdgeEast_1" parent="Buildings/PUMP_HOUSE" unique_id=770501438 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 4, 4)
+
+[node name="Entrance" type="Marker3D" parent="Buildings/PUMP_HOUSE" unique_id=213074534]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 8.75)
+
+[node name="Label" type="Label3D" parent="Buildings/PUMP_HOUSE" unique_id=540254134]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 5.5, 8.75)
+pixel_size = 0.01
+billboard = 1
+text = "PUMP_HOUSE"
+font_size = 96
+
+[node name="SOUTH_FILLER" type="Node3D" parent="Buildings" unique_id=460058802]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 0, 12)
+
+[node name="South0_0" parent="Buildings/SOUTH_FILLER" unique_id=1362919635 instance=ExtResource("3_wall")]
+collision_layer = 0
+collision_mask = 0
+
+[node name="South0_1" parent="Buildings/SOUTH_FILLER" unique_id=1362919636 instance=ExtResource("3_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="South0_2" parent="Buildings/SOUTH_FILLER" unique_id=1362919637 instance=ExtResource("3_wall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North0_0" parent="Buildings/SOUTH_FILLER" unique_id=754179723 instance=ExtResource("1_window_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 0, 12)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North0_1" parent="Buildings/SOUTH_FILLER" unique_id=754179724 instance=ExtResource("2_door_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8, 0, 12)
+collision_layer = 0
+collision_mask = 0
+
+[node name="North0_2" parent="Buildings/SOUTH_FILLER" unique_id=754179725 instance=ExtResource("1_window_wall")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 12, 0, 12)
+collision_layer = 0
+collision_mask = 0
+
+[node name="West0_0" parent="Buildings/SOUTH_FILLER" unique_id=2080226211 instance=ExtResource("3_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="West0_1" parent="Buildings/SOUTH_FILLER" unique_id=2080226212 instance=ExtResource("3_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="West0_2" parent="Buildings/SOUTH_FILLER" unique_id=2080226213 instance=ExtResource("3_wall")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 12)
+collision_layer = 0
+collision_mask = 0
+
+[node name="East0_0" parent="Buildings/SOUTH_FILLER" unique_id=152097677 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 0, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="East0_1" parent="Buildings/SOUTH_FILLER" unique_id=152097678 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 0, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="East0_2" parent="Buildings/SOUTH_FILLER" unique_id=152097679 instance=ExtResource("3_wall")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 0, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_0" parent="Buildings/SOUTH_FILLER" unique_id=1006962409 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, -0.25)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_1" parent="Buildings/SOUTH_FILLER" unique_id=1006962410 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -0.25)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_2" parent="Buildings/SOUTH_FILLER" unique_id=1006962411 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, 12)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Corner0_3" parent="Buildings/SOUTH_FILLER" unique_id=1006962412 instance=ExtResource("4_corner")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 12)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_0_0" parent="Buildings/SOUTH_FILLER" unique_id=1442410933 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_0_1" parent="Buildings/SOUTH_FILLER" unique_id=1442410934 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_0_2" parent="Buildings/SOUTH_FILLER" unique_id=1442410935 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_1_0" parent="Buildings/SOUTH_FILLER" unique_id=1442412022 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_1_1" parent="Buildings/SOUTH_FILLER" unique_id=1442412023 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_1_2" parent="Buildings/SOUTH_FILLER" unique_id=1442412024 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_2_0" parent="Buildings/SOUTH_FILLER" unique_id=1442413111 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_2_1" parent="Buildings/SOUTH_FILLER" unique_id=1442413112 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Roof_2_2" parent="Buildings/SOUTH_FILLER" unique_id=1442413113 instance=ExtResource("5_roof_plane")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeSouth_0" parent="Buildings/SOUTH_FILLER" unique_id=842032878 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeSouth_1" parent="Buildings/SOUTH_FILLER" unique_id=842032879 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeSouth_2" parent="Buildings/SOUTH_FILLER" unique_id=842032880 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeNorth_0" parent="Buildings/SOUTH_FILLER" unique_id=823586214 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 4, 12)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeNorth_1" parent="Buildings/SOUTH_FILLER" unique_id=823586215 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8, 4, 12)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeNorth_2" parent="Buildings/SOUTH_FILLER" unique_id=823586216 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 12, 4, 12)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeWest_0" parent="Buildings/SOUTH_FILLER" unique_id=1927158366 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 4, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeWest_1" parent="Buildings/SOUTH_FILLER" unique_id=1927158367 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeWest_2" parent="Buildings/SOUTH_FILLER" unique_id=1927158368 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 4, 12)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeEast_0" parent="Buildings/SOUTH_FILLER" unique_id=1217977608 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 4, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeEast_1" parent="Buildings/SOUTH_FILLER" unique_id=1217977609 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 4, 4)
+collision_layer = 0
+collision_mask = 0
+
+[node name="RoofEdgeEast_2" parent="Buildings/SOUTH_FILLER" unique_id=1217977610 instance=ExtResource("6_roof_edge")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, 12, 4, 8)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Collision" type="StaticBody3D" parent="Buildings/SOUTH_FILLER" unique_id=1774660685]
+
+[node name="Block" type="CollisionShape3D" parent="Buildings/SOUTH_FILLER/Collision" unique_id=2135316263]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2, 6)
+shape = SubResource("shape_23604e5a")
+
+[node name="Entrance" type="Marker3D" parent="Buildings/SOUTH_FILLER" unique_id=372013041]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 12.75)
+
+[node name="KitPlacements" type="Node3D" parent="." unique_id=1362658054]
+
+[node name="BASEMENT_STAIR" parent="KitPlacements" unique_id=1830071974 instance=ExtResource("7_stair_flight")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.25, -2, 15.75)
+
+[node name="PIT_RAIL_SOUTH" parent="KitPlacements" unique_id=521372475 instance=ExtResource("8_railing")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 59.25, 0, 16.25)
+
+[node name="PIT_RAIL_NORTH" parent="KitPlacements" unique_id=515439603 instance=ExtResource("8_railing")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 59.25, 0, 19.75)
+
+[node name="Props" type="Node3D" parent="." unique_id=1338982886]
+
+[node name="VAN" type="StaticBody3D" parent="Props" unique_id=1206190394]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 6.25)
+
+[node name="Mesh" type="MeshInstance3D" parent="Props/VAN" unique_id=1593264950]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.25, 2.75)
+material_override = SubResource("mat_van")
+mesh = SubResource("mesh_518eb969")
+
+[node name="Collision" type="CollisionShape3D" parent="Props/VAN" unique_id=1712621269]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.25, 2.75)
+shape = SubResource("shape_1d77cce8")
+
+[node name="CABINET_JW" type="StaticBody3D" parent="Props" unique_id=1803770027]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.25, 0, 23.75)
+
+[node name="Mesh" type="MeshInstance3D" parent="Props/CABINET_JW" unique_id=1840968007]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0.875, 0.25)
+material_override = SubResource("mat_cabinet")
+mesh = SubResource("mesh_0b08081a")
+
+[node name="Collision" type="CollisionShape3D" parent="Props/CABINET_JW" unique_id=112697222]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0.875, 0.25)
+shape = SubResource("shape_39d2f239")
+
+[node name="CABINET_JE" type="StaticBody3D" parent="Props" unique_id=1803770009]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.25, 0, 23.75)
+
+[node name="Mesh" type="MeshInstance3D" parent="Props/CABINET_JE" unique_id=1136530933]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0.875, 0.25)
+material_override = SubResource("mat_cabinet")
+mesh = SubResource("mesh_610b2cc8")
+
+[node name="Collision" type="CollisionShape3D" parent="Props/CABINET_JE" unique_id=640868596]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0.875, 0.25)
+shape = SubResource("shape_594e33a7")
+
+[node name="PUMP_UNIT" type="StaticBody3D" parent="Props" unique_id=2035744630]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57, -2, 13)
+
+[node name="Mesh" type="MeshInstance3D" parent="Props/PUMP_UNIT" unique_id=692948722]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.375, 0.5)
+material_override = SubResource("mat_pump")
+mesh = SubResource("mesh_4d199765")
+
+[node name="Collision" type="CollisionShape3D" parent="Props/PUMP_UNIT" unique_id=374767633]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.375, 0.5)
+shape = SubResource("shape_2f28c864")
+
+[node name="PAD_VAN_BAY" type="Node3D" parent="Props" unique_id=911563689]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.25, 0, 12.25)
+
+[node name="Mesh" type="MeshInstance3D" parent="Props/PAD_VAN_BAY" unique_id=1184662277]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0.01, 0.75)
+material_override = SubResource("mat_pad")
+mesh = SubResource("mesh_0d8c7438")
+
+[node name="PAD_PUMP_SLAB" type="Node3D" parent="Props" unique_id=1836301836]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.75, 0, 15.25)
+
+[node name="Mesh" type="MeshInstance3D" parent="Props/PAD_PUMP_SLAB" unique_id=553048904]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0.01, 0.75)
+material_override = SubResource("mat_pad")
+mesh = SubResource("mesh_63a7e53b")
+
+[node name="PAD_STORE_PUMP_HOUSE" type="Node3D" parent="Props" unique_id=2099740410]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.75, 0, 12.75)
+
+[node name="Mesh" type="MeshInstance3D" parent="Props/PAD_STORE_PUMP_HOUSE" unique_id=36593910]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0.01, 0.75)
+material_override = SubResource("mat_pad")
+mesh = SubResource("mesh_46b85b89")
+
+[node name="FLOOD_WATER" type="Node3D" parent="Props" unique_id=1197163531]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.25, -2, 12.25)
+
+[node name="Mesh" type="MeshInstance3D" parent="Props/FLOOD_WATER" unique_id=1412233383]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.55, 3.75)
+material_override = SubResource("mat_water")
+mesh = SubResource("mesh_1b1ce9da")
+
+[node name="Markers" type="Node3D" parent="." unique_id=1917077927]
+
+[node name="SPAWN_1" type="Marker3D" parent="Markers" unique_id=71876815]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0, 15)
+metadata/kind = "spawn"
+
+[node name="SPAWN_2" type="Marker3D" parent="Markers" unique_id=71876816]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0, 15)
+metadata/kind = "spawn"
+
+[node name="SPAWN_3" type="Marker3D" parent="Markers" unique_id=71876817]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0, 18)
+metadata/kind = "spawn"
+
+[node name="SPAWN_4" type="Marker3D" parent="Markers" unique_id=71876818]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0, 18)
+metadata/kind = "spawn"
+
+[node name="VAN_EYE" type="Marker3D" parent="Markers" unique_id=1227460669]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.75, 14.5)
+metadata/kind = "viewpoint"
+
+[node name="JE_EYE" type="Marker3D" parent="Markers" unique_id=1980682695]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73, 1.75, 25.5)
+metadata/kind = "viewpoint"
+
+[node name="VAN_BAY" type="Marker3D" parent="Markers" unique_id=1227456630]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 13)
+metadata/kind = "anchor"
+
+[node name="PAD_PUMP" type="Marker3D" parent="Markers" unique_id=1300430028]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.5, 0, 16)
+metadata/kind = "anchor"
+
+[node name="STORE_PUMP_HOUSE" type="Marker3D" parent="Markers" unique_id=928668263]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.5, 0, 13.5)
+metadata/kind = "anchor"
+
+[node name="PANEL_JW" type="Marker3D" parent="Markers" unique_id=1660817062]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.6, 1.4, 24.3)
+metadata/kind = "panel"
+
+[node name="SW_JW_BREAKER" type="Marker3D" parent="Markers" unique_id=1115019707]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.4, 1.4, 24.3)
+metadata/kind = "switch"
+
+[node name="PANEL_JE" type="Marker3D" parent="Markers" unique_id=1660817044]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.6, 1.4, 24.3)
+metadata/kind = "panel"
+
+[node name="SW_JE_BREAKER" type="Marker3D" parent="Markers" unique_id=297133993]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.4, 1.4, 24.3)
+metadata/kind = "switch"
+
+[node name="SW_SIGN" type="Marker3D" parent="Markers" unique_id=381252240]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.6, 1.4, 41.9)
+metadata/kind = "switch"
+
+[node name="SIGN" type="Marker3D" parent="Markers" unique_id=1315482919]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 3.25, 41.9)
+metadata/kind = "consumer"
+
+[node name="PUMP" type="Marker3D" parent="Markers" unique_id=1315388376]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.5, -1.15, 13.5)
+metadata/kind = "consumer"
+
+[node name="TRUNK_JE" type="Marker3D" parent="Markers" unique_id=1100601208]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.15, -0.6, 15)
+metadata/kind = "panel"
+
+[node name="Zones" type="Node3D" parent="." unique_id=1350732833]
+
+[node name="ZONE_VAN" type="Area3D" parent="Zones" unique_id=1035706736]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1.5, 12)
+monitorable = false
+
+[node name="Shape" type="CollisionShape3D" parent="Zones/ZONE_VAN" unique_id=1600524208]
+shape = SubResource("shape_03321823")
+
+[node name="Labels" type="Node3D" parent="." unique_id=1059580773]
+
+[node name="LabelJW" type="Label3D" parent="Labels" unique_id=1254530293]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 2.75, 24)
+pixel_size = 0.01
+billboard = 1
+text = "JW"
+font_size = 96
+
+[node name="LabelJE" type="Label3D" parent="Labels" unique_id=1254530275]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73, 2.75, 24)
+pixel_size = 0.01
+billboard = 1
+text = "JE"
+font_size = 96
+
+[node name="LabelVAN" type="Label3D" parent="Labels" unique_id=597322777]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 3.5, 9)
+pixel_size = 0.01
+billboard = 1
+text = "VAN"
+font_size = 96
