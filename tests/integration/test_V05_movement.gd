@@ -85,6 +85,19 @@ func test_V05_clients_cannot_send_positions_or_teleport() -> void:
 	assert_eq(host.receive("NOBODY", [{"seq": 1}]), 0)
 
 
+func test_V05_malformed_inputs_are_dropped_not_crashing_the_host() -> void:
+	var host: Sync.HostMovement = Sync.HostMovement.new(_model, _tuning)
+	host.spawn("P1", Vector3i.ZERO)
+	var bad: Array = [{"seq": 1, "x": {}, "z": 0}, {"seq": 2, "x": 0, "z": "fast"}, {"seq": 3, "x": NAN, "z": 0}]
+	assert_eq(host.receive("P1", bad), 0, "non-integer axes are refused")
+	assert_eq(host.receive("P1", [{"seq": 1.5, "x": 0, "z": 0}, {"seq": INF, "x": 0, "z": 0}, {"seq": [1]}]), 0, "non-integer seq refused")
+	assert_eq(host.receive("P1", [{"seq": 4.0, "x": 1e30, "z": -127.0}]), 0, "a float too large to be a safe integer is refused")
+	var parsed: Array = JSON.parse_string('[{"seq": 5, "x": 127, "z": 0}]')  # JSON numbers arrive as floats
+	assert_eq(host.receive("P1", parsed), 1, "a well-formed JSON input is still accepted")
+	host.tick({})
+	assert_eq(host.position_of("P1"), _model.step(Vector3i.ZERO, {"x": 127, "z": 0}, false))
+
+
 func test_V05_anchored_equipment_eases_and_lands_exactly_on_the_host_anchor() -> void:
 	var s: Sync.Smoother = Sync.Smoother.new(Vector3(10, 0, 20))
 	s.retarget(Vector3(60, 0, 16), 1000, 250)

@@ -13,6 +13,7 @@ extends RefCounted
 ## All pure: no scene tree; time is passed in (ms or ticks).
 
 const Model := preload("res://scripts/actors/movement_model.gd")
+const PowerGrid := preload("res://scripts/simulation/power_grid.gd")  # to_int: the shared strict integer check
 
 
 class HostMovement:
@@ -46,15 +47,18 @@ class HostMovement:
 		for raw: Variant in inputs.slice(0, _redundancy):
 			if not raw is Dictionary:
 				continue
-			var seq: Variant = raw.get("seq")
-			if not (seq is int or seq is float) or int(seq) <= int(_ack[player]):
+			# seq and both axes must be integers (JSON numbers arrive as floats); anything else drops the input rather
+			# than reaching int() with a dictionary, NaN or an out-of-range float
+			var seq: Variant = PowerGrid.to_int(raw.get("seq"))
+			var x: Variant = PowerGrid.to_int(raw.get("x", 0))
+			var z: Variant = PowerGrid.to_int(raw.get("z", 0))
+			if seq == null or x == null or z == null or int(seq) <= int(_ack[player]):
 				continue
 			if buf.any(func(b: Dictionary) -> bool: return b["seq"] == int(seq)):
 				continue
 			if buf.size() >= _max_buffer:
 				break  # a client sending faster than the host ticks only fills the buffer; the rest is dropped
-			buf.append({"seq": int(seq), "x": clampi(int(raw.get("x", 0)), -_axis_max, _axis_max),
-				"z": clampi(int(raw.get("z", 0)), -_axis_max, _axis_max),
+			buf.append({"seq": int(seq), "x": clampi(int(x), -_axis_max, _axis_max), "z": clampi(int(z), -_axis_max, _axis_max),
 				"sprint": raw.get("sprint") == true, "crouch": raw.get("crouch") == true})
 			accepted += 1
 		buf.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a["seq"] < b["seq"])
