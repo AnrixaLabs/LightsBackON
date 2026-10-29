@@ -4,6 +4,7 @@ extends "res://tests/test_case.gd"
 const Runner := preload("res://tests/support/solution_runner.gd")
 const Rewards := preload("res://scripts/progression/reward_service.gd")
 const SaveService := preload("res://scripts/persistence/save_service.gd")
+const Codec := preload("res://scripts/persistence/checkpoint_codec.gd")
 const C01: String = "res://content/contracts/c01_alder_street"
 const NOW: String = "2026-10-29T15:00:00Z"
 
@@ -53,6 +54,67 @@ func test_V08_tutorial_trip_is_free_later_trips_cost_the_third_star() -> void:
 	Runner.run(ctx2, trace["steps"], int(trace["pace_ticks_per_command"]))
 	assert_eq(ctx2["mission"].results()["preventable_trips"], 1)
 	assert_eq(ctx2["mission"].results()["stars"], 2, "no speed star exists; only preventable trips cost the third")
+
+
+func test_V08_results_are_frozen_at_completion() -> void:
+	var trace: Dictionary = Runner.json(C01.path_join("solution.json"))
+	var ctx: Dictionary = Runner.build(C01, trace["players"], trace["tools"])
+	Runner.run(ctx, trace["steps"], int(trace["pace_ticks_per_command"]))
+	var at_completion: Dictionary = ctx["mission"].results()
+	var carrier: String = str(trace["players"][0])
+	var r: Dictionary = Runner.send(ctx, carrier, "place_item", "GEN_PORTABLE", {"action": "pickup"})
+	assert_true(r["ok"], "the stowed generator can still be picked up after completion: %s" % str(r))
+	Runner.ticks(ctx, 5)
+	assert_eq(ctx["mission"].results(), at_completion, "unstowing after completion does not change the report")
+	assert_eq(Rewards.credits_for(ctx["mission"].results(), _economy), 650, "nor the restow bonus")
+	(ctx["mission"].results() as Dictionary)["stars"] = 0
+	assert_eq(ctx["mission"].results()["stars"], 3, "callers get a copy, not the frozen report itself")
+
+
+func test_V08_optional_services_are_reported_and_earn_the_second_star() -> void:
+	var trace: Dictionary = Runner.json(C01.path_join("solution.json"))
+	# content variants: APT_W is on grid supply at completion; PUMP runs only on the (stowed) generator, so it is not
+	var ctx: Dictionary = Runner.build(C01, trace["players"], trace["tools"], {"optional_services": ["APT_W"]})
+	assert_true((ctx["errors"] as Array).is_empty(), str(ctx["errors"]))
+	Runner.run(ctx, trace["steps"], int(trace["pace_ticks_per_command"]))
+	var won: Dictionary = ctx["mission"].results()
+	assert_eq(won["optional_services"], ["APT_W"] as Array[String])
+	assert_eq(won["stars"], 3)
+	assert_eq(Rewards.credits_for(won, _economy), 650 + int(_economy["optional_service_bonus_each"]), "optional bonus paid")
+	var ctx2: Dictionary = Runner.build(C01, trace["players"], trace["tools"], {"optional_services": ["APT_W", "PUMP"]})
+	Runner.run(ctx2, trace["steps"], int(trace["pace_ticks_per_command"]))
+	var partial: Dictionary = ctx2["mission"].results()
+	assert_eq(partial["optional_services"], ["APT_W"] as Array[String], "only restored services are listed")
+	assert_eq(partial["optional_total"], 2)
+	assert_eq(partial["stars"], 2, "not every optional service restored: no second star")
+
+
+func test_V08_checkpoint_keeps_scoring_counters() -> void:
+	var trace: Dictionary = Runner.json(C01.path_join("solution.json"))
+	var steps: Array = trace["steps"]
+	var pace: int = int(trace["pace_ticks_per_command"])
+	var a: Dictionary = Runner.build(C01, trace["players"], trace["tools"])
+	a["mission"].note_events([{"type": "trip"}, {"type": "trip"}, {"type": "player_recovered"}] as Array[Dictionary])
+	var half: int = steps.size() / 2
+	Runner.run(a, steps.slice(0, half), pace)
+	var payload: Dictionary = Codec.encode("CAMP_A", "C01", a["grid"], a["interaction"], a["equipment"], a["mission"])
+	var b: Dictionary = Runner.build(C01, trace["players"], trace["tools"])
+	var errs: Array[Dictionary] = Codec.restore(payload, "C01", b["grid"], b["interaction"], b["equipment"], b["mission"])
+	assert_true(errs.is_empty(), str(errs))
+	assert_eq(b["mission"].durable_state(), a["mission"].durable_state(), "mission progress survives the checkpoint")
+	Runner.run(b, steps.slice(half), pace)
+	var res: Dictionary = b["mission"].results()
+	assert_eq(res["trips"], 2)
+	assert_eq(res["crew_recoveries"], 1)
+	assert_eq(res["stars"], 2, "a save and load does not wipe the preventable trip")
+	assert_eq(Codec.restore(payload, "C01", Runner.build(C01, [], [])["grid"], b["interaction"], b["equipment"])[0]["code"],
+		"BAD_SAVE", "mission state with no director to receive it is refused, not dropped")
+	var forged: Dictionary = payload.duplicate(true)
+	forged["mission"]["latched"]["NO_SUCH_LATCH"] = 1
+	var c: Dictionary = Runner.build(C01, trace["players"], trace["tools"])
+	var before: Dictionary = c["mission"].durable_state()
+	assert_eq(c["mission"].restore_state(forged["mission"])[0]["code"], "BAD_SAVE")
+	assert_eq(c["mission"].durable_state(), before, "a refused mission state changes nothing")
 
 
 func test_SAVE04_replaying_or_reopening_a_receipt_applies_credits_once() -> void:
