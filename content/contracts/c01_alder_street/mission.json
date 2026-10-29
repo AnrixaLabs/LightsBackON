@@ -1,0 +1,21 @@
+{
+  "contract_id": "C01",
+  "source_note": "C01 First Shift mission rules (blueprint p.7 known solution, p.18 contract sheet). Ticks are 10 Hz: pump 12 s = 120, final verification 10 s = 100, extraction countdown 5 s = 50. Zone positions are placeholders until the V01 graybox places them.",
+  "grid_source": "GRID",
+  "required_consumers": ["APT_E", "APT_W", "MARKET", "PUB", "WORKSHOP"],
+  "excluded_loads": ["SIGN"],
+  "access_latches": [
+    {"id": "LATCH_PUMP_DRAIN", "consumer": "PUMP", "supplied_ticks": 120, "grants": "PUMP_HOUSE_DRAINED"}
+  ],
+  "final_verification_ticks": 100,
+  "extraction": {"zone": "ZONE_VAN", "countdown_ticks": 50},
+  "objectives": [
+    {"id": "OBJ_WEST", "text_key": "objective.c01.restore_west", "done_when": {"supplied_from_grid": ["APT_W", "MARKET"]}},
+    {"id": "OBJ_PUMP", "text_key": "objective.c01.drain_basement", "done_when": {"latch": "LATCH_PUMP_DRAIN"}},
+    {"id": "OBJ_EAST", "text_key": "objective.c01.restore_east", "done_when": {"supplied_from_grid": ["APT_E", "PUB", "WORKSHOP"]}},
+    {"id": "OBJ_VERIFY", "text_key": "objective.c01.verify_supply", "done_when": {"verified": true}},
+    {"id": "OBJ_STOW", "text_key": "objective.c01.stow_equipment", "done_when": {"stowed": true}},
+    {"id": "OBJ_EXTRACT", "text_key": "objective.c01.extract", "done_when": {"completed": true}}
+  ],
+  "max_visible_objectives": 3
+}

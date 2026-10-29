@@ -1,0 +1,467 @@
+{
+ "contract_id": "C01",
+ "source_note": "Known-valid C01 solution (blueprint p.7) as host intents replayed by tests/support/solution_runner.gd through session_host.gd. Solo player P1; positions are not modelled yet (every range check passes) until the V01 graybox exists. pace_ticks_per_command advances the host 1 tick (100 ms) after each command, a human-speed upper bound that stays inside the per-sender rate limit.",
+ "players": [
+  "P1"
+ ],
+ "tools": [
+  "screwdriver",
+  "puller",
+  "cutter",
+  "crimper",
+  "meter"
+ ],
+ "max_ticks": 600,
+ "steps": [
+  {
+   "note": "1. Inspect JW, isolate, replace the fuse, close and reset: west apartments and market get 9 PU."
+  },
+  {
+   "as": "P1",
+   "intent": "request_lock",
+   "entity": "R_JW_FUSE",
+   "payload": {},
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "inspect",
+   "entity": "PANEL_JW",
+   "payload": {},
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "equip",
+   "entity": "R_JW_FUSE",
+   "payload": {
+    "tool": ""
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "repair_step",
+   "entity": "R_JW_FUSE",
+   "payload": {
+    "step": "diagnose"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "equip",
+   "entity": "R_JW_FUSE",
+   "payload": {
+    "tool": ""
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "repair_step",
+   "entity": "R_JW_FUSE",
+   "payload": {
+    "step": "isolate"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "equip",
+   "entity": "R_JW_FUSE",
+   "payload": {
+    "tool": "screwdriver"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "repair_step",
+   "entity": "R_JW_FUSE",
+   "payload": {
+    "step": "open"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "equip",
+   "entity": "R_JW_FUSE",
+   "payload": {
+    "tool": "puller"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "repair_step",
+   "entity": "R_JW_FUSE",
+   "payload": {
+    "step": "remove"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "equip",
+   "entity": "R_JW_FUSE",
+   "payload": {
+    "tool": "puller"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "repair_step",
+   "entity": "R_JW_FUSE",
+   "payload": {
+    "step": "install"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "equip",
+   "entity": "R_JW_FUSE",
+   "payload": {
+    "tool": ""
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "repair_step",
+   "entity": "R_JW_FUSE",
+   "payload": {
+    "step": "close"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "equip",
+   "entity": "R_JW_FUSE",
+   "payload": {
+    "tool": "meter"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "repair_step",
+   "entity": "R_JW_FUSE",
+   "payload": {
+    "step": "test"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "equip",
+   "entity": "R_JW_FUSE",
+   "payload": {
+    "tool": ""
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "repair_step",
+   "entity": "R_JW_FUSE",
+   "payload": {
+    "step": "restore"
+   },
+   "expect": "ok"
+  },
+  {
+   "note": "2. Generator to the pump pad, connect only TEMP -> pump, start it, 12 s of supply."
+  },
+  {
+   "as": "P1",
+   "intent": "place_item",
+   "entity": "GEN_PORTABLE",
+   "payload": {
+    "action": "pickup"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "place_item",
+   "entity": "GEN_PORTABLE",
+   "payload": {
+    "action": "place",
+    "anchor": "PAD_PUMP"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "place_item",
+   "entity": "GEN_PORTABLE",
+   "payload": {
+    "action": "connect",
+    "route": "E_TEMP_PUMP"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "place_item",
+   "entity": "GEN_PORTABLE",
+   "payload": {
+    "action": "start"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "request_lock",
+   "entity": "R_JE_TRUNK",
+   "payload": {},
+   "expect": "NO_ACCESS"
+  },
+  {
+   "ticks": 120,
+   "expect_events": [
+    "latch"
+   ]
+  },
+  {
+   "note": "3. The drain latches; switching the pump off does not refill the basement."
+  },
+  {
+   "as": "P1",
+   "intent": "place_item",
+   "entity": "GEN_PORTABLE",
+   "payload": {
+    "action": "stop"
+   },
+   "expect": "ok"
+  },
+  {
+   "note": "4. Isolate JE, repair the east trunk, restore JE: east loads get 11 PU; TEMP -> pub stays disconnected."
+  },
+  {
+   "as": "P1",
+   "intent": "request_lock",
+   "entity": "R_JE_TRUNK",
+   "payload": {},
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "inspect",
+   "entity": "PANEL_JE",
+   "payload": {},
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "equip",
+   "entity": "R_JE_TRUNK",
+   "payload": {
+    "tool": ""
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "repair_step",
+   "entity": "R_JE_TRUNK",
+   "payload": {
+    "step": "diagnose"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "equip",
+   "entity": "R_JE_TRUNK",
+   "payload": {
+    "tool": ""
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "repair_step",
+   "entity": "R_JE_TRUNK",
+   "payload": {
+    "step": "isolate"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "equip",
+   "entity": "R_JE_TRUNK",
+   "payload": {
+    "tool": "screwdriver"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "repair_step",
+   "entity": "R_JE_TRUNK",
+   "payload": {
+    "step": "open"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "equip",
+   "entity": "R_JE_TRUNK",
+   "payload": {
+    "tool": "cutter"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "repair_step",
+   "entity": "R_JE_TRUNK",
+   "payload": {
+    "step": "remove"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "equip",
+   "entity": "R_JE_TRUNK",
+   "payload": {
+    "tool": "crimper"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "repair_step",
+   "entity": "R_JE_TRUNK",
+   "payload": {
+    "step": "install"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "equip",
+   "entity": "R_JE_TRUNK",
+   "payload": {
+    "tool": ""
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "repair_step",
+   "entity": "R_JE_TRUNK",
+   "payload": {
+    "step": "close"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "equip",
+   "entity": "R_JE_TRUNK",
+   "payload": {
+    "tool": "meter"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "repair_step",
+   "entity": "R_JE_TRUNK",
+   "payload": {
+    "step": "test"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "equip",
+   "entity": "R_JE_TRUNK",
+   "payload": {
+    "tool": ""
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "repair_step",
+   "entity": "R_JE_TRUNK",
+   "payload": {
+    "step": "restore"
+   },
+   "expect": "ok"
+  },
+  {
+   "note": "5. Disconnect and stow the generator; all five required buildings on grid supply for 10 s."
+  },
+  {
+   "as": "P1",
+   "intent": "place_item",
+   "entity": "GEN_PORTABLE",
+   "payload": {
+    "action": "disconnect",
+    "route": "E_TEMP_PUMP"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "place_item",
+   "entity": "GEN_PORTABLE",
+   "payload": {
+    "action": "pickup"
+   },
+   "expect": "ok"
+  },
+  {
+   "as": "P1",
+   "intent": "place_item",
+   "entity": "GEN_PORTABLE",
+   "payload": {
+    "action": "place",
+    "anchor": "VAN_BAY"
+   },
+   "expect": "ok"
+  },
+  {
+   "ticks": 100,
+   "expect_events": [
+    "verified"
+   ]
+  },
+  {
+   "note": "6. Everyone connected enters the extraction zone; the host starts the 5 s countdown."
+  },
+  {
+   "zone": "ZONE_VAN",
+   "as": "P1",
+   "inside": true
+  },
+  {
+   "as": "P1",
+   "intent": "request_extract",
+   "entity": "ZONE_VAN",
+   "payload": {
+    "action": "start"
+   },
+   "expect": "ok"
+  },
+  {
+   "ticks": 50,
+   "expect_events": [
+    "mission_complete"
+   ]
+  }
+ ],
+ "pace_ticks_per_command": 1
+}

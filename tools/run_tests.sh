@@ -37,6 +37,12 @@ if [ -f project.godot ]; then
   # GDScript cannot catch runtime errors, so a test that crashes mid-way could still report PASS: fail on any
   if grep -qE "SCRIPT ERROR|Parse Error" "$GD_OUT"; then echo "FAIL: Godot reported script errors (see above)"; FAIL=1; fi
   rm -f "$GD_OUT"
+  echo "== solution traces: every contract with a solution.json must be solvable =="
+  for sol in content/contracts/*/solution.json; do
+    [ -f "$sol" ] || continue
+    "$GODOT_BIN" --headless --path . -s "$PWD/tools/godot/validate_solution.gd" -- --contract="res://$(dirname "$sol")" 2>&1 | grep -E "SOLVED|MISMATCH|CONTENT ERRORS"
+    [ "${PIPESTATUS[0]}" -eq 0 ] || FAIL=1
+  done
   echo "== cross-check: python reference vs godot canonical hashes =="
   if [ -n "$PY" ]; then GODOT_BIN="$GODOT_BIN" "$PY" tools/cross_check_reference.py || FAIL=1; fi
 else
