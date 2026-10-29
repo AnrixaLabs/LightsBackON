@@ -61,8 +61,9 @@
       "milestone_name": "Foundation",
       "env": "local",
       "env_note": "Needs Steam client, two licensed accounts, two PCs on separate networks.",
-      "status": "NOT_STARTED",
-      "evidence_file": "docs/evidence/F02.md"
+      "status": "BLOCKED",
+      "evidence_file": "docs/evidence/F02.md",
+      "blocked_reason": "No second Steam account yet; GodotSteam and app 480 not approved. Owner deferred F02 on 29 Oct 2026 (ADR-011); resume at PC-RUNBOOK session D."
     },
     {
       "id": "F03",
@@ -431,6 +432,9 @@
       "milestone_name": "Playable slice",
       "env": "split",
       "env_note": "Mission logic in cloud; known-solution playthrough local.",
+      "prep_ok_without": [
+        "V01"
+      ],
       "status": "NOT_STARTED",
       "evidence_file": "docs/evidence/V02.md"
     },
