@@ -73,3 +73,45 @@ The owner chose **Noto Sans** (30 Oct 2026, desktop session), as the blueprint s
    The release checklist (R milestone) must check this.
 4. **Not yet covered:** Simplified Chinese (blueprint p.11 release language) needs Noto Sans SC as a fallback font. That file is about 10x larger,
    so it waits for the localization task and the owner's go-ahead.
+
+## Addendum V07 (30 Oct 2026): field HUD and network tablet
+Decisions made while building S06/S07 (blueprint p.23, references p.42-43). None changes a locked decision.
+1. **Objective status icons.** The objective card needs a status per row (mission_director STATUS_DONE / ACTIVE / PENDING), and point 2 says
+   one icon per real state, so three icons were added: `icon_objective_done` (checked box), `icon_objective_active` (box with a play mark),
+   `icon_objective_pending` (dashed box). They follow the F05 family rules and the tests check them like the others (39 icons now).
+   - Creator: original work drawn for this project in a Claude Code desktop session, 30 Oct 2026, for Anrixa Labs. Source:
+     `art_source/ui_icons/icon_objective_*.svg`. License: project-owned. No third-party icon was used or traced.
+   - Approval: **pending the owner's look** at `docs/evidence/img/V07_objective_icons.png` (the F05 approval covered the 36 icons at e5ab01e).
+2. **UI scale.** Effective scale = slider (80-150 %) x how much of the 1920x1080 canvas the window shows, so 150 % on 1280x720 draws like
+   100 % on 1080p. The theme is rebuilt at that scale (fonts, padding, icons from `export_px_for_scale`) so containers reflow; the canvas
+   is never stretched. The 80 px safe area follows the screen size, not the slider.
+3. **Reflow rules** that keep every region readable at 150 % and with the 35 % pseudo-locale (checked at 1280x720, 1920x1080, 1920x1200):
+   - The prompt keeps the reference width on screen (560 px at 1080p) and wraps rather than widening.
+   - The prompt sits 140 px below the reticle. When a bottom card under it is taller, it moves up toward the reticle but never covers it.
+   - The tool bar shows number + icon + name per slot. If that would run under the prompt, it switches to number + icon, with the selected
+     tool's name above the slots.
+   - Crew rows are one line: name, then a task chip (lock icon + repair name, or equipment icon + item name).
+   - The event card narrows instead of sliding under the prompt.
+4. **The tablet may only inspect and ping.** It holds an intent-outbox gate that allows exactly `inspect` and `ping`; any other intent is
+   refused before anything is sent. Accept on a node sends `inspect` for its meter panel and the host decides range; nodes without a
+   panel only show what is visible. Values come only from current meter snapshots. Unmeasured values read "Unknown - inspect junction"
+   (`?` in the meter), and a stale snapshot reads "Changed since inspection - inspect again".
+5. **Tablet navigation.**
+   - Left stick / D-pad moves between map nodes by adjacency, graph neighbours first. At the map's edges focus leaves to the tabs (up),
+     the evidence panel (right) and the footer (down).
+   - The right stick pans the map, or scrolls the evidence panel when that has focus. RT/LT zoom.
+   - Zoom levels at which the biggest node would not fit the view are skipped.
+   - The evidence panel scrolls with a visible bar, and Ping stays below it (never below the fold).
+   - B / Esc / Tab (View) close the tablet and focus returns to the previous control.
+   - Godot's built-in `ui_accept` / `ui_cancel` have no controller button, so A and B were added in `generate_input_map.gd`.
+6. **Binding labels are text** (`[E]`, `[MMB]`, `[A]`, `[LB]`) read from the live InputMap, so remapping updates them. Controller glyph
+   images (point 3) are a separate asset set for later; they need either original drawings or an approved third-party set.
+7. **Strings.**
+   - English UI strings live in `content/ui/strings/en.json` and are looked up by key.
+   - A test fails if content or the UI uses a key without English text.
+   - The pseudo-locale is generated from the English strings.
+   - Simplified Chinese still waits for its fallback font (UI font addendum point 4).
+8. **Rendered contrast (closes F05's last item).** `tools/godot/capture_hud.gd` draws the HUD over the V01 graybox on the GTX 1650 (dark and
+   restored windows, 100 % and 150 %) and the tablet at 100 % and 150 %. Every frame is drawn twice, the second time with only the text and
+   icons hidden, so each probe is measured against the pixels actually behind it. Result: 252 probes, none below AA. The tightest is the
+   `unknown` gray-blue "Not measured" on the panel at 4.59:1, consistent with the F05 contrast addendum.

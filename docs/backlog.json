@@ -146,11 +146,8 @@
       "milestone_name": "Foundation",
       "env": "split",
       "env_note": "Theme/tokens in cloud; 4 m kit import at 1 unit per meter checked in the editor.",
-      "status": "CLOUD_VERIFIED",
-      "evidence_file": "docs/evidence/F05.md",
-      "pending_local": [
-        "contrast on a rendered HUD over the scene (V07)"
-      ]
+      "status": "DONE",
+      "evidence_file": "docs/evidence/F05.md"
     },
     {
       "id": "F06",
@@ -585,8 +582,15 @@
       "milestone_name": "Playable slice",
       "env": "local",
       "env_note": "Visual and controller focus work.",
-      "status": "NOT_STARTED",
-      "evidence_file": "docs/evidence/V07.md"
+      "status": "CLOUD_VERIFIED",
+      "evidence_file": "docs/evidence/V07.md",
+      "pending_local": [
+        "UX01: a person runs the HUD and network tablet controller-only (stick focus, pan, zoom, evidence scroll feel)",
+        "readability judgement at 150 % UI scale, compact tool bar and tablet default zoom (owner)",
+        "owner look at the three new objective icons (docs/evidence/img/V07_objective_icons.png)",
+        "V01 is CLOUD_VERIFIED (waits on G08)",
+        "wire the HUD into MissionRoot once it exists"
+      ]
     },
     {
       "id": "V08",
