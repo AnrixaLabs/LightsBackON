@@ -327,8 +327,8 @@
       "status": "CLOUD_VERIFIED",
       "evidence_file": "docs/evidence/G06.md",
       "pending_local": [
-        "kill the exported Windows build during a checkpoint write and reload (SAVE01 real process)",
-        "Steam Cloud in H05"
+        "dependency G04 is CLOUD_VERIFIED (acceptance itself passed: 200/200 real-process kills of the exported Windows build, docs/evidence/G06.md)",
+        "Steam Cloud sync moves to H05 (SAVE06)"
       ]
     },
     {

@@ -1,0 +1,205 @@
+before: VERIFY ok=true source=current seq=1239 issues= files=current:ok,temp:missing,backup:ok
+  1 PASS kill after  1.43s  VERIFY ok=true source=current seq=1249 issues= files=current:ok,temp:missing,backup:ok
+  2 PASS kill after  1.58s  VERIFY ok=true source=current seq=1259 issues= files=current:ok,temp:ok,backup:ok
+  3 PASS kill after  1.90s  VERIFY ok=true source=current seq=1272 issues= files=current:ok,temp:ok,backup:ok
+  4 PASS kill after  1.01s  VERIFY ok=true source=current seq=1273 issues= files=current:ok,temp:missing,backup:ok
+  5 PASS kill after  1.89s  VERIFY ok=true source=current seq=1286 issues= files=current:ok,temp:missing,backup:ok
+  6 PASS kill after  1.64s  VERIFY ok=true source=current seq=1294 issues= files=current:ok,temp:missing,backup:ok
+  7 PASS kill after  1.13s  VERIFY ok=true source=current seq=1299 issues= files=current:ok,temp:missing,backup:ok
+  8 PASS kill after  1.09s  VERIFY ok=true source=current seq=1303 issues= files=current:ok,temp:missing,backup:ok
+  9 PASS kill after  1.21s  VERIFY ok=true source=current seq=1307 issues= files=current:ok,temp:ok,backup:ok
+ 10 PASS kill after  1.28s  VERIFY ok=true source=current seq=1313 issues= files=current:ok,temp:missing,backup:ok
+ 11 PASS kill after  2.15s  VERIFY ok=true source=current seq=1330 issues= files=current:ok,temp:missing,backup:ok
+ 12 PASS kill after  0.92s  VERIFY ok=true source=current seq=1333 issues= files=current:ok,temp:missing,backup:ok
+ 13 PASS kill after  0.78s  VERIFY ok=true source=current seq=1334 issues= files=current:ok,temp:ok,backup:ok
+ 14 PASS kill after  1.10s  VERIFY ok=true source=current seq=1336 issues= files=current:ok,temp:missing,backup:ok
+ 15 PASS kill after  1.60s  VERIFY ok=true source=current seq=1345 issues= files=current:ok,temp:missing,backup:ok
+ 16 PASS kill after  2.03s  VERIFY ok=true source=current seq=1358 issues= files=current:ok,temp:missing,backup:ok
+ 17 PASS kill after  1.43s  VERIFY ok=true source=current seq=1364 issues= files=current:ok,temp:ok,backup:ok
+ 18 PASS kill after  1.32s  VERIFY ok=true source=current seq=1371 issues= files=current:ok,temp:missing,backup:ok
+ 19 PASS kill after  1.28s  VERIFY ok=true source=current seq=1375 issues= files=current:ok,temp:ok,backup:ok
+ 20 PASS kill after  2.33s  VERIFY ok=true source=current seq=1394 issues= files=current:ok,temp:missing,backup:ok
+ 21 PASS kill after  1.39s  VERIFY ok=true source=current seq=1402 issues= files=current:ok,temp:missing,backup:ok
+ 22 PASS kill after  1.53s  VERIFY ok=true source=current seq=1410 issues= files=current:ok,temp:missing,backup:ok
+ 23 PASS kill after  1.78s  VERIFY ok=true source=current seq=1423 issues= files=current:ok,temp:missing,backup:ok
+ 24 PASS kill after  1.36s  VERIFY ok=true source=current seq=1425 issues= files=current:ok,temp:missing,backup:ok
+ 25 PASS kill after  2.03s  VERIFY ok=true source=temp seq=1433 issues= files=current:missing,temp:ok,backup:ok
+ 26 PASS kill after  1.43s  VERIFY ok=true source=current seq=1437 issues= files=current:ok,temp:missing,backup:ok
+ 27 PASS kill after  2.21s  VERIFY ok=true source=current seq=1449 issues= files=current:ok,temp:corrupt,backup:ok
+ 28 PASS kill after  1.35s  VERIFY ok=true source=current seq=1455 issues= files=current:ok,temp:missing,backup:ok
+ 29 PASS kill after  1.78s  VERIFY ok=true source=current seq=1463 issues= files=current:ok,temp:ok,backup:ok
+ 30 PASS kill after  2.31s  VERIFY ok=true source=current seq=1476 issues= files=current:ok,temp:missing,backup:ok
+ 31 PASS kill after  1.80s  VERIFY ok=true source=current seq=1485 issues= files=current:ok,temp:ok,backup:ok
+ 32 PASS kill after  1.15s  VERIFY ok=true source=current seq=1485 issues= files=current:ok,temp:ok,backup:ok
+ 33 PASS kill after  2.16s  VERIFY ok=true source=current seq=1499 issues= files=current:ok,temp:missing,backup:ok
+ 34 PASS kill after  1.02s  VERIFY ok=true source=current seq=1501 issues= files=current:ok,temp:ok,backup:ok
+ 35 PASS kill after  1.24s  VERIFY ok=true source=current seq=1505 issues= files=current:ok,temp:missing,backup:ok
+ 36 PASS kill after  1.73s  VERIFY ok=true source=current seq=1510 issues= files=current:ok,temp:corrupt,backup:ok
+ 37 PASS kill after  1.32s  VERIFY ok=true source=current seq=1513 issues= files=current:ok,temp:missing,backup:ok
+ 38 PASS kill after  1.05s  VERIFY ok=true source=current seq=1514 issues= files=current:ok,temp:missing,backup:ok
+ 39 PASS kill after  1.75s  VERIFY ok=true source=current seq=1524 issues= files=current:ok,temp:ok,backup:ok
+ 40 PASS kill after  0.83s  VERIFY ok=true source=current seq=1525 issues= files=current:ok,temp:ok,backup:ok
+ 41 PASS kill after  1.29s  VERIFY ok=true source=current seq=1532 issues= files=current:ok,temp:missing,backup:ok
+ 42 PASS kill after  1.34s  VERIFY ok=true source=current seq=1532 issues= files=current:ok,temp:missing,backup:ok
+ 43 PASS kill after  2.11s  VERIFY ok=true source=current seq=1547 issues= files=current:ok,temp:missing,backup:ok
+ 44 PASS kill after  1.16s  VERIFY ok=true source=current seq=1554 issues= files=current:ok,temp:missing,backup:ok
+ 45 PASS kill after  1.50s  VERIFY ok=true source=temp seq=1563 issues= files=current:missing,temp:ok,backup:ok
+ 46 PASS kill after  2.16s  VERIFY ok=true source=current seq=1576 issues= files=current:ok,temp:missing,backup:ok
+ 47 PASS kill after  0.99s  VERIFY ok=true source=current seq=1579 issues= files=current:ok,temp:ok,backup:ok
+ 48 PASS kill after  0.72s  VERIFY ok=true source=current seq=1580 issues= files=current:ok,temp:missing,backup:ok
+ 49 PASS kill after  1.75s  VERIFY ok=true source=current seq=1589 issues= files=current:ok,temp:missing,backup:ok
+ 50 PASS kill after  1.98s  VERIFY ok=true source=current seq=1602 issues= files=current:ok,temp:ok,backup:ok
+ 51 PASS kill after  0.70s  VERIFY ok=true source=current seq=1603 issues= files=current:ok,temp:missing,backup:ok
+ 52 PASS kill after  2.21s  VERIFY ok=true source=current seq=1615 issues= files=current:ok,temp:corrupt,backup:ok
+ 53 PASS kill after  0.72s  VERIFY ok=true source=current seq=1616 issues= files=current:ok,temp:missing,backup:ok
+ 54 PASS kill after  1.38s  VERIFY ok=true source=current seq=1621 issues= files=current:ok,temp:missing,backup:ok
+ 55 PASS kill after  1.31s  VERIFY ok=true source=current seq=1623 issues= files=current:ok,temp:missing,backup:ok
+ 56 PASS kill after  1.42s  VERIFY ok=true source=current seq=1627 issues= files=current:ok,temp:ok,backup:ok
+ 57 PASS kill after  1.54s  VERIFY ok=true source=current seq=1630 issues= files=current:ok,temp:ok,backup:ok
+ 58 PASS kill after  2.05s  VERIFY ok=true source=current seq=1642 issues= files=current:ok,temp:missing,backup:ok
+ 59 PASS kill after  1.72s  VERIFY ok=true source=current seq=1650 issues= files=current:ok,temp:ok,backup:missing
+ 60 PASS kill after  1.01s  VERIFY ok=true source=temp seq=1654 issues= files=current:missing,temp:ok,backup:ok
+ 61 PASS kill after  1.96s  VERIFY ok=true source=current seq=1664 issues= files=current:ok,temp:missing,backup:ok
+ 62 PASS kill after  1.47s  VERIFY ok=true source=current seq=1672 issues= files=current:ok,temp:missing,backup:ok
+ 63 PASS kill after  0.93s  VERIFY ok=true source=current seq=1675 issues= files=current:ok,temp:missing,backup:ok
+ 64 PASS kill after  1.49s  VERIFY ok=true source=current seq=1682 issues= files=current:ok,temp:missing,backup:ok
+ 65 PASS kill after  0.95s  VERIFY ok=true source=current seq=1687 issues= files=current:ok,temp:missing,backup:ok
+ 66 PASS kill after  1.90s  VERIFY ok=true source=current seq=1703 issues= files=current:ok,temp:missing,backup:ok
+ 67 PASS kill after  1.76s  VERIFY ok=true source=current seq=1717 issues= files=current:ok,temp:ok,backup:missing
+ 68 PASS kill after  1.51s  VERIFY ok=true source=current seq=1728 issues= files=current:ok,temp:missing,backup:ok
+ 69 PASS kill after  0.67s  VERIFY ok=true source=current seq=1729 issues= files=current:ok,temp:missing,backup:ok
+ 70 PASS kill after  2.13s  VERIFY ok=true source=temp seq=1743 issues= files=current:missing,temp:ok,backup:ok
+ 71 PASS kill after  1.61s  VERIFY ok=true source=temp seq=1757 issues= files=current:missing,temp:ok,backup:ok
+ 72 PASS kill after  1.83s  VERIFY ok=true source=current seq=1773 issues= files=current:ok,temp:missing,backup:ok
+ 73 PASS kill after  1.40s  VERIFY ok=true source=current seq=1780 issues= files=current:ok,temp:ok,backup:ok
+ 74 PASS kill after  0.99s  VERIFY ok=true source=current seq=1783 issues= files=current:ok,temp:missing,backup:ok
+ 75 PASS kill after  1.95s  VERIFY ok=true source=current seq=1794 issues= files=current:ok,temp:corrupt,backup:ok
+ 76 PASS kill after  0.66s  VERIFY ok=true source=current seq=1794 issues= files=current:ok,temp:ok,backup:ok
+ 77 PASS kill after  1.87s  VERIFY ok=true source=current seq=1809 issues= files=current:ok,temp:missing,backup:ok
+ 78 PASS kill after  1.67s  VERIFY ok=true source=current seq=1821 issues= files=current:ok,temp:ok,backup:ok
+ 79 PASS kill after  1.11s  VERIFY ok=true source=temp seq=1827 issues= files=current:missing,temp:ok,backup:ok
+ 80 PASS kill after  1.74s  VERIFY ok=true source=current seq=1842 issues= files=current:ok,temp:missing,backup:ok
+ 81 PASS kill after  2.04s  VERIFY ok=true source=current seq=1852 issues= files=current:ok,temp:missing,backup:ok
+ 82 PASS kill after  2.12s  VERIFY ok=true source=current seq=1865 issues= files=current:ok,temp:ok,backup:missing
+ 83 PASS kill after  1.47s  VERIFY ok=true source=current seq=1871 issues= files=current:ok,temp:missing,backup:ok
+ 84 PASS kill after  1.05s  VERIFY ok=true source=current seq=1877 issues= files=current:ok,temp:missing,backup:ok
+ 85 PASS kill after  1.66s  VERIFY ok=true source=current seq=1889 issues= files=current:ok,temp:missing,backup:ok
+ 86 PASS kill after  1.12s  VERIFY ok=true source=current seq=1896 issues= files=current:ok,temp:ok,backup:ok
+ 87 PASS kill after  0.84s  VERIFY ok=true source=current seq=1899 issues= files=current:ok,temp:missing,backup:ok
+ 88 PASS kill after  0.60s  VERIFY ok=true source=current seq=1900 issues= files=current:ok,temp:missing,backup:ok
+ 89 PASS kill after  0.71s  VERIFY ok=true source=current seq=1901 issues= files=current:ok,temp:ok,backup:ok
+ 90 PASS kill after  1.59s  VERIFY ok=true source=temp seq=1916 issues= files=current:missing,temp:ok,backup:ok
+ 91 PASS kill after  1.15s  VERIFY ok=true source=current seq=1923 issues= files=current:ok,temp:ok,backup:missing
+ 92 PASS kill after  1.71s  VERIFY ok=true source=current seq=1937 issues= files=current:ok,temp:missing,backup:ok
+ 93 PASS kill after  1.86s  VERIFY ok=true source=current seq=1954 issues= files=current:ok,temp:missing,backup:ok
+ 94 PASS kill after  1.07s  VERIFY ok=true source=current seq=1961 issues= files=current:ok,temp:missing,backup:ok
+ 95 PASS kill after  0.87s  VERIFY ok=true source=current seq=1965 issues= files=current:ok,temp:ok,backup:missing
+ 96 PASS kill after  1.26s  VERIFY ok=true source=temp seq=1975 issues= files=current:missing,temp:ok,backup:ok
+ 97 PASS kill after  1.99s  VERIFY ok=true source=current seq=1993 issues= files=current:ok,temp:ok,backup:ok
+ 98 PASS kill after  1.89s  VERIFY ok=true source=temp seq=2011 issues= files=current:missing,temp:ok,backup:ok
+ 99 PASS kill after  1.67s  VERIFY ok=true source=current seq=2026 issues= files=current:ok,temp:ok,backup:ok
+100 PASS kill after  1.93s  VERIFY ok=true source=current seq=2045 issues= files=current:ok,temp:missing,backup:ok
+101 PASS kill after  0.92s  VERIFY ok=true source=current seq=2049 issues= files=current:ok,temp:missing,backup:ok
+102 PASS kill after  0.75s  VERIFY ok=true source=current seq=2053 issues= files=current:ok,temp:missing,backup:ok
+103 PASS kill after  0.98s  VERIFY ok=true source=current seq=2059 issues= files=current:ok,temp:missing,backup:ok
+104 PASS kill after  0.53s  VERIFY ok=true source=current seq=2059 issues= files=current:ok,temp:ok,backup:ok
+105 PASS kill after  0.93s  VERIFY ok=true source=current seq=2065 issues= files=current:ok,temp:missing,backup:ok
+106 PASS kill after  1.95s  VERIFY ok=true source=current seq=2085 issues= files=current:ok,temp:missing,backup:ok
+107 PASS kill after  1.90s  VERIFY ok=true source=current seq=2105 issues= files=current:ok,temp:missing,backup:ok
+108 PASS kill after  1.93s  VERIFY ok=true source=current seq=2123 issues= files=current:ok,temp:ok,backup:ok
+109 PASS kill after  0.74s  VERIFY ok=true source=current seq=2125 issues= files=current:ok,temp:missing,backup:ok
+110 PASS kill after  0.78s  VERIFY ok=true source=current seq=2127 issues= files=current:ok,temp:ok,backup:ok
+111 PASS kill after  0.99s  VERIFY ok=true source=current seq=2129 issues= files=current:ok,temp:missing,backup:ok
+112 PASS kill after  0.93s  VERIFY ok=true source=current seq=2131 issues= files=current:ok,temp:ok,backup:ok
+113 PASS kill after  0.67s  VERIFY ok=true source=temp seq=2132 issues= files=current:missing,temp:ok,backup:ok
+114 PASS kill after  0.79s  VERIFY ok=true source=current seq=2132 issues= files=current:ok,temp:ok,backup:ok
+115 PASS kill after  1.45s  VERIFY ok=true source=current seq=2139 issues= files=current:ok,temp:missing,backup:ok
+116 PASS kill after  1.12s  VERIFY ok=true source=current seq=2144 issues= files=current:ok,temp:missing,backup:ok
+117 PASS kill after  0.72s  VERIFY ok=true source=current seq=2146 issues= files=current:ok,temp:missing,backup:ok
+118 PASS kill after  1.71s  VERIFY ok=true source=current seq=2160 issues= files=current:ok,temp:ok,backup:ok
+119 PASS kill after  1.93s  VERIFY ok=true source=current seq=2177 issues= files=current:ok,temp:missing,backup:ok
+120 PASS kill after  0.60s  VERIFY ok=true source=current seq=2178 issues= files=current:ok,temp:missing,backup:ok
+121 PASS kill after  1.43s  VERIFY ok=true source=current seq=2190 issues= files=current:ok,temp:ok,backup:ok
+122 PASS kill after  1.58s  VERIFY ok=true source=current seq=2199 issues= files=current:ok,temp:missing,backup:ok
+123 PASS kill after  0.84s  VERIFY ok=true source=current seq=2200 issues= files=current:ok,temp:ok,backup:missing
+124 PASS kill after  1.57s  VERIFY ok=true source=current seq=2207 issues= files=current:ok,temp:missing,backup:ok
+125 PASS kill after  0.92s  VERIFY ok=true source=current seq=2210 issues= files=current:ok,temp:ok,backup:ok
+126 PASS kill after  1.16s  VERIFY ok=true source=current seq=2217 issues= files=current:ok,temp:missing,backup:ok
+127 PASS kill after  1.82s  VERIFY ok=true source=current seq=2228 issues= files=current:ok,temp:missing,backup:ok
+128 PASS kill after  2.06s  VERIFY ok=true source=current seq=2243 issues= files=current:ok,temp:missing,backup:ok
+129 PASS kill after  0.95s  VERIFY ok=true source=current seq=2246 issues= files=current:ok,temp:ok,backup:ok
+130 PASS kill after  1.51s  VERIFY ok=true source=current seq=2256 issues= files=current:ok,temp:missing,backup:ok
+131 PASS kill after  1.00s  VERIFY ok=true source=current seq=2259 issues= files=current:ok,temp:missing,backup:ok
+132 PASS kill after  1.74s  VERIFY ok=true source=current seq=2268 issues= files=current:ok,temp:missing,backup:ok
+133 PASS kill after  1.88s  VERIFY ok=true source=current seq=2281 issues= files=current:ok,temp:missing,backup:ok
+134 PASS kill after  0.98s  VERIFY ok=true source=current seq=2286 issues= files=current:ok,temp:missing,backup:ok
+135 PASS kill after  1.79s  VERIFY ok=true source=current seq=2298 issues= files=current:ok,temp:ok,backup:missing
+136 PASS kill after  1.93s  VERIFY ok=true source=current seq=2309 issues= files=current:ok,temp:ok,backup:ok
+137 PASS kill after  1.55s  VERIFY ok=true source=current seq=2316 issues= files=current:ok,temp:ok,backup:ok
+138 PASS kill after  0.87s  VERIFY ok=true source=current seq=2318 issues= files=current:ok,temp:missing,backup:ok
+139 PASS kill after  0.98s  VERIFY ok=true source=current seq=2322 issues= files=current:ok,temp:missing,backup:ok
+140 PASS kill after  0.83s  VERIFY ok=true source=current seq=2323 issues= files=current:ok,temp:missing,backup:ok
+141 PASS kill after  1.90s  VERIFY ok=true source=current seq=2334 issues= files=current:ok,temp:missing,backup:ok
+142 PASS kill after  1.61s  VERIFY ok=true source=temp seq=2346 issues= files=current:missing,temp:ok,backup:ok
+143 PASS kill after  2.19s  VERIFY ok=true source=current seq=2361 issues= files=current:ok,temp:ok,backup:ok
+144 PASS kill after  0.80s  VERIFY ok=true source=current seq=2361 issues= files=current:ok,temp:ok,backup:ok
+145 PASS kill after  1.07s  VERIFY ok=true source=current seq=2365 issues= files=current:ok,temp:missing,backup:ok
+146 PASS kill after  1.91s  VERIFY ok=true source=current seq=2378 issues= files=current:ok,temp:missing,backup:ok
+147 PASS kill after  0.99s  VERIFY ok=true source=current seq=2383 issues= files=current:ok,temp:missing,backup:ok
+148 PASS kill after  0.62s  VERIFY ok=true source=current seq=2384 issues= files=current:ok,temp:missing,backup:ok
+149 PASS kill after  1.50s  VERIFY ok=true source=current seq=2393 issues= files=current:ok,temp:ok,backup:ok
+150 PASS kill after  1.36s  VERIFY ok=true source=current seq=2400 issues= files=current:ok,temp:ok,backup:ok
+151 PASS kill after  1.15s  VERIFY ok=true source=current seq=2407 issues= files=current:ok,temp:missing,backup:ok
+152 PASS kill after  1.15s  VERIFY ok=true source=current seq=2414 issues= files=current:ok,temp:missing,backup:ok
+153 PASS kill after  1.60s  VERIFY ok=true source=current seq=2428 issues= files=current:ok,temp:missing,backup:ok
+154 PASS kill after  0.75s  VERIFY ok=true source=current seq=2431 issues= files=current:ok,temp:missing,backup:ok
+155 PASS kill after  1.59s  VERIFY ok=true source=current seq=2445 issues= files=current:ok,temp:missing,backup:ok
+156 PASS kill after  1.97s  VERIFY ok=true source=current seq=2464 issues= files=current:ok,temp:missing,backup:ok
+157 PASS kill after  1.38s  VERIFY ok=true source=current seq=2476 issues= files=current:ok,temp:missing,backup:ok
+158 PASS kill after  1.06s  VERIFY ok=true source=current seq=2482 issues= files=current:ok,temp:missing,backup:ok
+159 PASS kill after  0.82s  VERIFY ok=true source=temp seq=2485 issues= files=current:missing,temp:ok,backup:ok
+160 PASS kill after  2.00s  VERIFY ok=true source=current seq=2503 issues= files=current:ok,temp:missing,backup:ok
+161 PASS kill after  1.55s  VERIFY ok=true source=current seq=2517 issues= files=current:ok,temp:missing,backup:ok
+162 PASS kill after  1.84s  VERIFY ok=true source=current seq=2533 issues= files=current:ok,temp:missing,backup:ok
+163 PASS kill after  0.56s  VERIFY ok=true source=current seq=2533 issues= files=current:ok,temp:missing,backup:ok
+164 PASS kill after  0.61s  VERIFY ok=true source=current seq=2534 issues= files=current:ok,temp:missing,backup:ok
+165 PASS kill after  0.69s  VERIFY ok=true source=current seq=2536 issues= files=current:ok,temp:missing,backup:ok
+166 PASS kill after  1.83s  VERIFY ok=true source=current seq=2554 issues= files=current:ok,temp:missing,backup:ok
+167 PASS kill after  0.56s  VERIFY ok=true source=current seq=2555 issues= files=current:ok,temp:missing,backup:ok
+168 PASS kill after  0.56s  VERIFY ok=true source=current seq=2556 issues= files=current:ok,temp:missing,backup:ok
+169 PASS kill after  0.55s  VERIFY ok=true source=current seq=2557 issues= files=current:ok,temp:missing,backup:ok
+170 PASS kill after  0.94s  VERIFY ok=true source=current seq=2562 issues= files=current:ok,temp:ok,backup:ok
+171 PASS kill after  1.26s  VERIFY ok=true source=current seq=2572 issues= files=current:ok,temp:missing,backup:ok
+172 PASS kill after  1.64s  VERIFY ok=true source=current seq=2588 issues= files=current:ok,temp:missing,backup:ok
+173 PASS kill after  1.93s  VERIFY ok=true source=current seq=2607 issues= files=current:ok,temp:missing,backup:ok
+174 PASS kill after  1.60s  VERIFY ok=true source=current seq=2622 issues= files=current:ok,temp:missing,backup:ok
+175 PASS kill after  1.85s  VERIFY ok=true source=current seq=2641 issues= files=current:ok,temp:missing,backup:ok
+176 PASS kill after  1.74s  VERIFY ok=true source=current seq=2657 issues= files=current:ok,temp:missing,backup:ok
+177 PASS kill after  1.60s  VERIFY ok=true source=current seq=2673 issues= files=current:ok,temp:missing,backup:ok
+178 PASS kill after  1.78s  VERIFY ok=true source=current seq=2690 issues= files=current:ok,temp:missing,backup:ok
+179 PASS kill after  0.91s  VERIFY ok=true source=current seq=2696 issues= files=current:ok,temp:missing,backup:ok
+180 PASS kill after  1.35s  VERIFY ok=true source=current seq=2708 issues= files=current:ok,temp:missing,backup:ok
+181 PASS kill after  1.40s  VERIFY ok=true source=current seq=2721 issues= files=current:ok,temp:missing,backup:ok
+182 PASS kill after  1.23s  VERIFY ok=true source=current seq=2732 issues= files=current:ok,temp:missing,backup:ok
+183 PASS kill after  1.96s  VERIFY ok=true source=current seq=2753 issues= files=current:ok,temp:missing,backup:ok
+184 PASS kill after  1.76s  VERIFY ok=true source=current seq=2771 issues= files=current:ok,temp:missing,backup:ok
+185 PASS kill after  1.05s  VERIFY ok=true source=current seq=2779 issues= files=current:ok,temp:missing,backup:ok
+186 PASS kill after  1.51s  VERIFY ok=true source=current seq=2793 issues= files=current:ok,temp:missing,backup:ok
+187 PASS kill after  0.64s  VERIFY ok=true source=current seq=2795 issues= files=current:ok,temp:missing,backup:ok
+188 PASS kill after  0.91s  VERIFY ok=true source=current seq=2801 issues= files=current:ok,temp:missing,backup:ok
+189 PASS kill after  0.66s  VERIFY ok=true source=current seq=2803 issues= files=current:ok,temp:missing,backup:ok
+190 PASS kill after  1.55s  VERIFY ok=true source=current seq=2818 issues= files=current:ok,temp:missing,backup:ok
+191 PASS kill after  1.83s  VERIFY ok=true source=current seq=2831 issues= files=current:ok,temp:missing,backup:ok
+192 PASS kill after  1.81s  VERIFY ok=true source=current seq=2846 issues= files=current:ok,temp:missing,backup:ok
+193 PASS kill after  1.71s  VERIFY ok=true source=current seq=2863 issues= files=current:ok,temp:missing,backup:ok
+194 PASS kill after  1.97s  VERIFY ok=true source=current seq=2883 issues= files=current:ok,temp:missing,backup:ok
+195 PASS kill after  1.91s  VERIFY ok=true source=current seq=2903 issues= files=current:ok,temp:missing,backup:ok
+196 PASS kill after  0.74s  VERIFY ok=true source=current seq=2906 issues= files=current:ok,temp:ok,backup:ok
+197 PASS kill after  0.94s  VERIFY ok=true source=current seq=2912 issues= files=current:ok,temp:missing,backup:ok
+198 PASS kill after  0.47s  VERIFY ok=true source=current seq=2912 issues= files=current:ok,temp:missing,backup:ok
+199 PASS kill after  1.47s  VERIFY ok=true source=current seq=2925 issues= files=current:ok,temp:missing,backup:ok
+200 PASS kill after  1.25s  VERIFY ok=true source=current seq=2935 issues= files=current:ok,temp:missing,backup:ok
+
+file states right after the kill: {'current:ok,temp:missing,backup:ok': 137, 'current:ok,temp:ok,backup:ok': 40, 'current:missing,temp:ok,backup:ok': 12, 'current:ok,temp:corrupt,backup:ok': 4, 'current:ok,temp:ok,backup:missing': 7}
+loaded from: {'current': 188, 'temp': 12}; seq advanced in 192/200 cycles; final seq 2935
+PASS: 200/200 cycles, seed 20261030, exe LightsBackOn.exe
