@@ -173,6 +173,7 @@ func _join(peer: int, player: String) -> void:
 	c.on_message(_wire(snap["manifest"]))
 	for chunk: Dictionary in snap["chunks"]:
 		c.on_message(_wire(chunk))
+	assert_true(_host.confirm_synced(peer, c.revision)["ok"], "revision barrier lifts after the snapshot")
 	_clients[peer] = c
 	_seq[peer] = 0
 

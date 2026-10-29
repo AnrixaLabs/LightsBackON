@@ -47,6 +47,7 @@ func test_F03_enet_dev_duplicate_resend_changes_switch_once() -> void:
 		return
 	var peer_id: int = joined[0]
 	assert_true(host.admit(peer_id, "P1", 1, "REV_A", [] as Array[String])["ok"])
+	assert_true(host.confirm_synced(peer_id, host.revision)["ok"])
 
 	var cmd: PackedByteArray = JSON.stringify({"session": SESSION, "seq": 1, "type": "toggle_switch", "entity": "SW_SIGN",
 		"payload": {"value": true}}).to_utf8_buffer()

@@ -7,6 +7,7 @@ extends SceneTree
 
 const Cases := preload("res://tests/support/grid_cases.gd")
 const PowerGrid := preload("res://scripts/simulation/power_grid.gd")
+const ContentHash := preload("res://scripts/network/content_hash.gd")
 
 
 func _initialize() -> void:
@@ -32,4 +33,5 @@ func _initialize() -> void:
 				codes.append(e["code"])
 		codes.sort()
 		print("\t".join(["DEF", c["name"], ",".join(codes)]))
+	print("\t".join(["CONTENT", "content_revision", ContentHash.content_revision()]))
 	quit(0)

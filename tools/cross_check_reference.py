@@ -47,6 +47,9 @@ def python_records() -> list[list[str]]:
         except GridError as e:
             codes = sorted({d["code"] for d in e.diagnostics})
         out.append(["DEF", c["name"], ",".join(codes)])
+    sys.path.insert(0, str(ROOT / "tools"))
+    from build_manifest import content_revision  # noqa: E402  (same hash the build manifest and the join handshake use)
+    out.append(["CONTENT", "content_revision", content_revision()])
     return out
 
 
@@ -57,7 +60,7 @@ def godot_records(godot: str) -> list[list[str]]:
     if p.returncode != 0:
         print(p.stdout + p.stderr, file=sys.stderr)
         raise SystemExit(2)
-    return [line.split("\t") for line in p.stdout.splitlines() if line.split("\t")[0] in ("STEP", "CASE", "DEF")]
+    return [line.split("\t") for line in p.stdout.splitlines() if line.split("\t")[0] in ("STEP", "CASE", "DEF", "CONTENT")]
 
 
 def main() -> int:
@@ -82,7 +85,7 @@ def main() -> int:
     cases = sum(1 for r in py if r[0] == "CASE")
     steps = sum(1 for r in py if r[0] == "STEP")
     defs = sum(1 for r in py if r[0] == "DEF")
-    print(f"MATCH: {cases} case runs (fwd+rev), {steps} command hashes, {defs} definition rejections identical "
+    print(f"MATCH: {cases} case runs (fwd+rev), {steps} command hashes, {defs} definition rejections, content hash identical "
           "(reference is re-derived, not the original oracle)")
     return 0
 

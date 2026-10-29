@@ -38,6 +38,7 @@ func before_each() -> void:
 	# spawn: the host player goes through the same path as remote players
 	for pair: Array in [[HOST_PEER, "HOST"], [PEER_A, "P1"], [PEER_B, "P2"]]:
 		assert_true(_host.admit(pair[0], pair[1], 1, "REV_A", TOOLS)["ok"])
+		assert_true(_host.confirm_synced(pair[0], _host.revision)["ok"])
 
 
 func after_each() -> void:
@@ -169,7 +170,7 @@ func test_NET08_logic_version_mismatch_rejected_before_spawn() -> void:
 	assert_eq(_host.admit(7, "P3", 2, "REV_A", TOOLS)["code"], "PROTOCOL_MISMATCH")
 	assert_eq(_host.admit(7, "P3", 1, "REV_B", TOOLS)["code"], "CONTENT_MISMATCH")
 	assert_eq(_host.member(7), "", "not spawned")
-	assert_eq(_host.admit(7, "P1", 1, "REV_A", TOOLS)["code"], "ALREADY_JOINED")
+	assert_eq(_host.admit(PEER_A, "P9", 1, "REV_A", TOOLS)["code"], "ALREADY_JOINED", "a peer cannot join twice")
 
 
 func test_F03_disconnect_releases_lock_through_host() -> void:
