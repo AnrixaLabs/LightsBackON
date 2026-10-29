@@ -1,5 +1,5 @@
 {
-  "_note": "Interaction and kit dimensions from blueprint p.5-6 (Alder layout rules). Centimeters, integers. 1 engine unit = 1 m.",
+  "_note": "Interaction and kit dimensions from blueprint p.5-6 (Alder layout rules). Centimeters, integers. 1 engine unit = 1 m. Player body (V01): capsule radius/height and floor angle are design choices for the CharacterBody3D, not measurements; nav_max_step_cm is the largest height change the V01 reachability grid accepts between neighbouring 50 cm cells (ramps only; the body has no step-up).",
   "module_cm": 400,
   "placement_increment_cm": 25,
   "panel_height_min_cm": 120,
@@ -7,5 +7,9 @@
   "circulation_min_width_cm": 240,
   "door_clear_width_min_cm": 110,
   "camera_height_cm": 175,
-  "interact_ray_cm": 230
+  "interact_ray_cm": 230,
+  "player_radius_cm": 35,
+  "player_height_cm": 180,
+  "floor_max_angle_deg": 45,
+  "nav_max_step_cm": 30
 }

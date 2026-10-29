@@ -1,6 +1,6 @@
 {
   "contract_id": "C01",
-  "source_note": "C01 portable generator (blueprint p.7: 6 PU, no fuel depletion, placed at the pump pad; pump OR pub, never both). Anchors are authored placement points; routes are the grid edges a placed generator can be cabled into from that anchor. Cables are authored curves between sockets (presentation only), never physics. position_cm are PLACEHOLDERS (pump house from blueprint p.6 at about (60, 16) m; van guessed) until the V01 graybox places the anchors; a dropped or misplaced item snaps to the nearest free anchor (blueprint p.6).",
+  "source_note": "C01 portable generator (blueprint p.7: 6 PU, no fuel depletion, placed at the pump pad; pump OR pub, never both). Anchors are authored placement points; routes are the grid edges a placed generator can be cabled into from that anchor. Cables are authored curves between sockets (presentation only), never physics. position_cm are the V01 graybox anchors (content/world/alder_street.json markers of the same ID; test_V01 keeps them equal): VAN_BAY behind the van, PAD_PUMP and STORE_PUMP_HOUSE on the pump-house bay floor; a dropped or misplaced item snaps to the nearest free anchor (blueprint p.6).",
   "equipment": [
     {
       "id": "GEN_PORTABLE",
@@ -16,9 +16,9 @@
       "storage": true,
       "routes": [],
       "position_cm": [
-        1000,
+        800,
         0,
-        2000
+        1300
       ]
     },
     {
@@ -26,9 +26,9 @@
       "storage": true,
       "routes": [],
       "position_cm": [
-        5800,
+        6450,
         0,
-        1500
+        1350
       ]
     },
     {
@@ -39,7 +39,7 @@
         "E_TEMP_PUB"
       ],
       "position_cm": [
-        6000,
+        6250,
         0,
         1600
       ]

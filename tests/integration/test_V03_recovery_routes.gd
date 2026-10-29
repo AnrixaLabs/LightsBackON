@@ -73,7 +73,7 @@ func test_V03_player_recovery_releases_locks_without_losing_parts() -> void:
 
 func test_V03_dropped_item_snaps_to_nearest_free_anchor() -> void:
 	_gen("P1", "pickup")
-	_positions["P1"] = Vector3i(5810, 0, 1505)  # next to the pump-house store (an exact tie would go to the lower ID)
+	_positions["P1"] = Vector3i(6440, 0, 1345)  # next to the pump-house store (V01 graybox) (an exact tie would go to the lower ID)
 	var r: Dictionary = _send("P1", "place_item", GEN, {"action": "drop"})
 	assert_eq(r["anchor"], "STORE_PUMP_HOUSE", "nearest by integer distance")
 	_gen("P1", "pickup")
@@ -85,8 +85,8 @@ func test_V03_dropped_item_snaps_to_nearest_free_anchor() -> void:
 
 func test_V03_drop_payload_cannot_choose_the_position() -> void:
 	_gen("P1", "pickup")
-	_positions["P1"] = Vector3i(1000, 0, 2000)  # host says: at the van
-	var r: Dictionary = _send("P1", "place_item", GEN, {"action": "drop", "position_cm": "6000,0,1600"})
+	_positions["P1"] = Vector3i(800, 0, 1300)  # host says: at the van (V01 VAN_BAY)
+	var r: Dictionary = _send("P1", "place_item", GEN, {"action": "drop", "position_cm": "6250,0,1600"})
 	assert_eq(r["anchor"], "VAN_BAY", "client-claimed positions are ignored")
 	assert_eq(_send("P2", "place_item", GEN, {"action": "drop"})["code"], "NOT_CARRIER")
 

@@ -335,6 +335,9 @@
       "pending_local": [
         "dependency G04 is CLOUD_VERIFIED (acceptance itself passed: 200/200 real-process kills of the exported Windows build, docs/evidence/G06.md)",
         "Steam Cloud sync moves to H05 (SAVE06)"
+      ],
+      "verify_after": [
+        "G04"
       ]
     },
     {
@@ -420,8 +423,13 @@
         "G08"
       ],
       "prep_adr": "ADR-015",
-      "status": "NOT_STARTED",
-      "evidence_file": "docs/evidence/V01.md"
+      "status": "CLOUD_VERIFIED",
+      "evidence_file": "docs/evidence/V01.md",
+      "pending_local": [
+        "UX01: a person walks every route with a controller once a player controller scene exists (automated CharacterBody3D walk passes)",
+        "G08 grid toy gate still not DONE (ADR-015 ceiling)",
+        "owner's look at the graybox renders and the five layout interpretations in docs/evidence/V01.md"
+      ]
     },
     {
       "id": "V02",

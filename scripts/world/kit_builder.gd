@@ -23,7 +23,7 @@ static func build(def: Dictionary, materials: Dictionary) -> Node3D:
 	for part: Dictionary in def["parts"]:
 		var key: String = part["material"]
 		if not mats.has(key):
-			mats[key] = _material(key, materials[key])
+			mats[key] = material(key, materials[key])
 		var mi := MeshInstance3D.new()
 		mi.name = part["name"]
 		mi.mesh = _mesh(part)
@@ -62,7 +62,7 @@ static func _center(part: Dictionary) -> Vector3:
 	return cm(part["min"]) + cm(part["size"]) * 0.5
 
 
-static func _material(key: String, hex: String) -> StandardMaterial3D:
+static func material(key: String, hex: String) -> StandardMaterial3D:
 	var m := StandardMaterial3D.new()
 	m.albedo_color = Color(hex)
 	m.roughness = 1.0
@@ -130,23 +130,23 @@ static func describe(root: Node3D) -> Array[String]:
 	for c: Node in root.get_children():
 		var line: String = "%s|%s" % [c.name, c.get_class()]
 		if c is Node3D:
-			line += "|pos=" + _cm_text((c as Node3D).position)
+			line += "|pos=" + describe_cm((c as Node3D).position)
 		if c is MeshInstance3D:
 			var mi: MeshInstance3D = c
-			line += "|aabb=" + _cm_text(mi.mesh.get_aabb().size)
+			line += "|aabb=" + describe_cm(mi.mesh.get_aabb().size)
 			var mat: StandardMaterial3D = mi.material_override
 			line += "|color=" + (mat.albedo_color.to_html(false) if mat else "none")
 		if c is CollisionShape3D:
 			var shape: Shape3D = (c as CollisionShape3D).shape
 			line += "|" + shape.get_class()
 			if shape is BoxShape3D:
-				line += "=" + _cm_text((shape as BoxShape3D).size)
+				line += "=" + describe_cm((shape as BoxShape3D).size)
 			elif shape is ConvexPolygonShape3D:
 				for p: Vector3 in (shape as ConvexPolygonShape3D).points:
-					line += ";" + _cm_text(p)
+					line += ";" + describe_cm(p)
 		out.append(line)
 	return out
 
 
-static func _cm_text(v: Vector3) -> String:
+static func describe_cm(v: Vector3) -> String:
 	return "%d,%d,%d" % [roundi(v.x * CM_PER_M), roundi(v.y * CM_PER_M), roundi(v.z * CM_PER_M)]
