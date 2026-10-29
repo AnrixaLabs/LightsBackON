@@ -27,6 +27,11 @@ const JUNCTION_FIELDS: Array[String] = [
 	"trip_load_pu", "trip_capacity_pu",
 ]
 const SOURCE_FIELDS: Array[String] = ["online", "load_pu", "capacity_pu"]
+## Every finding code findings() can emit; the status icon list (content/ui/status_states.json) must cover each.
+const FINDING_CODES: Array[String] = [
+	"NO_SOURCE", "FEED_OPEN", "FEED_SWITCHED_OFF", "COMPONENT_OPEN", "ISOLATED", "TRIPPED_FAULT", "TRIPPED_OVERLOAD",
+	"TRIPPED_UNKNOWN", "DEMAND_OVER_CAPACITY", "SOURCE_OFFLINE", "SOURCE_OVERLOADED",
+]
 
 var _panels: Dictionary = {}  # panel id -> {"id", "target"}
 var _trip_reasons: Dictionary = {}  # junction id -> {"reason", and for overload: "element", "flow", "capacity", "tick"}

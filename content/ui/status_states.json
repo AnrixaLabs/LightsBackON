@@ -1,0 +1,141 @@
+{
+  "_note": "One icon per real game state (ADR-004 point 2), generated from the state lists in code: interaction_service.gd STATES, meter_model.gd FINDING_CODES, building supply states and unknown. Every status shows icon + text (text_key) in its token color. Icons themselves are art work (not drawn yet); icon ids name them.",
+  "repair_states": {
+    "undiagnosed": {
+      "icon": "icon_repair_undiagnosed",
+      "text_key": "status.repair.undiagnosed",
+      "color": "unknown"
+    },
+    "diagnosed": {
+      "icon": "icon_repair_diagnosed",
+      "text_key": "status.repair.diagnosed",
+      "color": "action"
+    },
+    "isolated": {
+      "icon": "icon_repair_isolated",
+      "text_key": "status.repair.isolated",
+      "color": "action"
+    },
+    "opened": {
+      "icon": "icon_repair_opened",
+      "text_key": "status.repair.opened",
+      "color": "action"
+    },
+    "component_removed": {
+      "icon": "icon_repair_component_removed",
+      "text_key": "status.repair.component_removed",
+      "color": "action"
+    },
+    "replacement_installed": {
+      "icon": "icon_repair_replacement_installed",
+      "text_key": "status.repair.replacement_installed",
+      "color": "action"
+    },
+    "closed": {
+      "icon": "icon_repair_closed",
+      "text_key": "status.repair.closed",
+      "color": "action"
+    },
+    "tested": {
+      "icon": "icon_repair_tested",
+      "text_key": "status.repair.tested",
+      "color": "action"
+    },
+    "restored": {
+      "icon": "icon_repair_restored",
+      "text_key": "status.repair.restored",
+      "color": "restored"
+    }
+  },
+  "findings": {
+    "NO_SOURCE": {
+      "icon": "icon_finding_no_source",
+      "text_key": "meter.finding.no_source",
+      "color": "fault"
+    },
+    "FEED_OPEN": {
+      "icon": "icon_finding_feed_open",
+      "text_key": "meter.finding.feed_open",
+      "color": "fault"
+    },
+    "FEED_SWITCHED_OFF": {
+      "icon": "icon_finding_feed_switched_off",
+      "text_key": "meter.finding.feed_switched_off",
+      "color": "action"
+    },
+    "COMPONENT_OPEN": {
+      "icon": "icon_finding_component_open",
+      "text_key": "meter.finding.component_open",
+      "color": "fault"
+    },
+    "ISOLATED": {
+      "icon": "icon_finding_isolated",
+      "text_key": "meter.finding.isolated",
+      "color": "action"
+    },
+    "TRIPPED_FAULT": {
+      "icon": "icon_finding_tripped_fault",
+      "text_key": "meter.finding.tripped_fault",
+      "color": "fault"
+    },
+    "TRIPPED_OVERLOAD": {
+      "icon": "icon_finding_tripped_overload",
+      "text_key": "meter.finding.tripped_overload",
+      "color": "fault"
+    },
+    "TRIPPED_UNKNOWN": {
+      "icon": "icon_finding_tripped_unknown",
+      "text_key": "meter.finding.tripped_unknown",
+      "color": "unknown"
+    },
+    "DEMAND_OVER_CAPACITY": {
+      "icon": "icon_finding_demand_over_capacity",
+      "text_key": "meter.finding.demand_over_capacity",
+      "color": "fault"
+    },
+    "SOURCE_OFFLINE": {
+      "icon": "icon_finding_source_offline",
+      "text_key": "meter.finding.source_offline",
+      "color": "fault"
+    },
+    "SOURCE_OVERLOADED": {
+      "icon": "icon_finding_source_overloaded",
+      "text_key": "meter.finding.source_overloaded",
+      "color": "fault"
+    }
+  },
+  "supply": {
+    "dark": {
+      "icon": "icon_supply_dark",
+      "text_key": "status.supply.dark",
+      "color": "fault"
+    },
+    "temporary": {
+      "icon": "icon_supply_temporary",
+      "text_key": "status.supply.temporary",
+      "color": "action"
+    },
+    "restored": {
+      "icon": "icon_supply_restored",
+      "text_key": "status.supply.restored",
+      "color": "restored"
+    }
+  },
+  "other": {
+    "unknown": {
+      "icon": "icon_unknown",
+      "text_key": "status.unknown",
+      "color": "unknown"
+    },
+    "breaker_tripped": {
+      "icon": "icon_breaker_tripped",
+      "text_key": "status.breaker_tripped",
+      "color": "fault"
+    },
+    "lock_owner": {
+      "icon": "icon_lock_owner",
+      "text_key": "status.lock_owner",
+      "color": "action"
+    }
+  }
+}

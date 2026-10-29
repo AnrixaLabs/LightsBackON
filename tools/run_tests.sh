@@ -18,6 +18,9 @@ if [ -n "$PY" ]; then "$PY" tools/backlog.py validate || FAIL=1; else echo "no p
 echo "== content (ADR-003 integer data) =="
 if [ -n "$PY" ]; then "$PY" tools/validate_content.py || FAIL=1; fi
 
+echo "== UI token contrast (WCAG 2.2 AA, ADR-004) =="
+if [ -n "$PY" ]; then "$PY" tools/check_contrast.py | tail -1; [ "${PIPESTATUS[0]}" -eq 0 ] || FAIL=1; fi
+
 echo "== python reference model (re-derived, reference/tests) =="
 if [ -d reference/tests ] && [ -n "$PY" ]; then
   ( cd reference && "$PY" -m unittest discover -s tests -v ) || FAIL=1
