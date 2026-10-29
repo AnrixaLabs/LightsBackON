@@ -4,8 +4,9 @@ A Windows/Steam game in which 1-4 players (or one) restore a storm-damaged neigh
 abstract power network. Godot 4.7.2 (standard, not .NET), typed GDScript. Owner: Levon (Anrixa).
 Repo: github.com/AnrixaLabs/LightsBackON. Local checkout: `C:\LightsBackOn`.
 
-**State today:** planning only. Blueprint v1.0 (27 Oct 2026) exists; no game code is verified. Current progress is
-whatever `python3 tools/backlog.py summary` says, not what this file says.
+**State today (30 Oct 2026):** grid, repair, save, mission, sync and reward logic exist as headless-tested GDScript (G01-G03 and F01 DONE,
+the rest of F/G/V logic CLOUD_VERIFIED). F02 (Steam, two PCs) is BLOCKED on a second Steam account, so work continues in **local desktop
+sessions** on the owner's PC under ADR-011 and ADR-015. Current progress is whatever `tools/backlog.py summary` says, not what this file says.
 
 ## 0. Where the truth lives (read order)
 
@@ -150,10 +151,12 @@ Code style: static types on every variable, parameter and return; `class_name` o
 
 ## 6. Working protocol (every session)
 
-1. `python3 tools/backlog.py next --env cloud` (cloud session) or `--env local` (your PC). On Windows use `python` or `py -3`.
+1. `python3 tools/backlog.py next --env cloud` (cloud session) or `python tools/backlog.py next --env local` (desktop session on the PC;
+   on Windows `python3` is the Microsoft Store stub, use `python` or `py -3`). Tasks printed under "parked" are not actionable; do not start them.
 2. Read only that task (`backlog.py show ID`) and the blueprint pages it needs. Do the **first unblocked task**; do not skip ahead
    and do not start art or content while the current interaction/network model is unproven.
-3. Branch `task/<ID>-<slug>` (cloud sessions may be forced onto `claude/...`; put the task ID in every commit: `G01: port evaluator`).
+3. Branch `task/<ID>-<slug>` cut from `origin/main` (cloud and desktop worktree sessions may be forced onto `claude/...`; put the task ID in
+   every commit: `G01: port evaluator`). One task per branch; never stack a task branch on another unmerged one (ADR-015).
 4. Write tests first or alongside. Name them after matrix IDs (`test_SIM08_...`). Run `bash tools/run_tests.sh`. Test authoritative state, not visuals.
 5. Write `docs/evidence/<ID>.md` from `docs/evidence/_TEMPLATE.md`: commit, environment, exact commands, observed results, what was NOT verified.
 6. Set status with `backlog.py set`. **DONE** needs every dependency DONE and the evidence file. **CLOUD_VERIFIED** (needs `--pending-local`) means tests
@@ -175,11 +178,16 @@ Cloud sessions are Linux, headless, no GPU, no Steam client, no second machine; 
 Steam, no downloads.godotengine.org; GodotSteam's GitHub releases page and Codeberg were blocked when tested). A SessionStart hook installs the pinned Godot via
 `bash tools/setup_godot_linux.sh`. Cloud is good for: pure logic, tests, validators, save/reward logic, content data, tooling, docs.
 Local (Windows PC; the performance target machine is GTX 1650 4 GB class) is required for: Steam spike and real two-PC tests, editor scene work, controller, audio, visuals, profiling, exports.
+
+**Local desktop sessions (current mode, ADR-015):** Claude Code desktop app on the owner's PC, one git worktree per session under
+`.claude/worktrees/`. The SessionStart hook (`tools/session_start.sh`) exports `GODOT_BIN` (Godot 4.7.2 console exe, `C:\Tools\Godot`) and
+`PYTHON`; `tools/run_tests.sh` finds both itself if they are missing. A desktop session can export, launch windowed builds and take screenshots
+on the real GPU, but it is still one PC on one network: it never satisfies F02/F06, and it cannot press controller buttons or judge feel for a person.
 `backlog.json` tags every task `cloud | split | local | human`. Do not pretend a `local` or `human` task was done from the cloud.
 
 ## 8. Honesty rules
 
-- Only the Python reference tests have ever run. Say what was actually executed, on what, with which build.
+- Say what was actually executed, on what (cloud Linux, CI runner, or the owner's PC), with which build. CI and a single PC are not a network test.
 - Do not claim the co-op architecture or Steam transport is qualified without the two-network test. Do not substitute localhost.
 - Report **P95 frame time** and memory from an exported build on the target-class machine; unmeasured performance numbers are labeled targets.
 - Do not advertise or imply voice chat, wishlist/sales forecasts, or unimplemented features. No market claims.
@@ -196,9 +204,9 @@ Every production asset needs creator/source/license recorded; the release pipeli
 ## 10. Commands
 
 ```
-python3 tools/backlog.py next --env cloud|local     # what to do next
+python3 tools/backlog.py next --env cloud|local     # what to do next ("python" on Windows); "parked" = not actionable
 python3 tools/backlog.py show G01 | list | summary | validate
 python3 tools/backlog.py set G01 CLOUD_VERIFIED --pending-local "rerun on Windows; ..."
 bash tools/run_tests.sh [--filter=text]             # backlog check, Python reference tests, headless Godot tests
-GODOT_BIN=<path to Godot 4.7.2 console exe> bash tools/run_tests.sh   # Windows (Git Bash)
+GODOT_BIN=<path to Godot 4.7.2 console exe> bash tools/run_tests.sh   # only if Godot is not in PATH or C:\Tools\Godot
 ```

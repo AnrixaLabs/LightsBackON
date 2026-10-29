@@ -1,6 +1,7 @@
 # Handoff: how to run Lights Back On with Claude Code (cloud first, then local)
 
-Prepared 29 Oct 2026 from Development Blueprint v1.0. Nothing in this repo has been built or play-tested yet.
+Prepared 29 Oct 2026 from Development Blueprint v1.0. **Since 30 Oct 2026 work runs in local Claude Code desktop sessions (ADR-015);
+use prompt P7.** Sections 1-6 describe the original cloud-first plan and stay as history.
 **Git is the shared memory** between cloud and local sessions: the backlog status, `docs/evidence/`, ADRs and the code are what carry over.
 Conversations do not.
 
@@ -133,6 +134,14 @@ Do not start the next milestone. Wait for my decision.
 ```
 Continue Lights Back On. Follow CLAUDE.md section 6: run `python3 tools/backlog.py next --env <cloud|local>`, read the Resume notes of any IN_PROGRESS task,
 do the next task, and stop at the first stop condition.
+```
+
+### P7: Local desktop session (current default, ADR-015)
+
+```
+Continue Lights Back On locally. Follow CLAUDE.md section 6: run `python tools/backlog.py next --env local`, ignore "parked" tasks,
+read the Resume notes of any IN_PROGRESS task, do the first actionable task on a branch cut from origin/main, run `bash tools/run_tests.sh`,
+write the evidence file, open a PR, and stop at the first stop-and-ask item.
 ```
 
 ## 5. When cloud credits run out (or any time you move to your PC)

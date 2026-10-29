@@ -2,14 +2,14 @@
 # Run every automated check that exists. Works on Linux (cloud) and Git Bash on Windows.
 #   tools/run_tests.sh                 # all
 #   tools/run_tests.sh --filter=grid   # only Godot test files/methods containing "grid"
-# On Windows set GODOT_BIN to the Godot 4.7.2 console exe, e.g.
-#   export GODOT_BIN="/c/Tools/Godot_v4.7.2-stable_win64_console.exe"
+# GODOT_BIN / PYTHON override discovery. Without them: `godot` on PATH, then the PC-RUNBOOK install path
+# C:\Tools\Godot\Godot_v4.7.2-stable_win64_console.exe; python3, python, then py -3, skipping the Windows Store stub.
 set -uo pipefail
 cd "$(dirname "$0")/.."
+source tools/find_tools.sh
 
-GODOT_BIN="${GODOT_BIN:-godot}"
-# PYTHON overrides discovery (Windows: python3 may be the Store alias stub)
-PY="${PYTHON:-$(command -v python3 || command -v python || true)}"
+GODOT_BIN="${GODOT_BIN:-$(find_godot)}"
+PY="${PYTHON:-$(find_python)}"
 FAIL=0
 
 echo "== backlog =="
@@ -29,7 +29,9 @@ else
 fi
 
 echo "== godot =="
-if [ -f project.godot ]; then
+if [ -f project.godot ] && [ -z "$GODOT_BIN" ]; then
+  echo "FAIL: Godot 4.7.2 not found; set GODOT_BIN to the console exe (see docs/PC-RUNBOOK.md A.3)"; FAIL=1
+elif [ -f project.godot ]; then
   "$GODOT_BIN" --headless --path . --import >/dev/null 2>&1 || true   # builds the class cache on a fresh clone
   GD_OUT="$(mktemp)"
   "$GODOT_BIN" --headless --path . -s res://tests/run_tests.gd -- "$@" 2>&1 | tee "$GD_OUT"

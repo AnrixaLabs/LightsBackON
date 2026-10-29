@@ -15,3 +15,10 @@
 
 ## Consequences
 The repo is the shared memory between cloud and local sessions; conversation history is not. Status lives in `docs/backlog.json`.
+
+## Addendum (30 Oct 2026, ADR-015)
+- Desktop worktree sessions work on `claude/<slug>` branches like cloud sessions; the task-ID-in-every-commit rule applies.
+- Cut each task branch from `origin/main`. Do not branch a task from another unmerged task branch: the V04/V05/V06/V08 stack needed five
+  cross-merges to propagate review fixes. If a task needs unmerged work, finish and merge that PR first.
+- Workflow or tooling changes that are not a backlog task get their own small PR, separate from task PRs.
+- Merged task branches may be deleted on GitHub after merge (owner's call); the PR keeps the history.

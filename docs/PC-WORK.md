@@ -6,7 +6,11 @@
 D/E (Steam, two PCs) **not started**: no second Steam account yet, so F02 is BLOCKED. F decisions (font, HUD panels, repo visibility) still open.
 Until F02 starts, the cloud continues with the logic-only V tasks (ADR-011), ceiling CLOUD_VERIFIED. Resume here at runbook session D.
 
-Updated by every cloud session that leaves a task CLOUD_VERIFIED. Source of truth is still `python3 tools/backlog.py next --env local`;
+**30 Oct 2026:** cloud work is exhausted; local desktop sessions continue (ADR-015). `python tools/backlog.py next --env local` now parks
+everything that waits on F02. Actionable without Steam: F05 local part (block kit, silhouette, icons, rendered contrast; font = owner decision),
+G06 real-process kill on the exported build, V01 graybox (prep without G08), then V07.
+
+Updated by every session that leaves a task CLOUD_VERIFIED. Source of truth is still `python3 tools/backlog.py next --env local`;
 this file adds the exact steps. Tick a box only when the evidence file is updated. Order = dependency order.
 
 **What CI already covers (GitHub Actions, `.github/workflows/ci.yml`):** on every PR, the full `tools/run_tests.sh` runs on Linux **and on a

@@ -17,6 +17,9 @@ Status rules (see CLAUDE.md section 6)
   * A task can be WORKED when every dependency is DONE or CLOUD_VERIFIED
     (or listed in its prep_ok_without).
   * A task can be set DONE only when every dependency is DONE and docs/evidence/<ID>.md exists.
+  * `next --env local` parks CLOUD_VERIFIED tasks whose acceptance waits on a BLOCKED task (today F02) or on a
+    task in their verify_after list that is not DONE (for example the V01 graybox).
+  * prep_ok_without lets work start early; prep_adr names the decision that allowed it.
   * CLOUD_VERIFIED = automated checks pass in a headless/cloud session, but acceptance still
     needs real hardware, a real network, a person, or a dependency that is only CLOUD_VERIFIED.
     It requires an evidence file and a non-empty --pending-local.
@@ -68,6 +71,22 @@ def deps_for_done(t: dict, idx: dict[str, dict]) -> bool:
     return all(idx[d]["status"] == "DONE" for d in t["depends_on"])
 
 
+def blocked_upstream(t: dict, idx: dict[str, dict], skip: frozenset[str] = frozenset()) -> list[str]:
+    """BLOCKED tasks this one transitively depends on, not walking through the direct dependencies in skip."""
+    found: set[str] = set()
+    seen: set[str] = set()
+    stack = [d for d in t["depends_on"] if d not in skip]
+    while stack:
+        d = stack.pop()
+        if d in seen or d not in idx:
+            continue
+        seen.add(d)
+        if idx[d]["status"] == "BLOCKED":
+            found.add(d)
+        stack.extend(idx[d]["depends_on"])
+    return sorted(found)
+
+
 def validate(doc: dict) -> list[str]:
     errs: list[str] = []
     idx = index(doc)
@@ -77,7 +96,7 @@ def validate(doc: dict) -> list[str]:
         i = t["id"]
         if t["status"] not in STATUSES:
             errs.append(f"{i}: bad status {t['status']}")
-        for d in t["depends_on"]:
+        for d in t["depends_on"] + t.get("prep_ok_without", []) + t.get("verify_after", []):
             if d not in idx:
                 errs.append(f"{i}: unknown dependency {d}")
         if t["status"] in ("DONE", "CLOUD_VERIFIED") and not evidence_exists(t):
@@ -118,9 +137,16 @@ def fmt(t: dict, note: str = "") -> str:
 def cmd_next(doc: dict, env: str, limit: int) -> int:
     idx = index(doc)
     out: list[tuple[tuple[int, int, int, int], dict, str]] = []
+    parked: list[tuple[dict, str]] = []
     for pos, t in enumerate(doc["tasks"]):
         st = t["status"]
         if env == "local" and st == "CLOUD_VERIFIED":
+            # Local acceptance that needs a BLOCKED task (F02: Steam, second PC) or a task named in verify_after (real scene,
+            # real peers) is not actionable; listing it as "next" sends sessions in circles.
+            waits = blocked_upstream(t, idx) + [v for v in t.get("verify_after", []) if idx[v]["status"] != "DONE"]
+            if waits:
+                parked.append((t, "parked until " + ", ".join(sorted(set(waits))) + ": " + "; ".join(t.get("pending_local", []))))
+                continue
             out.append(((0, 0, *order_key(doc, t, pos)), t, "verify locally: " + "; ".join(t.get("pending_local", []))))
             continue
         if st not in ("NOT_STARTED", "IN_PROGRESS"):
@@ -132,10 +158,16 @@ def cmd_next(doc: dict, env: str, limit: int) -> int:
         if not deps_for_work(t, idx):
             continue
         skip = set(t.get("prep_ok_without", []))
+        blocked = blocked_upstream(t, idx, frozenset(skip))
+        if blocked and t["env"] in ("local", "human"):
+            # A local/human task is its own acceptance run (gates, two-PC tests): it cannot start behind a BLOCKED task.
+            parked.append((t, "parked until " + ", ".join(blocked) + " is unblocked. " + t["env_note"]))
+            continue
         override = any(d in skip and idx[d]["status"] not in ("DONE", "CLOUD_VERIFIED") for d in t["depends_on"])
         note = t["env_note"]
         if override:
-            note = ("OVERRIDE: starts before " + ", ".join(sorted(skip)) + " is DONE (prep_ok_without: blueprint s12 for the grid toy, ADR-011 for V02); "
+            why = t.get("prep_adr", "see its ADR")
+            note = (f"OVERRIDE: starts before {', '.join(sorted(skip))} is DONE (prep_ok_without, {why}); "
                     "ceiling is CLOUD_VERIFIED. " + note).strip()
         elif not deps_for_done(t, idx):
             note = ("ceiling CLOUD_VERIFIED until dependencies are DONE. " + note).strip()
@@ -144,9 +176,12 @@ def cmd_next(doc: dict, env: str, limit: int) -> int:
     out.sort(key=lambda x: x[0])
     if not out:
         print(f"No unblocked {env} tasks. Run `list --status NOT_STARTED` to see what is waiting on what.")
-        return 0
     for _, t, note in out[:limit]:
         print(fmt(t, note))
+    if parked:
+        print(f"-- {len(parked)} task(s) parked (acceptance waits on a BLOCKED task or on verify_after):")
+        for t, note in parked:
+            print(fmt(t, note))
     return 0
 
 
