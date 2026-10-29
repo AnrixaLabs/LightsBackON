@@ -1,5 +1,7 @@
 # PC work queue (things only your Windows PC, Steam, a second machine or people can do)
 
+**Step-by-step version: `docs/PC-RUNBOOK.md`.**
+
 Updated by every cloud session that leaves a task CLOUD_VERIFIED. Source of truth is still `python3 tools/backlog.py next --env local`;
 this file adds the exact steps. Tick a box only when the evidence file is updated. Order = dependency order.
 
